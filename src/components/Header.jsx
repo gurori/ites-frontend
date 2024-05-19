@@ -16,7 +16,7 @@ const Header = () => {
                 <Link to="/">Главная</Link>
                 <Link to="/">Про сайт</Link>
                 <Link to="/">О нас</Link>
-                <Link to="/">Войти</Link>
+                <Link to="/"><button className="small bg-black text-white px-8">Войти</button></Link>
             </nav>
         </header>
      )
