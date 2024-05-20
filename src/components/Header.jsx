@@ -1,23 +1,27 @@
 import { Link } from "react-router-dom";
+import { AlignJustify } from "lucide-react";
+import Nav from "./Nav";
 
 const Header = () => {
      return (
-        <header className="flex items-center gap-8 relative px-8">
+        <header className="flex items-center gap-8 relative md:px-4 pr-4">
             <Link onClick={() => window.location.reload()}>
                 <img src="/logos/ites-purple-small.svg" alt="logo"  className="-mb-4"/>
             </Link>
-            <select name="" id="">
+            <select className="hidden lg:block" name="" id="">
                 <option value="">РУС</option>
                 <option value="">ENG</option>
                 <option value="">САХ</option>
             </select>
-            {/* TODO */}
-            <nav className="flex items-center absolute right-8 gap-16">
-                <Link to="/">Главная</Link>
-                <Link to="/">Про сайт</Link>
-                <Link to="/">О нас</Link>
-                <Link to="/"><button className="small bg-black text-white px-8">Войти</button></Link>
-            </nav>
+            <div className="flex items-center ml-auto gap-4 md:gap-16">
+                <nav className="md:flex gap-16 hidden">
+                    <Nav />
+                </nav>
+                <button className="md:hidden">
+                    <AlignJustify />
+                </button>
+                <Link to="/sign-in"><button className="small bg-black text-white px-8">Войти</button></Link>
+            </div>
         </header>
      )
 }

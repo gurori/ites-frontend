@@ -25,7 +25,7 @@ const Footer = () => {
   return (
     <footer className="relative">
       <div className="bg-purple py-24">
-        <div className="container">
+        <div className="container relative z-10">
           <div className="text-white">
             <h3 className="pb-4">Остались еще вопросы?</h3>
             <p>Свяжитесь с нами в социальных сетях!</p>
@@ -84,11 +84,11 @@ const Footer = () => {
             {phoneNumber}
           </div>
         </div>
-        <img src="/stars/middle-purple.svg" className="pointer-events-none absolute bottom-0 right-1/4 z-0" />
+        <img src="/stars/middle-purple.svg" className="pointer-events-none absolute bottom-36 right-0 md:bottom-0 md:right-1/4 z-0" />
       </div>
       <div className="bg-black relative z-10">
         <div className="container py-16">
-          <div className="flex items-center gap-32">
+          <div className="md:flex grid items-center md:gap-32 gap-16">
             <img src="/logos/ites-purple-middle.svg" alt="ites logo" />
             <img src="/logos/mlg.svg" alt="mlg logo" />
           </div>

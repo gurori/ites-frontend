@@ -4,8 +4,12 @@ import TextCard from "./TextCard";
 const Dashboard = () => {
   return (
     <main>
-      <div className="flex items-center container">
-        <div className="flex-1">
+      <img
+        src="/stars/big-purple.svg"
+        className="absolute -z-10 top-24 right-0"
+      />
+      <div className="md:flex py-16 md:py-0 items-center container relative">
+        <div className="flex-1 py-16">
           <TextCard
             title="ПРИВЕТСТВУЕМ ВАС!"
             description="У нас собраны все самые необходимые функции для развития сообщества МПИТ."
@@ -17,16 +21,16 @@ const Dashboard = () => {
           </TextCard>
           <button className="border">Узнать подробнее</button>
         </div>
-        <div className="flex-1">
+        <div className="absolute bottom-0 lg:relative lg:flex-1 -z-10">
           <img
-            src="/stars/big-purple.svg"
-            className="absolute -z-10 right-0 -bottom-8"
+            src="/images/mascot.png"
+            alt="mascot"
+            className="hidden md:block xl:ml-16 w-3/5 lg:w-full float-end"
           />
-          <img src="/images/mascot.png" alt="mascot" className="ml-16" />
         </div>
       </div>
       <div className="bg-gray-300">
-        <div className="container flex py-20">
+        <div className="container grid gap-16 md:flex py-20">
           <div className="flex-1 text-center">
             <GrayText text="регистраций в день" value="100+" />
           </div>
@@ -38,12 +42,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="container grid gap-28">
-        <div className="flex items-center">
-          <div className="flex-1">
-            <img src="/images/laptop.png" alt="laptop image" />
-          </div>
-          <div className="flex-1">
+      <div className="container grid gap-28 mt-16 md:mt-0">
+        <div className="md:flex items-center">
+          <div className="flex-1 order-2">
             <TextCard
               title="ЗАРАБОТОК"
               description="Создавайте свое портфолио, ищите заказы и зарабатывайте на них."
@@ -51,8 +52,11 @@ const Dashboard = () => {
               <h2>Возможность работать на заказ</h2>
             </TextCard>
           </div>
+          <div className="flex-1 order-1">
+            <img src="/images/laptop.png" alt="laptop image" />
+          </div>
         </div>
-        <div className="flex items-center">
+        <div className="md:flex items-center">
           <div className="flex-1">
             <TextCard
               title="ОПЫТ"
@@ -63,23 +67,23 @@ const Dashboard = () => {
           </div>
           <div className="flex-1">
             <img
-              className="w-2/3 float-end"
+              className="md:w-2/3 md:float-end"
               src="/images/columns.png"
               alt="columns image"
             />
           </div>
         </div>
-        <div className="flex items-center">
-          <div className="flex-1">
-            <img src="/images/guys.png" alt="guys image" />
-          </div>
-          <div className="flex-1">
+        <div className="md:flex items-center">
+          <div className="flex-1 order-2">
             <TextCard
               title="ЭФФЕКТИВНОСТЬ"
               description="Приглашайте других понравившихся участников в свою команду и работайте вместе."
             >
               <h2>Возможность создавать и работать в команде </h2>
             </TextCard>
+          </div>
+          <div className="flex-1 order-1">
+            <img src="/images/guys.png" alt="guys image" />
           </div>
         </div>
       </div>
