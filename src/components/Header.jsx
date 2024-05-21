@@ -4,7 +4,7 @@ import Nav from "./Nav";
 
 const Header = () => {
      return (
-        <header className="flex items-center md:gap-6 lg:gap-8 relative lg:pl-4 pr-4">
+        <header className="flex items-center md:gap-6 lg:gap-8 relative lg:ml-4 mr-4">
             <Link onClick={() => window.location.reload()}>
                 <img src="/logos/ites-purple-small.svg" alt="logo"  className="-mb-4"/>
             </Link>
