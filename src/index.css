@@ -53,11 +53,11 @@ input[type="submit"] {
   &.large {
     @apply py-5 px-9;
     border-radius: 45px;
-        
+
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
-    line-height: 20px;   
+    line-height: 20px;
   }
   &.border {
     @apply px-5 py-1.5;
@@ -71,9 +71,10 @@ input[type="submit"] {
 input,
 select {
   &.white {
-    @apply px-5 w-[335px] md:w-[410.52px];
+    @apply px-5;
 
     height: 62.77px;
+    width: clamp(335px, 50vw, 410.52px);
 
     background: #fafafa;
     border-radius: 20px;
