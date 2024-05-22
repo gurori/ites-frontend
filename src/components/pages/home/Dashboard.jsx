@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import GrayText from "./GrayText";
 import TextCard from "./TextCard";
 
@@ -19,7 +20,7 @@ const Dashboard = () => {
               <div className="text-purple">проведения конкурсов МПИТ</div>
             </h1>
           </TextCard>
-          <button className="border">Узнать подробнее</button>
+          <Link to="/login"><button className="border">Узнать подробнее</button></Link>
         </div>
         <div className="absolute bottom-0 lg:relative lg:flex-1 -z-10">
           <img

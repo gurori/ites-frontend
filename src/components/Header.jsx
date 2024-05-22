@@ -36,7 +36,7 @@ const Header = () => {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <Link to="/sign-in">
+        <Link to="/login">
           <button className="small bg-black text-white px-8">Войти</button>
         </Link>
       </div>
