@@ -1,8 +1,11 @@
-import GrayText from "./GrayText";
+import Link from "next/link";
 import TextCard from "./TextCard";
+import GrayText from "./GrayText";
+import Footer from "@/components/Footer";
 
-const Dashboard = () => {
+export default function HomePage() {
   return (
+    <>
     <main>
       <img
         src="/stars/big-purple.svg"
@@ -19,7 +22,9 @@ const Dashboard = () => {
               <div className="text-purple">проведения конкурсов МПИТ</div>
             </h1>
           </TextCard>
-          <button className="border">Узнать подробнее</button>
+          <Link href="/login">
+            <button className="border">Узнать подробнее</button>
+          </Link>
         </div>
         <div className="absolute bottom-0 lg:relative lg:flex-1 -z-10">
           <img
@@ -32,13 +37,13 @@ const Dashboard = () => {
       <div className="bg-gray-300">
         <div className="container grid gap-16 md:flex py-20">
           <div className="flex-1 text-center">
-            <GrayText text="регистраций в день" value="100+" />
+            <GrayText text="регистраций в день" value={100} />
           </div>
           <div className="flex-1 text-center">
-            <GrayText text="активных участников" value="60K+" />
+            <GrayText text="активных участников" value={60_000} />
           </div>
           <div className="flex-1 text-center">
-            <GrayText text="заработано" value="600K+" />
+            <GrayText text="заработано" value={600_000} />
           </div>
         </div>
       </div>
@@ -88,7 +93,7 @@ const Dashboard = () => {
         </div>
       </div>
     </main>
+    <Footer />
+    </>
   );
-};
-
-export default Dashboard;
+}

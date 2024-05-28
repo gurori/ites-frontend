@@ -53,11 +53,11 @@ input[type="submit"] {
   &.large {
     @apply py-5 px-9;
     border-radius: 45px;
-        
+
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
-    line-height: 20px;   
+    line-height: 20px;
   }
   &.border {
     @apply px-5 py-1.5;
@@ -74,7 +74,11 @@ select {
     @apply px-5;
 
     height: 62.77px;
+<<<<<<< HEAD:src/index.css
     width: clamp(335px, 50vw, 410.52px);
+=======
+    width: clamp(310px, 50vw, 410.52px);
+>>>>>>> develop:src/app/globals.css
 
     background: #fafafa;
     border-radius: 20px;
@@ -85,23 +89,17 @@ select {
     line-height: 19px;
 
     color: rgba(70, 70, 70, 0.6);
-
-    &::placeholder,
-    &:-moz-placeholder,
-    &:-ms-input-placeholder,
-    &::-moz-placeholder,
-    &::-webkit-input-placeholder {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 19px;
-
-      color: #46464699;
-    }
   }
   &.drop-shadow {
     box-shadow: 0px 0px 16px 2px rgba(0, 0, 0, 0.25);
   }
+  &.drop-light {
+    filter: drop-shadow(0 0 7px #d3d3d3);
+  }
+}
+
+input.white::placeholder {
+  color: #4b444399;
 }
 
 .text-white > * {

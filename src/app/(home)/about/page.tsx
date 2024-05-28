@@ -1,11 +1,11 @@
-import { useState } from "react";
-import Header from "../../Header";
+'use client'
 
-export default function About() {
-  const [text, setText] = useState("");
-  return (
-    <div className="h-screen">
-      <Header />
+import { useState } from "react"
+
+export default function AboutPage() {
+    const [text, setText] = useState("");
+    return (
+        <div className="h-screen">
       <div className="center h-full">
       <div className="grid gap-8 place-items-center">
         <h2 className="h-16">{text}</h2>
@@ -21,5 +21,5 @@ export default function About() {
       </div>
       </div>
     </div>
-  );
+    )
 }

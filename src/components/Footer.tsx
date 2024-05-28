@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import styles from "./Footer.module.css";
@@ -7,13 +9,13 @@ const Footer = () => {
   const phoneNumber = "+79841162646";
   const [isMessageVisible, setIsMessageVisible] = useState(false);
   const nodeRef = useRef(null);
-  const handleCopyText = ({ text }) => {
+  const handleCopyText = (text: string) => {
     navigator.clipboard.writeText(text);
     setIsMessageVisible(true);
   };
 
   useEffect(() => {
-    let timeoutId;
+    let timeoutId: NodeJS.Timeout;
     if (isMessageVisible) {
       timeoutId = setTimeout(() => {
         setIsMessageVisible(false);
@@ -33,7 +35,7 @@ const Footer = () => {
           <div className="flex gap-7 items-center pt-16 pb-4">
             <button
               onClick={() => {
-                handleCopyText({ text: "@Gurori124" });
+                handleCopyText("@Gurori124");
               }}
             >
               <img
@@ -44,7 +46,7 @@ const Footer = () => {
             </button>
             <button
               onClick={() => {
-                handleCopyText({ text: "No." });
+                handleCopyText("No.");
               }}
             >
               <img
@@ -55,7 +57,7 @@ const Footer = () => {
             </button>
             <button
               onClick={() => {
-                handleCopyText({ text: phoneNumber });
+                handleCopyText(phoneNumber);
               }}
             >
               <img
