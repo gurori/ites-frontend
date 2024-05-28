@@ -74,11 +74,7 @@ select {
     @apply px-5;
 
     height: 62.77px;
-<<<<<<< HEAD:src/index.css
-    width: clamp(335px, 50vw, 410.52px);
-=======
     width: clamp(310px, 50vw, 410.52px);
->>>>>>> develop:src/app/globals.css
 
     background: #fafafa;
     border-radius: 20px;
