@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import { FC, ReactNode } from "react";
 
 const TextCard: FC<{
   title: string;
   description: string;
-  children: React.ReactElement<any, string>;
+  children: ReactNode;
 }> = ({ title, description, children }) => {
   return (
     <>

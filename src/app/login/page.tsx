@@ -7,6 +7,7 @@ import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/components/ErrorMessage";
+import Image from "next/image";
 
 export default function LoginPage() {
   const userSchema = z.object({
@@ -14,25 +15,27 @@ export default function LoginPage() {
     password: passwordSchema,
   });
 
-  type formData = z.infer<typeof userSchema>
+  type FormData = z.infer<typeof userSchema>
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<formData>({
+  } = useForm<FormData>({
     resolver: zodResolver(userSchema),
   });
 
-  const onSubmit = (data: formData): void => console.log(data);
+  const onSubmit = (data: FormData): void => console.log(data);
 
   return (
     <div className="h-screen center bg-black px-4">
       <div className={styles.whiteBox}>
-        <img
+        <Image
           src="/icons/user.png"
           className="absolute size-40 top-0 -translate-y-1/2"
           alt="user icon"
+          width={338}
+          height={338}
         />
         <form
           className="grid place-items-center gap-2"

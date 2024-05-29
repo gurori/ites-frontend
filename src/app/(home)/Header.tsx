@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import NavBar from "./NavBar";
+import Image from "next/image";
 
 export default function Header() {
     return (
         <header className="flex items-center md:gap-6 lg:gap-8 relative lg:ml-4 mr-4">
       <button onClick={() => window.location.reload()}>
-        <img src="/logos/ites-purple-small.svg" alt="logo" className="-mb-4" />
+        <Image src="/logos/ites-purple-small.svg" alt="logo" className="-mb-4" height={104.42} width={178.34} />
       </button>
       <select className="hidden md:block" name="" id="">
         <option value="">РУС</option>

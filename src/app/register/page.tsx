@@ -13,15 +13,15 @@ export default function Register() {
     password: passwordSchema,
   });
 
-  type formData = z.infer<typeof userSchema>
+  type FormData = z.infer<typeof userSchema>
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<formData>({ resolver: zodResolver(userSchema) });
+  } = useForm<FormData>({ resolver: zodResolver(userSchema) });
 
-  const onSubmit = (data: formData): void => console.log(data);
+  const onSubmit = (data: FormData): void => console.log(data);
   return (
     <div className="h-screen bg-purple center">
       <form
@@ -36,21 +36,21 @@ export default function Register() {
             className="white drop-light"
             placeholder="Имя"
           />
-          <ErrorMessage className="text-yellow">{errors.firstName && errors.firstName.message}</ErrorMessage>
+          <ErrorMessage className="text-yellow-300">{errors.firstName && errors.firstName.message}</ErrorMessage>
           <input
             {...register("email")}
             type="email"
             className="white drop-light"
             placeholder="Почта"
           />
-          <ErrorMessage className="text-yellow">{errors.email && errors.email.message}</ErrorMessage>
+          <ErrorMessage className="text-yellow-300">{errors.email && errors.email.message}</ErrorMessage>
           <input
             {...register("password")}
             type="password"
             className="white drop-light"
             placeholder="Пароль"
           />
-          <ErrorMessage className="text-yellow">{errors.password && errors.password.message}</ErrorMessage>
+          <ErrorMessage className="text-yellow-300">{errors.password && errors.password.message}</ErrorMessage>
         </div>
         <button type="submit" className="large text-white bg-black">
           Зарегистрироваться

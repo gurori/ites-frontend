@@ -2,14 +2,18 @@ import Link from "next/link";
 import TextCard from "./TextCard";
 import GrayText from "./GrayText";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
     <>
     <main>
-      <img
+      <Image
         src="/stars/big-purple.svg"
         className="absolute -z-10 top-24 right-0"
+        alt="star"
+        width={680}
+        height={915}
       />
       <div className="md:flex py-16 md:py-0 items-center container relative">
         <div className="flex-1 py-16">
@@ -27,10 +31,12 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="absolute bottom-0 lg:relative lg:flex-1 -z-10">
-          <img
+          <Image
             src="/images/mascot.png"
             alt="mascot"
             className="hidden md:block xl:ml-16 w-3/5 lg:w-full float-end"
+            width={684}
+            height={684}
           />
         </div>
       </div>
@@ -58,7 +64,7 @@ export default function HomePage() {
             </TextCard>
           </div>
           <div className="flex-1 order-1">
-            <img src="/images/laptop.png" alt="laptop image" />
+            <Image src="/images/laptop.png" alt="laptop image" width={684} height={600} />
           </div>
         </div>
         <div className="md:flex items-center">
@@ -71,10 +77,12 @@ export default function HomePage() {
             </TextCard>
           </div>
           <div className="flex-1">
-            <img
+            <Image
               className="md:w-2/3 md:float-end"
               src="/images/columns.png"
               alt="columns image"
+              width={456}
+              height={488}
             />
           </div>
         </div>
@@ -88,7 +96,7 @@ export default function HomePage() {
             </TextCard>
           </div>
           <div className="flex-1 order-1">
-            <img src="/images/guys.png" alt="guys image" />
+            <Image src="/images/guys.png" alt="guys image" width={684} height={658} />
           </div>
         </div>
       </div>
