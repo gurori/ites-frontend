@@ -1,0 +1,20 @@
+.tab {
+  @apply text-white hover:text-purple transition-colors duration-300 whitespace-nowrap inline-block;
+  width: 184px;
+  height: 51px;
+
+  background: #252628;
+  box-shadow: inset 2px 4px 7px rgba(0, 0, 0, 0.25);
+  border-radius: 30px 30px 0px 0px;
+}
+
+.content {
+  @apply px-10 py-10 overflow-y-scroll;
+  max-width: 1266px;
+  height: calc(100vh - 1.25rem - 51px);
+
+  background: rgba(217, 217, 217, 0.12);
+  backdrop-filter: blur(3px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 0px;
+}

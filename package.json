@@ -1,9 +1,9 @@
 {
   "name": "ites",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,8 +13,12 @@
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "http-proxy-middleware": "^3.0.0",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.379.0",
     "next": "14.2.3",
+    "next-http-proxy-middleware": "^1.2.6",
+    "next-nprogress-bar": "^2.3.12",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
@@ -24,10 +28,12 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-transition-group": "^4.4.10",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",

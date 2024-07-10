@@ -1,11 +1,10 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import styles from "./Login.module.css";
 import { z } from "zod";
 import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ErrorMessage";
 import Image from "next/image";
 
@@ -14,29 +13,30 @@ export default function LoginPage() {
     email: emailSchema,
     password: passwordSchema,
   });
-
-  type FormData = z.infer<typeof userSchema>
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(userSchema),
-  });
-
-  const onSubmit = (data: FormData): void => console.log(data);
+  const { register, handleSubmit, onSubmit, errors, formError, formSuccess } =
+    useFormHandler({
+      schema: userSchema,
+      apiPath: "https://localhost:52666/api/User/login",
+      pushPath: "/profile",
+      userInputError: "Неверные почта или пароль",
+    });
 
   return (
     <div className="h-screen center bg-black px-4">
       <div className={styles.whiteBox}>
         <Image
           src="/icons/user.png"
-          className="absolute size-40 top-0 -translate-y-1/2"
+          className="absolute top-0 -translate-y-1/2"
           alt="user icon"
-          width={338}
-          height={338}
+          width={160}
+          height={160}
         />
+        <div className="text-center -mt-2 mb-2">
+          {formError && <ErrorMessage>{formError}</ErrorMessage>}
+          {formSuccess && (
+            <p className="text-green-600">Вход прошёл успешно!</p>
+          )}
+        </div>
         <form
           className="grid place-items-center gap-2"
           onSubmit={handleSubmit(onSubmit)}
@@ -63,7 +63,7 @@ export default function LoginPage() {
             Войти
           </button>
         </form>
-        <Link href="/register/" className="text-[#4B4443]">
+        <Link href="/register/" className="text-[#4B4443] mt-6">
           Ещё не зарегистрированы?
         </Link>
       </div>
