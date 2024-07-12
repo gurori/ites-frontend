@@ -1,3 +1,6 @@
+import { type JobTitle } from "./JobTitle";
+import { type Role } from "./Role";
+
 export interface IUser {
     id: string;
     firstName: string;
@@ -5,8 +8,8 @@ export interface IUser {
     lastName?: string;
     email: string;
     description?: string;
-    jobTitle?: string;
-    role: string;
+    jobTitle?: JobTitle;
+    role: Role;
 };
 
 export interface IUserProfileProps {

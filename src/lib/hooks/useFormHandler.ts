@@ -8,7 +8,7 @@ import { type HttpMethod } from "../types/HttpMethod";
 import Cookies from "js-cookie";
 
 type UseFormHandlerProps = {
-  schema: z.ZodObject<any>;
+  schema: z.ZodObject<any> | z.ZodEffects<z.ZodObject<any>>;
   apiPath: string;
   pushPath?: string;
   userInputError?: string;
@@ -31,12 +31,14 @@ export const useFormHandler = ({
   type OnSubmit = (data: FormData) => void;
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema), defaultValues: defaultValues });
 
   const onSubmit: OnSubmit = async (data) => {
+    console.log(data)
     try {
       const token = Cookies.get("auth");
       const auth = token !== undefined ? `Bearer ${token}` : "";
@@ -65,5 +67,5 @@ export const useFormHandler = ({
       setFormStates("Ошибка. Пожалуйста повторите пойзже.", false);
     }
   };
-  return { register, handleSubmit, onSubmit, errors, formError, formSuccess };
+  return { register, handleSubmit, onSubmit, errors, formError, formSuccess, control };
 };

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import TextCard from "./TextCard";
 import GrayText from "./GrayText";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer/Footer";
 import Image from "next/image";
 
 export default function HomePage() {

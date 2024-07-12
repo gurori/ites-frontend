@@ -1,4 +1,4 @@
-import ProfileSidePanel from "@/components/ProfileSidePanel";
+import ProfileSidePanel from "@/components/sidePanel/ProfileSidePanel";
 import Tabs from "./(tabs)/Tabs";
 import { cookies } from "next/headers";
 import { IUser } from "@/lib/types/IUser";

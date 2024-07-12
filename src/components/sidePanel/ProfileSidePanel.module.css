@@ -1,0 +1,18 @@
+.sidePanel {
+  @apply h-screen px-8 overflow-y-scroll;
+  width: 283px;
+
+  background: #252628;
+  box-shadow: 15px 0px 42px rgba(0, 0, 0, 0.26);
+}
+
+.text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  word-break: break-all;
+
+  color: #a7a7a7;
+}

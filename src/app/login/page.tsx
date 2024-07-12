@@ -5,7 +5,7 @@ import styles from "./Login.module.css";
 import { z } from "zod";
 import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
-import ErrorMessage from "@/components/ErrorMessage";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 import Image from "next/image";
 
 export default function LoginPage() {

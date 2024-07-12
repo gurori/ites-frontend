@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { nameSchema, emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
-import ErrorMessage from "@/components/ErrorMessage";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 
 export default function RegisterPage() {
   const userSchema = z.object({
