@@ -5,24 +5,28 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type IServerErrorMessage } from "../types/IServerErrorMessage";
 import { type HttpMethod } from "../types/HttpMethod";
-import Cookies from "js-cookie";
+import apiFetch from "../apiFetch";
 
 type UseFormHandlerProps = {
   schema: z.ZodObject<any> | z.ZodEffects<z.ZodObject<any>>;
   apiPath: string;
+  token?: string;
   pushPath?: string;
   userInputError?: string;
   method?: Extract<HttpMethod, "POST" | "PUT">;
-  defaultValues?:  {[x: string]: any;}
+  defaultValues?: { [x: string]: any };
+  afterSubmitFunc?: (data?: any) => void;
 };
 
 export const useFormHandler = ({
   schema,
   apiPath,
   pushPath,
+  token,
   userInputError = "Ошибка. Пожалуйста повторите пойзже.",
   method = "POST",
-  defaultValues
+  defaultValues,
+  afterSubmitFunc,
 }: UseFormHandlerProps) => {
   const { formError, formSuccess, setFormStates } = useFormStates();
   const { push, replace } = useRouter();
@@ -35,14 +39,16 @@ export const useFormHandler = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema), defaultValues: defaultValues });
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: defaultValues,
+  });
 
   const onSubmit: OnSubmit = async (data) => {
-    console.log(data)
+    console.log("data - ", data)
+    const auth = token !== undefined ? `Bearer ${token}` : "";
     try {
-      const token = Cookies.get("auth");
-      const auth = token !== undefined ? `Bearer ${token}` : "";
-      const response = await fetch(apiPath, {
+      const response = await apiFetch(apiPath, {
         credentials: "include",
         method: method,
         headers: {
@@ -51,13 +57,13 @@ export const useFormHandler = ({
         },
         body: JSON.stringify(data),
       });
-      
-      if(response.status === 401)
-        replace("/login")
+      if(afterSubmitFunc)
+        afterSubmitFunc(data);
+      if (response.status === 401) 
+        replace("/login");
       else if (response.ok) {
         setFormStates("", true);
-        if (pushPath !== undefined) 
-          push(pushPath);
+        if (pushPath !== undefined) push(pushPath);
       } else {
         setFormStates(false);
         const error: IServerErrorMessage = await response.json();
@@ -67,5 +73,13 @@ export const useFormHandler = ({
       setFormStates("Ошибка. Пожалуйста повторите пойзже.", false);
     }
   };
-  return { register, handleSubmit, onSubmit, errors, formError, formSuccess, control };
+  return {
+    register,
+    handleSubmit,
+    onSubmit,
+    errors,
+    formError,
+    formSuccess,
+    control,
+  };
 };

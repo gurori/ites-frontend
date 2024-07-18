@@ -9,24 +9,20 @@ import Completed from "./(tabs)/(contents)/Completed";
 import Applications from "./(tabs)/(contents)/Applications";
 import Favorites from "./(tabs)/(contents)/Favorites";
 import Achievements from "./(tabs)/(contents)/Achievements";
+import apiFetch from "@/lib/apiFetch";
 
 export default async function ProfilePage() {
   const getUserData = async (): Promise<IUser> => {
     const token = cookies().get("auth");
-    if(token === undefined)
-      redirect("/login")
-    const user: IUser = await fetch("https://localhost:52666/api/User/profile", {
-      credentials: 'include',
-      method: 'GET',
+    if (!token) redirect("/login");
+    const user: IUser = await apiFetch("/api/User/profile", {
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token?.value}`,
+        Authorization: `Bearer ${token.value}`,
       },
-    })
-    .then(async (res) => {
-      if(res.status === 401)
-        redirect("/login");
-      return await res.json()});
+      method: "GET",
+    }).then(async (res) => await res.json());
     return user;
   };
   const user: IUser = await getUserData();

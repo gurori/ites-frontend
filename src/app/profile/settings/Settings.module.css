@@ -1,4 +1,4 @@
-.main {
+.container {
   @apply px-10 md:px-[70px] pt-8 pb-24 mx-auto;
 
   width: clamp(320px, 90vw, 920px);

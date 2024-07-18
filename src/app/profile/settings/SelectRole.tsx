@@ -2,12 +2,14 @@ import styles from "./Settings.module.css";
 import SmallStar from "@/components/ui/SmallStar";
 import { type JobTitle } from "@/lib/types/JobTitle";
 import { cn } from "@/lib/utils";
+import { Key } from "react";
 
 export default function SelectJobTitle({
   title,
   onClick,
   active = false,
-}: Readonly<{ title: JobTitle; active?: boolean; onClick: () => void }>) {
+  key,
+}: Readonly<{ title: JobTitle; active?: boolean; onClick: () => void, key?: Key }>) {
   const color = {
     Разработчик: "#3C1F63",
     Дизайнер: "#B74C85",
@@ -16,8 +18,9 @@ export default function SelectJobTitle({
   }[title];
   return (
     <div
+      key={key}
       className={cn(styles.selectRole, "transition-all", active && "border-4")}
-      style={{ borderColor: `${color}66` }}
+      style={{ borderColor: `${color}86` }}
       onClick={onClick}
     >
       <p className={styles.role} style={{ color: color }}>

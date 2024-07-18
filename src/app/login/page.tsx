@@ -16,7 +16,7 @@ export default function LoginPage() {
   const { register, handleSubmit, onSubmit, errors, formError, formSuccess } =
     useFormHandler({
       schema: userSchema,
-      apiPath: "https://localhost:52666/api/User/login",
+      apiPath: "/api/User/login",
       pushPath: "/profile",
       userInputError: "Неверные почта или пароль",
     });

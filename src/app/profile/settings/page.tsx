@@ -1,11 +1,10 @@
+import { cookies } from "next/headers";
 import ProfileSettings from "./ProfileSettings";
+import { redirect } from "next/navigation";
 
 export default function SettingsPage() {
-  return (
-    <div className="bg-black-800">
-      <div className="py-8">
-      <ProfileSettings />
-      </div>
-    </div>
-  );
+  const token = cookies().get("auth");
+  if (!token) redirect("/login");
+  
+  return <ProfileSettings token={token.value} />;
 }

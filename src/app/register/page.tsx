@@ -16,7 +16,7 @@ export default function RegisterPage() {
   const { register, handleSubmit, onSubmit, errors, formError, formSuccess } =
     useFormHandler({
       schema: userSchema,
-      apiPath: "https://localhost:52666/api/User/register",
+      apiPath: "/api/User/register",
       pushPath: "/login",
       userInputError: "Ошибка при регистрации. Пожалуста, повторите попытку",
     });

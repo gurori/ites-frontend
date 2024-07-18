@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { IUserProfileProps } from "@/lib/types/IUser";
 
 export default function ProfileSidePanel({ user }: IUserProfileProps) {
+  console.log(user)
   const hrefParams = {
     pathname: "profile/settings",
     query: {
@@ -17,6 +18,7 @@ export default function ProfileSidePanel({ user }: IUserProfileProps) {
       lastName: user.lastName,
       description: user.description,
       jobTitle: user.jobTitle,
+      userId: user.id,
     },
   };
   return (
@@ -31,7 +33,13 @@ export default function ProfileSidePanel({ user }: IUserProfileProps) {
       />
       <hr />
       <div className="grid gap-3 justify-items-center pt-6">
-        <img src="/icons/user.png" alt="avatar" className="size-40" />
+          <Image
+            src={`https://localhost:64948/api/Files/users/${user.id}/avatar.jpg`}
+            alt="avatar"
+            width={130}
+            height={130}
+            className="rounded-full size-[130px]"
+          />
         <p className="flex items-center text-white gap-4 text-xl">
           {user.firstName}{" "}
           <Link href={hrefParams}>
