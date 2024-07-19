@@ -67,6 +67,9 @@ export const useFormHandler = ({
       else if (response.ok) {
         setFormStates("", true);
         if (pushPath !== undefined) replace(pushPath);
+        setTimeout(() => {
+          setFormStates(false);
+        }, 400);
       } else {
         setFormStates(false);
         const error: IServerErrorMessage = await response.json();

@@ -3,6 +3,9 @@ import { z } from "zod";
 const MAX_FILE_SIZE = 1024 * 1024 * 4;
 const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpeg"];
 
+export const optionalString = (schema: z.ZodString) =>
+  schema.optional().or(z.literal(""));
+
 export const emailSchema = z
   .string()
   .email("Некоректный адрес электронной почты");
@@ -21,6 +24,7 @@ export const nameSchema = z
     "ФИО должно содержать только буквы, пробелы и дефисы"
   );
 
+
 export const textSchema = z
   .string()
   .min(3, "Введите не менее 3 символов")
@@ -33,8 +37,7 @@ export const fileSchema = z
     "Размер файла не должен превышать 4MB"
   );
 
-export const imageSchema = fileSchema
-  .refine(
-    (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-    "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
-  );
+export const imageSchema = fileSchema.refine(
+  (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+  "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
+);

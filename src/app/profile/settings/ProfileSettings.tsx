@@ -1,10 +1,10 @@
 "use client";
 
 import UpdateProfileProperty from "./UpdateProfileProperty";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import { z } from "zod";
-import { nameSchema, textSchema } from "@/lib/zod-schemas";
+import { nameSchema, optionalString, textSchema } from "@/lib/zod-schemas";
 import FormError from "@/components/ui/FormError";
 import { useEffect, useState } from "react";
 import SelectJobTitle from "./SelectRole";
@@ -15,15 +15,16 @@ import AvatarForm from "./AvatarForm";
 import { toast } from "sonner";
 
 export default function ProfileSettings({ token }: { token: string }) {
+  const { push, refresh } = useRouter();
   const params = useSearchParams();
   const currentJobTitle = params.get("jobTitle")!;
-  const userId = params.get("userId") ?? randomGuid;
+  const userId = params.get("userId") ?? push("/profile");
   const [activeJobTitle, setActiveJobTitle] = useState(currentJobTitle);
   const updateUserSchema = z.object({
     lastName: nameSchema,
     firstName: nameSchema,
-    middleName: nameSchema,
-    description: textSchema,
+    middleName: optionalString(nameSchema),
+    description: optionalString(textSchema),
     jobTitle: z.string({ message: "Необходимо выбрать 1 роль" }),
   });
   const {
@@ -53,10 +54,12 @@ export default function ProfileSettings({ token }: { token: string }) {
     defaultValue: currentJobTitle,
   });
   useEffect(() => {
-    if (formSuccess)
+    if (formSuccess) {
       toast("Данные успешно сохранены!", {
         description: "Обновите страницу, чтобы увидеть измения.",
       });
+      refresh()
+    }
   }, [formSuccess]);
   return (
     <>
@@ -111,7 +114,7 @@ export default function ProfileSettings({ token }: { token: string }) {
         <SubmitButton />
         {formError && <p className="text-red-500 pt-4">{formError}</p>}
       </form>
-      <AvatarForm userId={userId} token={token} />
+      <AvatarForm userId={userId as string} token={token} />
     </>
   );
 }
