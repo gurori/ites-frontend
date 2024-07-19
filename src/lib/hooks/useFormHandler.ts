@@ -15,7 +15,8 @@ type UseFormHandlerProps = {
   userInputError?: string;
   method?: Extract<HttpMethod, "POST" | "PUT">;
   defaultValues?: { [x: string]: any };
-  afterSubmitFunc?: (data?: any) => void;
+  isFile?: boolean;
+  fileName?: string;
 };
 
 export const useFormHandler = ({
@@ -23,10 +24,11 @@ export const useFormHandler = ({
   apiPath,
   pushPath,
   token,
+  fileName,
+  defaultValues,
   userInputError = "Ошибка. Пожалуйста повторите пойзже.",
   method = "POST",
-  defaultValues,
-  afterSubmitFunc,
+  isFile = false,
 }: UseFormHandlerProps) => {
   const { formError, formSuccess, setFormStates } = useFormStates();
   const { push, replace } = useRouter();
@@ -43,27 +45,28 @@ export const useFormHandler = ({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
-
   const onSubmit: OnSubmit = async (data) => {
-    console.log("data - ", data)
-    const auth = token !== undefined ? `Bearer ${token}` : "";
     try {
+      const formData = new FormData();
+      if (isFile) {
+        formData.append("file", data.file[0], fileName);
+      }
+      const auth = `Bearer ${token}`;
       const response = await apiFetch(apiPath, {
         credentials: "include",
         method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: auth,
-        },
-        body: JSON.stringify(data),
+        headers: isFile
+          ? {
+              Authorization: auth,
+            }
+          : { Authorization: auth, "Content-Type": "application/json" },
+        body: isFile ? formData : JSON.stringify(data),
       });
-      if(afterSubmitFunc)
-        afterSubmitFunc(data);
-      if (response.status === 401) 
-        replace("/login");
+      console.log(isFile ? formData : JSON.stringify(data));
+      if (response.status === 401) push("/login");
       else if (response.ok) {
         setFormStates("", true);
-        if (pushPath !== undefined) push(pushPath);
+        if (pushPath !== undefined) replace(pushPath);
       } else {
         setFormStates(false);
         const error: IServerErrorMessage = await response.json();
@@ -73,6 +76,7 @@ export const useFormHandler = ({
       setFormStates("Ошибка. Пожалуйста повторите пойзже.", false);
     }
   };
+
   return {
     register,
     handleSubmit,

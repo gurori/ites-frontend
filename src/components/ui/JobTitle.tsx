@@ -4,8 +4,10 @@ import { type Role } from "@/lib/types/Role";
 export default function JobTitle({
   title = "Участник",
 }: {
-  title?: JobTitle | Role;
+  title?: JobTitle | Role | "";
 }) {
+  if(title === "")
+    title = "Участник"
   const color = {
     Участник: "#665BE3",
     Разработчик: "#3C1F63",

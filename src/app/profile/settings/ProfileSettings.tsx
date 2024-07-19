@@ -1,20 +1,18 @@
 "use client";
 
-import { Pencil, PencilLine } from "lucide-react";
 import UpdateProfileProperty from "./UpdateProfileProperty";
 import { useSearchParams } from "next/navigation";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import { z } from "zod";
 import { nameSchema, textSchema } from "@/lib/zod-schemas";
 import FormError from "@/components/ui/FormError";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectJobTitle from "./SelectRole";
 import { useController } from "react-hook-form";
-import Image from "next/image";
-import apiFetch from "@/lib/apiFetch";
 import { jobTitles, randomGuid } from "@/lib/constants";
 import SubmitButton from "@/components/ui/SubmitButton";
 import AvatarForm from "./AvatarForm";
+import { toast } from "sonner";
 
 export default function ProfileSettings({ token }: { token: string }) {
   const params = useSearchParams();
@@ -37,7 +35,6 @@ export default function ProfileSettings({ token }: { token: string }) {
     onSubmit,
     control,
   } = useFormHandler({
-    pushPath: "/profile",
     apiPath: "/api/User/update",
     token: token,
     method: "PUT",
@@ -49,22 +46,18 @@ export default function ProfileSettings({ token }: { token: string }) {
       description: params.get("description")!,
       jobTitle: currentJobTitle,
     },
-    afterSubmitFunc: async (data) =>
-      await apiFetch(`/api/Files/users/${userId}/avatar.jpg`, {
-        credentials: "include",
-        method: "POST",
-        headers: {
-          "Content-Type": "image/jpeg",
-          Authorization: `Bearer ${token}`,
-        },
-        body: data.avatar,
-      }),
   });
   const { field } = useController({
     control,
     name: "jobTitle",
     defaultValue: currentJobTitle,
   });
+  useEffect(() => {
+    if (formSuccess)
+      toast("Данные успешно сохранены!", {
+        description: "Обновите страницу, чтобы увидеть измения.",
+      });
+  }, [formSuccess]);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -100,10 +93,10 @@ export default function ProfileSettings({ token }: { token: string }) {
           <FormError error={errors.description} />
         </UpdateProfileProperty>
         <UpdateProfileProperty text="Выберите роль">
-          <div className="flex gap-6 relative pb-4">
+          <div className="flex gap-6 relative pb-4 flex-wrap">
             {jobTitles.map((title) => (
               <SelectJobTitle
-              key={title}
+                key={title}
                 active={activeJobTitle === title}
                 onClick={() => {
                   setActiveJobTitle(title);
@@ -116,15 +109,9 @@ export default function ProfileSettings({ token }: { token: string }) {
           <FormError error={errors.jobTitle} />
         </UpdateProfileProperty>
         <SubmitButton />
-        <div className="pt-4">
-          {formError && <p className="text-red-500">{formError}</p>}
-          {formSuccess && (
-            <p className="text-green-500">Данные успешно сохранены!</p>
-          )}
-        </div>
+        {formError && <p className="text-red-500 pt-4">{formError}</p>}
       </form>
-        <AvatarForm userId={userId} token={token} />
-      
+      <AvatarForm userId={userId} token={token} />
     </>
   );
 }

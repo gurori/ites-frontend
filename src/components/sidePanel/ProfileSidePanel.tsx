@@ -7,9 +7,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { IUserProfileProps } from "@/lib/types/IUser";
+import { apiUrl } from "@/lib/constants";
 
 export default function ProfileSidePanel({ user }: IUserProfileProps) {
-  console.log(user)
   const hrefParams = {
     pathname: "profile/settings",
     query: {
@@ -34,7 +34,7 @@ export default function ProfileSidePanel({ user }: IUserProfileProps) {
       <hr />
       <div className="grid gap-3 justify-items-center pt-6">
           <Image
-            src={`https://localhost:64948/api/Files/users/${user.id}/avatar.jpg`}
+            src={`${apiUrl}/api/Files/users/${user.id}/avatar.jpg`}
             alt="avatar"
             width={130}
             height={130}
