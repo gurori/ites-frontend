@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import 'react-image-crop/dist/ReactCrop.css'
 import "./globals.css";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { Toaster } from "@/components/ui/sonner";

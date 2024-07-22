@@ -33,57 +33,63 @@ export const useFormHandler = ({
   const { formError, formSuccess, setFormStates } = useFormStates();
   const { push, replace } = useRouter();
 
-  type FormData = z.infer<typeof schema>;
-  type OnSubmit = (data: FormData) => void;
+  type TypeFormData = z.infer<typeof schema>;
+  type OnSubmit = (data: TypeFormData) => void;
 
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<TypeFormData>({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
   const onSubmit: OnSubmit = async (data) => {
+      handleFetch(data, async (data) => {
+        const formData = new FormData();
+        if (isFile) {
+          formData.append("file", data.file[0], fileName);
+        }
+        const auth = `Bearer ${token}`;
+        const response = await apiFetch(apiPath, {
+          credentials: "include",
+          method: method,
+          headers: isFile
+            ? {
+                Authorization: auth,
+              }
+            : { Authorization: auth, "Content-Type": "application/json" },
+          body: isFile ? formData : JSON.stringify(data),
+        });
+        return response;
+      })
+  };
+
+  const handleFetch = async ( data: TypeFormData, getResponse: (data: TypeFormData) => Response | Promise<Response>) => {
     try {
-      const formData = new FormData();
-      if (isFile) {
-        formData.append("file", data.file[0], fileName);
-      }
-      const auth = `Bearer ${token}`;
-      const response = await apiFetch(apiPath, {
-        credentials: "include",
-        method: method,
-        headers: isFile
-          ? {
-              Authorization: auth,
-            }
-          : { Authorization: auth, "Content-Type": "application/json" },
-        body: isFile ? formData : JSON.stringify(data),
-      });
-      console.log(isFile ? formData : JSON.stringify(data));
+      const response = await getResponse(data)
       if (response.status === 401) push("/login");
       else if (response.ok) {
         setFormStates("", true);
         if (pushPath !== undefined) replace(pushPath);
-        setTimeout(() => {
-          setFormStates(false);
-        }, 400);
+        setTimeout(() => setFormStates(false), 400);
       } else {
         setFormStates(false);
         const error: IServerErrorMessage = await response.json();
         setFormStates(error.detail || userInputError);
       }
-    } catch (error) {
+    }
+    catch (error) {
       setFormStates("Ошибка. Пожалуйста повторите пойзже.", false);
     }
-  };
+  }
 
   return {
     register,
     handleSubmit,
     onSubmit,
+    handleFetch,
     errors,
     formError,
     formSuccess,

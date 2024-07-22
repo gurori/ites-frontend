@@ -24,20 +24,31 @@ export const nameSchema = z
     "ФИО должно содержать только буквы, пробелы и дефисы"
   );
 
-
 export const textSchema = z
   .string()
   .min(3, "Введите не менее 3 символов")
   .max(300, "Введите не более 300 символов");
 
-export const fileSchema = z
+export const filesSchema = z
   .any()
   .refine(
     (files) => files?.[0]?.size <= MAX_FILE_SIZE,
     "Размер файла не должен превышать 4MB"
   );
 
-export const imageSchema = fileSchema.refine(
+export const fileSchema = z
+  .any()
+  .refine(
+    (file) => file?.size <= MAX_FILE_SIZE,
+    "Размер файла не должен превышать 4MB"
+  );
+
+export const imagesSchema = filesSchema.refine(
   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+  "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
+);
+
+export const imageSchema = fileSchema.refine(
+  (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
   "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
 );

@@ -5,7 +5,7 @@ const nextConfig = {
           {
             protocol: 'https',
             hostname: 'localhost',
-            port: '57899',
+            port: '52905',
             pathname: '/api/**',
           },
         ],

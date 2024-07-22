@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import SelectJobTitle from "./SelectRole";
 import { useController } from "react-hook-form";
 import { jobTitles, randomGuid } from "@/lib/constants";
-import SubmitButton from "@/components/ui/SubmitButton";
+import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import AvatarForm from "./AvatarForm";
 import { toast } from "sonner";
 
@@ -54,12 +54,10 @@ export default function ProfileSettings({ token }: { token: string }) {
     defaultValue: currentJobTitle,
   });
   useEffect(() => {
-    if (formSuccess) {
+    if (formSuccess) 
       toast("Данные успешно сохранены!", {
-        description: "Обновите страницу, чтобы увидеть измения.",
+        description: "Обновите страницу профиля, чтобы увидеть измения.",
       });
-      refresh()
-    }
   }, [formSuccess]);
   return (
     <>

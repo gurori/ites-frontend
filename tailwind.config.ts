@@ -36,6 +36,7 @@ const config = {
         },
         black: {
           DEFAULT: "#252628",
+          700: "#28292C",
           800: "#1E1F21",
         },
         pink: {

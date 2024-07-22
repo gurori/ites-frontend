@@ -1,7 +1,7 @@
-import { ChevronLeft } from "lucide-react";
-import Link from "next/link";
 import { type ReactNode } from "react";
-import styles from "./Settings.module.css"
+import styles from "./Settings.module.css";
+import BackButton from "@/components/ui/buttons/BackButton";
+import Link from "next/link";
 
 export default function SettingsLayout({
   children,
@@ -12,9 +12,7 @@ export default function SettingsLayout({
         <main className={styles.container}>
           <div className="flex gap-6 items-center -ml-6">
             <Link href="/profile">
-              <div className="bg-gray-400 size-[34px] rounded-full center">
-                <ChevronLeft className="text-black -ml-0.5" />
-              </div>
+            <BackButton  />
             </Link>
             <p className="text-white">Настроить профиль</p>
           </div>
