@@ -9,7 +9,7 @@ import FormError from "@/components/ui/FormError";
 import { useEffect, useState } from "react";
 import SelectJobTitle from "./SelectRole";
 import { useController } from "react-hook-form";
-import { jobTitles, randomGuid } from "@/lib/constants";
+import { jobTitles } from "@/lib/constants";
 import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import AvatarForm from "./AvatarForm";
 import { toast } from "sonner";

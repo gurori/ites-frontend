@@ -38,6 +38,7 @@ export const filesSchema = z
 
 export const fileSchema = z
   .any()
+  .refine((file) => file, "Небходимо выбрать хотя бы 1 файл")
   .refine(
     (file) => file?.size <= MAX_FILE_SIZE,
     "Размер файла не должен превышать 4MB"
