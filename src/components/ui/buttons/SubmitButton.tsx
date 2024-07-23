@@ -1,12 +1,21 @@
+import { JSXElement } from "@/lib/types/JSXElement";
 import { cn } from "@/lib/utils";
-import { PencilLine } from "lucide-react";
-import { MouseEventHandler } from "react";
+import { icons, PencilLine } from "lucide-react";
+import { MouseEventHandler, ReactNode } from "react";
 
 export default function SubmitButton({
   className,
   onClick,
-  type = 'submit'
-}: Readonly<{ className?: string, onClick?: MouseEventHandler<HTMLButtonElement>, type?: "submit" | "reset" | "button" }>) {
+  type = "submit",
+  children = "Редактировать",
+  icon = <PencilLine size={16} />
+}: Readonly<{
+  className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  type?: "submit" | "reset" | "button";
+  children?: ReactNode;
+  icon?: JSXElement
+}>) {
   return (
     <button
       className={cn(
@@ -16,7 +25,7 @@ export default function SubmitButton({
       onClick={onClick}
       type={type}
     >
-      Редактировать <PencilLine size={16} />
+      {children}{icon}
     </button>
   );
 }

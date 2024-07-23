@@ -40,6 +40,7 @@ export default function ProfileSettings({ token }: { token: string }) {
     token: token,
     method: "PUT",
     schema: updateUserSchema,
+    resetSuccess: true,
     defaultValues: {
       lastName: params.get("lastName")!,
       firstName: params.get("firstName")!,

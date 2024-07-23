@@ -14,10 +14,11 @@ export default function useImageCropper(
 ) {
   const imgRef = useRef<HTMLImageElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const [error, setError] = useState("");
 
+  const [error, setError] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState("");
   const [crop, setCrop] = useState<Crop>();
+
   const handleSelectedImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -29,7 +30,7 @@ export default function useImageCropper(
       imageElement.src = imageUrl;
 
       imageElement.addEventListener("load", (e) => {
-        if (error) setError("");
+        if (error) setError(null);
         const { naturalWidth, naturalHeight } =
           e.currentTarget as HTMLImageElement;
         if (naturalWidth < minDimension || naturalHeight < minDimension) {
@@ -43,6 +44,7 @@ export default function useImageCropper(
     });
     reader.readAsDataURL(file);
   };
+
   const handleImageLoad = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     const { width, height } = e.currentTarget;
     const cropWidthInPercent = (minDimension / width) * 100;
@@ -99,8 +101,10 @@ export default function useImageCropper(
 
     ctx.restore();
   };
-  const handleCropChange = (crop: PixelCrop, percentageCrop: PercentCrop) =>
+
+  const handleCropChange = (crop: PixelCrop, percentageCrop: PercentCrop) => 
     setCrop(percentageCrop);
+
   const handleCrop = () => {
     if (imgRef.current && previewCanvasRef.current) {
       setCanvasPreview(
@@ -110,6 +114,7 @@ export default function useImageCropper(
       );
       const dataUrl = previewCanvasRef.current.toDataURL();
       setImageUrl(dataUrl);
+      return dataUrl;
     }
   };
 

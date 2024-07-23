@@ -17,6 +17,7 @@ type UseFormHandlerProps = {
   defaultValues?: { [x: string]: any };
   isFile?: boolean;
   fileName?: string;
+  resetSuccess?: boolean;
 };
 
 export const useFormHandler = ({
@@ -29,6 +30,7 @@ export const useFormHandler = ({
   userInputError = "Ошибка. Пожалуйста повторите пойзже.",
   method = "POST",
   isFile = false,
+  resetSuccess = false,
 }: UseFormHandlerProps) => {
   const { formError, formSuccess, setFormStates } = useFormStates();
   const { push, replace } = useRouter();
@@ -46,44 +48,46 @@ export const useFormHandler = ({
     defaultValues: defaultValues,
   });
   const onSubmit: OnSubmit = async (data) => {
-      handleFetch(data, async (data) => {
-        const formData = new FormData();
-        if (isFile) {
-          formData.append("file", data.file[0], fileName);
-        }
-        const auth = `Bearer ${token}`;
-        const response = await apiFetch(apiPath, {
-          credentials: "include",
-          method: method,
-          headers: isFile
-            ? {
-                Authorization: auth,
-              }
-            : { Authorization: auth, "Content-Type": "application/json" },
-          body: isFile ? formData : JSON.stringify(data),
-        });
-        return response;
-      })
+    handleFetch(data, async (data) => {
+      const formData = new FormData();
+      if (isFile) {
+        formData.append("file", data.file[0], fileName);
+      }
+      const auth = `Bearer ${token}`;
+      const response = await apiFetch(apiPath, {
+        credentials: "include",
+        method: method,
+        headers: isFile
+          ? {
+              Authorization: auth,
+            }
+          : { Authorization: auth, "Content-Type": "application/json" },
+        body: isFile ? formData : JSON.stringify(data),
+      });
+      return response;
+    });
   };
 
-  const handleFetch = async ( data: TypeFormData, getResponse: (data: TypeFormData) => Response | Promise<Response>) => {
+  const handleFetch = async (
+    data: TypeFormData,
+    getResponse: (data: TypeFormData) => Response | Promise<Response>
+  ) => {
     try {
-      const response = await getResponse(data)
+      const response = await getResponse(data);
       if (response.status === 401) push("/login");
       else if (response.ok) {
-        setFormStates("", true);
+        setFormStates(null, true); //HERE
         if (pushPath !== undefined) replace(pushPath);
-        setTimeout(() => setFormStates(false), 400);
+        if (resetSuccess) setTimeout(() => setFormStates(false), 400);
       } else {
         setFormStates(false);
         const error: IServerErrorMessage = await response.json();
         setFormStates(error.detail || userInputError);
       }
-    }
-    catch (error) {
+    } catch (error) {
       setFormStates("Ошибка. Пожалуйста повторите пойзже.", false);
     }
-  }
+  };
 
   return {
     register,

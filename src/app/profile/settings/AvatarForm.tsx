@@ -1,6 +1,6 @@
 import * as NextImage from "next/image";
 import UpdateProfileProperty from "./UpdateProfileProperty";
-import { Pencil, Upload } from "lucide-react";
+import { CropIcon, Pencil, Upload } from "lucide-react";
 import { imageSchema } from "@/lib/zod-schemas";
 import { z } from "zod";
 import FormError from "@/components/ui/FormError";
@@ -18,6 +18,9 @@ import useImageCropper from "@/lib/hooks/useImageCropper";
 import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import { useController } from "react-hook-form";
 import apiFetch from "@/lib/apiFetch";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const ASPECT_RATIO = 1;
 const MIN_DIMENSION = 150;
@@ -26,17 +29,15 @@ export default function AvatarForm({
   userId,
   token,
 }: Readonly<{ userId: string; token: string }>) {
+  const { refresh } = useRouter();
   const avatarSchema = z.object({ file: imageSchema });
   const { errors, formError, control, formSuccess, handleSubmit, handleFetch } =
     useFormHandler({
-      apiPath: `/api/files/users/${userId}`,
+      apiPath: `/api/Files/users/${userId}`,
       schema: avatarSchema,
-      fileName: "avatar.jpg",
-      token: token,
-      isFile: true,
-      pushPath: "/profile",
+      resetSuccess: true,
     });
-  const { field } = useController({ name: "file", control: control });
+  const { field } = useController({ control, name: "file" });
   const {
     imageUrl,
     crop,
@@ -50,101 +51,122 @@ export default function AvatarForm({
   } = useImageCropper(ASPECT_RATIO, MIN_DIMENSION);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     handleFetch(data, async (data) => {
       const formData = new FormData();
       formData.append("file", data.file, "avatar.jpg");
-      const res = await apiFetch(`/api/files/users/${userId}`, {
+      const res = await apiFetch(`/api/Files/users/${userId}`, {
         credentials: "include",
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        body: formData,
       });
-      console.log(res);
       return res;
     });
   };
 
+  useEffect(() => {
+    if (formSuccess) {
+      refresh()
+      toast("Данные успешно сохранены!", {
+        description: "Обновите страницу профиля, чтобы увидеть измения.",
+      });
+    } 
+  }, [formSuccess]);
+
   return (
-    <UpdateProfileProperty text="Выберите аватарку" className="relative mb-4">
-      <NextImage.default
-        width={200}
-        height={200}
-        src={imageUrl || `${apiUrl}/api/Files/users/${userId}/avatar.jpg`}
-        alt="avatar"
-        className="rounded-full size-[200px]"
-      />
-      <Dialog>
-        <DialogTrigger asChild>
-          <button
-            type="button"
-            className="size-[38px] rounded-full bg-gray-500 center absolute bottom-0 left-40"
-          >
-            <Pencil className="text-white" size={20} />
-          </button>
-        </DialogTrigger>
-        <DialogContent title="Выберите аватарку">
-          <div className="relative">
-            <input
-              onChange={handleSelectedImage}
-              type="file"
-              accept="image/*"
-              className="yellow-border file:pr-16 file:pl-7"
-            />
-            <Upload className="text-yellow absolute top-2 left-36 pointer-events-none" />
-          </div>
-          <input type="file" />
-          {imageUrl && (
-            <>
-              <ReactCrop
-                crop={crop}
-                circularCrop
-                keepSelection
-                aspect={ASPECT_RATIO}
-                minWidth={MIN_DIMENSION}
-                onChange={handleCropChange}
-              >
-                <img
-                  src={imageUrl}
-                  ref={imgRef}
-                  className="w-full"
-                  alt="upload"
-                  onLoad={handleImageLoad}
-                />
-              </ReactCrop>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <SubmitButton
-                  onClick={async () => {
-                    handleCrop();
-                    const blob = await fetch(imageUrl).then(
-                      async (res) => await res.blob()
-                    );
-                    field.onChange(blob);
-                  }}
-                />
-              </form>
-              {crop && (
-                <canvas
-                  ref={previewCanvasRef}
-                  className="mt-4"
-                  style={{
-                    display: "none",
-                    border: "1px solid black",
-                    objectFit: "contain",
-                    width: 150,
-                    height: 150,
-                  }}
-                />
-              )}
-            </>
-          )}
-          <FormError error={errors.file} />
-          {formError && <ErrorMessage>{formError}</ErrorMessage>}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-          {formSuccess && <p className="text-green-500">Успешно!</p>}
-        </DialogContent>
-      </Dialog>
-    </UpdateProfileProperty>
+    <>
+      <UpdateProfileProperty text="Выберите аватарку" className="relative mb-4">
+        <NextImage.default
+          width={200}
+          height={200}
+          src={imageUrl || `${apiUrl}/api/Files/users/${userId}/avatar.jpg`}
+          alt="avatar"
+          className="rounded-full size-[200px]"
+        />
+        <Dialog>
+          <DialogTrigger asChild>
+            <button
+              type="button"
+              className="size-[38px] rounded-full bg-gray-500 center absolute bottom-0 left-40"
+            >
+              <Pencil className="text-white" size={20} />
+            </button>
+          </DialogTrigger>
+          <DialogContent title="Выберите аватарку">
+            <div className="relative">
+              <input
+                onChange={handleSelectedImage}
+                type="file"
+                accept="image/*"
+                className="yellow-border file:pr-16 file:pl-7"
+              />
+              <Upload size={20} className="text-yellow absolute top-2.5 left-36 pointer-events-none" />
+            </div>
+            {imageUrl && (
+              <>
+                <ReactCrop
+                  crop={crop}
+                  circularCrop
+                  keepSelection
+                  aspect={ASPECT_RATIO}
+                  minWidth={MIN_DIMENSION}
+                  onChange={handleCropChange}
+                >
+                  <img
+                    src={imageUrl}
+                    ref={imgRef}
+                    className="w-full"
+                    alt="upload"
+                    onLoad={handleImageLoad}
+                  />
+                </ReactCrop>
+
+                <DialogClose asChild>
+                  <SubmitButton
+                  className="justify-self-start"
+                  icon={<CropIcon size={20} />}
+                    onClick={async () => {
+                      const newImageUrl = handleCrop();
+                      if (newImageUrl) {
+                        const blob = await fetch(newImageUrl).then(
+                          async (res) => await res.blob()
+                        );
+                        field.onChange(
+                          new File([blob], "avatar.jpg", { type: blob.type })
+                        );
+                      }
+                    }}
+                  >
+                    Обрезать
+                  </SubmitButton>
+                </DialogClose>
+
+                {crop && (
+                  <canvas
+                    ref={previewCanvasRef}
+                    className="mt-4"
+                    style={{
+                      display: "none",
+                      border: "1px solid black",
+                      objectFit: "contain",
+                      width: 150,
+                      height: 150,
+                    }}
+                  />
+                )}
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
+      </UpdateProfileProperty>
+      <FormError error={errors.file} />
+      {formError && <ErrorMessage>{formError}</ErrorMessage>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <SubmitButton type="submit" className="yellow-border text-yellow" />
+      </form>
+    </>
   );
 }
