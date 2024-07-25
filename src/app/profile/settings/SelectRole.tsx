@@ -26,7 +26,7 @@ export default function SelectJobTitle({
       <p className={styles.role} style={{ color: color }}>
         {title.toUpperCase()}
       </p>
-      <SmallStar color={color!} className="absolute right-0 bottom-0" />
+      <SmallStar color={color} className="absolute right-0 bottom-0" />
     </div>
   );
 }

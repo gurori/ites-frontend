@@ -1,0 +1,20 @@
+.selection {
+  width: 183px;
+  height: 199px;
+
+  padding-top: 37px;
+
+  background: #fff;
+  border-radius: 25px;
+}
+
+.role {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 23px;
+
+  color: #1e1f21;
+
+  text-align: center;
+}

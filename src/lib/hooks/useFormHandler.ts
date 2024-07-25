@@ -9,7 +9,7 @@ import apiFetch from "../apiFetch";
 
 type UseFormHandlerProps = {
   schema: z.ZodObject<any> | z.ZodEffects<z.ZodObject<any>>;
-  apiPath: string;
+  apiPath?: string;
   token?: string;
   pushPath?: string;
   userInputError?: string;
@@ -42,30 +42,29 @@ export const useFormHandler = ({
     control,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<TypeFormData>({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
   const onSubmit: OnSubmit = async (data) => {
-    handleFetch(data, async (data) => {
-      const formData = new FormData();
-      if (isFile) {
-        formData.append("file", data.file[0], fileName);
-      }
-      const auth = `Bearer ${token}`;
-      const response = await apiFetch(apiPath, {
-        credentials: "include",
-        method: method,
-        headers: isFile
-          ? {
-              Authorization: auth,
-            }
-          : { Authorization: auth, "Content-Type": "application/json" },
-        body: isFile ? formData : JSON.stringify(data),
+    if (apiPath)
+      handleFetch(data, async (data) => {
+        const formData = new FormData();
+        if (isFile) {
+          formData.append("file", data.file[0], fileName);
+        }
+        const auth = `Bearer ${token}`;
+        const response = await apiFetch(apiPath, {
+          credentials: "include",
+          method: method,
+          headers: isFile
+            ? { Authorization: auth }
+            : { Authorization: auth, "Content-Type": "application/json" },
+          body: isFile ? formData : JSON.stringify(data),
+        });
+        return response;
       });
-      return response;
-    });
   };
 
   const handleFetch = async (
@@ -95,6 +94,7 @@ export const useFormHandler = ({
     onSubmit,
     handleFetch,
     errors,
+    isValid,
     formError,
     formSuccess,
     control,

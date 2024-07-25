@@ -53,3 +53,5 @@ export const imageSchema = fileSchema.refine(
   (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
   "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
 );
+
+export const roleSchema = z.string({ message: "Необходимо выбрать 1 роль" })

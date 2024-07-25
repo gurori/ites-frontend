@@ -4,7 +4,7 @@ import UpdateProfileProperty from "./UpdateProfileProperty";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import { z } from "zod";
-import { nameSchema, optionalString, textSchema } from "@/lib/zod-schemas";
+import { nameSchema, optionalString, roleSchema, textSchema } from "@/lib/zod-schemas";
 import FormError from "@/components/ui/FormError";
 import { useEffect, useState } from "react";
 import SelectJobTitle from "./SelectRole";
@@ -25,7 +25,7 @@ export default function ProfileSettings({ token }: { token: string }) {
     firstName: nameSchema,
     middleName: optionalString(nameSchema),
     description: optionalString(textSchema),
-    jobTitle: z.string({ message: "Необходимо выбрать 1 роль" }),
+    jobTitle: roleSchema,
   });
   const {
     errors,

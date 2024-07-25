@@ -4,32 +4,36 @@ import { z } from "zod";
 import { nameSchema, emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
-import { useEffect } from "react";
-import { toast } from "sonner";
+import { useState } from "react";
+import IdentificationForm from "./(identification)/IdentificationForm";
 
 export default function RegisterForm() {
   const userSchema = z.object({
     firstName: nameSchema,
     email: emailSchema,
     password: passwordSchema,
-    role: nameSchema, //FIX
   });
+  type TypeFormData = z.infer<typeof userSchema>;
 
-  const { register, handleSubmit, onSubmit, errors, formError, formSuccess } =
-    useFormHandler({
+  const [formData, setFormData] = useState<TypeFormData>();
+  const [activeStage, setActiveStage] = useState<"register" | "identification">(
+    "register"
+  );
+
+  const { register, handleSubmit, errors, formError, isValid } = useFormHandler(
+    {
       schema: userSchema,
-      apiPath: "/api/User/register",
-      pushPath: "/login",
       userInputError: "Ошибка при регистрации. Пожалуста, повторите попытку",
-    });
+    }
+  );
 
-  useEffect(() => {
-    if (formSuccess)
-      toast("Регистрация прошла успешно!", {
-        description: "Чтобы продолжить, войдите в систему.",
-      });
-  }, [formSuccess]);
-  return (
+  const onSubmit = (data: any) => {
+    if (isValid) {
+      setFormData(data);
+      setActiveStage("identification");
+    }
+  };
+  return activeStage === "register" ? (
     <div className="h-screen bg-purple center">
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -68,20 +72,13 @@ export default function RegisterForm() {
           <ErrorMessage className="text-yellow-300">
             {errors.password && errors.password.message}
           </ErrorMessage>
-          <input
-            {...register("role")}
-            type="text"
-            className="white drop-light"
-            placeholder="Роль"
-          />
-          <ErrorMessage className="text-yellow-300">
-            {errors.role && errors.role.message}
-          </ErrorMessage>
         </div>
         <button className="large text-white bg-black">
           Зарегистрироваться
         </button>
       </form>
     </div>
+  ) : (
+    <IdentificationForm formData={formData} />
   );
 }
