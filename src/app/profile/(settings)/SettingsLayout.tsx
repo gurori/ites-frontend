@@ -7,12 +7,12 @@ export default function SettingsLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <div className="bg-black-800">
+    <div className="bg-black-800 absolute w-full">
       <div className="py-8">
         <main className={styles.container}>
           <div className="flex gap-6 items-center -ml-6">
             <Link href="/profile">
-            <BackButton  />
+              <BackButton />
             </Link>
             <p className="text-white">Настроить профиль</p>
           </div>

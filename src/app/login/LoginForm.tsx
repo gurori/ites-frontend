@@ -7,8 +7,6 @@ import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import Image from "next/image";
-import { useEffect } from "react";
-import { toast } from "sonner";
 
 export default function LoginForm() {
   const userSchema = z.object({

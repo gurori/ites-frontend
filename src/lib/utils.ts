@@ -8,10 +8,20 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getRoleEng(role: Role): RoleEng {
   const roles: { [key: string]: RoleEng } = {
-    Участник: "Member",
-    Заказчик: "Client",
-    Организатор: "Organizer",
+    Участник: "member",
+    Заказчик: "client",
+    Организатор: "organizer",
   };
 
-  return roles[role] ?? "Member";
+  return roles[role] ?? "member";
+}
+
+export function getRoleRus(role: RoleEng): Role {
+  const roles: { [key: string]: Role } = {
+    member: "Участник",
+    client: "Заказчик",
+    organizer: "Организатор",
+  };
+
+  return roles[role] ?? "Участник";
 }

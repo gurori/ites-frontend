@@ -3,7 +3,7 @@ import { type Role } from "./types/Role";
 
 export const randomGuid = "4a152514-3c96-419c-b068-41a51ebe7be9";
 
-export const apiUrl = "https://localhost:59086"
+export const apiUrl = "https://localhost:53127"
 
 export const jobTitles: JobTitle[] = [
     "Менеджер",

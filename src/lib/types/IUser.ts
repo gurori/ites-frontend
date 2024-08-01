@@ -1,5 +1,5 @@
 import { type JobTitle } from "./JobTitle";
-import { type Role } from "./Role";
+import { type RoleEng } from "./Role";
 
 export interface IUser {
     id: string;
@@ -9,7 +9,7 @@ export interface IUser {
     email: string;
     description?: string;
     jobTitle?: JobTitle;
-    role: Role;
+    role: RoleEng;
 };
 
 export interface IUserProfileProps {

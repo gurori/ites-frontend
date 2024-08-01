@@ -1,0 +1,20 @@
+.selectRole {
+  width: 154px;
+  height: 150px;
+
+  position: relative;
+  padding-top: 28px;
+
+  background: #ffffff;
+  border-radius: 25px;
+
+  cursor: pointer;
+}
+
+.role {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 23px;
+  text-align: center;
+}

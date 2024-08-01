@@ -9,7 +9,7 @@
 }
 
 .content {
-  @apply px-10 py-10 overflow-y-scroll;
+  @apply px-10 py-10 overflow-y-auto;
   max-width: 1266px;
   height: calc(100vh - 1.25rem - 51px);
 

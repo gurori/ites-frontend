@@ -26,6 +26,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/logout/page.tsx"  ],
   "exclude": ["node_modules"]
 }

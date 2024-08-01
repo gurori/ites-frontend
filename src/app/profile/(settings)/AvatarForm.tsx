@@ -1,4 +1,4 @@
-import * as NextImage from "next/image";
+import Image from "next/image";
 import UpdateProfileProperty from "./UpdateProfileProperty";
 import { CropIcon, Pencil, Upload } from "lucide-react";
 import { imageSchema } from "@/lib/zod-schemas";
@@ -19,7 +19,6 @@ import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import { useController } from "react-hook-form";
 import apiFetch from "@/lib/apiFetch";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const ASPECT_RATIO = 1;
@@ -29,7 +28,6 @@ export default function AvatarForm({
   userId,
   token,
 }: Readonly<{ userId: string; token: string }>) {
-  const { refresh } = useRouter();
   const avatarSchema = z.object({ file: imageSchema });
   const { errors, formError, control, formSuccess, handleSubmit, handleFetch } =
     useFormHandler({
@@ -67,18 +65,16 @@ export default function AvatarForm({
   };
 
   useEffect(() => {
-    if (formSuccess) {
-      refresh()
+    if (formSuccess)
       toast("Данные успешно сохранены!", {
         description: "Обновите страницу профиля, чтобы увидеть измения.",
       });
-    } 
   }, [formSuccess]);
 
   return (
     <>
       <UpdateProfileProperty text="Выберите аватарку" className="relative mb-4">
-        <NextImage.default
+        <Image
           width={200}
           height={200}
           src={imageUrl || `${apiUrl}/api/Files/users/${userId}/avatar.jpg`}
@@ -102,7 +98,10 @@ export default function AvatarForm({
                 accept="image/*"
                 className="yellow-border file:pr-16 file:pl-7"
               />
-              <Upload size={20} className="text-yellow absolute top-2.5 left-36 pointer-events-none" />
+              <Upload
+                size={20}
+                className="text-yellow absolute top-2.5 left-36 pointer-events-none"
+              />
             </div>
             {imageUrl && (
               <>
@@ -125,8 +124,8 @@ export default function AvatarForm({
 
                 <DialogClose asChild>
                   <SubmitButton
-                  className="justify-self-start"
-                  icon={<CropIcon size={20} />}
+                    className="justify-self-start"
+                    icon={<CropIcon size={20} />}
                     onClick={async () => {
                       const newImageUrl = handleCrop();
                       if (newImageUrl) {
