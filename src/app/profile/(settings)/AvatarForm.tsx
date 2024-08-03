@@ -6,7 +6,6 @@ import { z } from "zod";
 import FormError from "@/components/ui/FormError";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
-import { apiUrl } from "@/lib/constants";
 import {
   Dialog,
   DialogClose,
@@ -77,7 +76,7 @@ export default function AvatarForm({
         <Image
           width={200}
           height={200}
-          src={imageUrl || `${apiUrl}/api/Files/users/${userId}/avatar.jpg`}
+          src={imageUrl || `${process.env.NEXT_PUBLIC_API_DOMAIN}/api/Files/users/${userId}/avatar.jpg`}
           alt="avatar"
           className="rounded-full size-[200px]"
         />

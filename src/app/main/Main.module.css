@@ -1,0 +1,17 @@
+.main {
+  position: relative;
+  height: clamp(64px, 50vw, 578px);
+  padding: 0 10%;
+
+  background: #ffffff;
+  border-radius: 52px;
+}
+
+.title {
+font-style: normal;
+font-weight: 700;
+font-size: 25px;
+line-height: 30px;
+
+color: #FFFFFF;
+}

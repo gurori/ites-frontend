@@ -7,7 +7,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { IUserProfileProps } from "@/lib/types/IUser";
-import { apiUrl } from "@/lib/constants";
 import {
   Dialog,
   DialogClose,
@@ -41,7 +40,7 @@ export default function ProfileSidePanel({ user }: IUserProfileProps) {
       <hr />
       <div className="grid gap-3 justify-items-center pt-6">
         <Image
-          src={`${apiUrl}/api/Files/users/${user.id}/avatar.jpg`}
+          src={`${process.env.NEXT_PUBLIC_API_DOMAIN}/api/Files/users/${user.id}/avatar.jpg`}
           alt="avatar"
           width={130}
           height={130}
