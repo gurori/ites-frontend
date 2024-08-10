@@ -31,6 +31,7 @@ const config = {
           200: "#FAFAFA",
           300: "#DADADA",
           400: "#D9D9D9",
+          450: "#C0C0C0",
           500: "#747474",
           600: "#646464",
         },
@@ -43,6 +44,10 @@ const config = {
           400: "#EC6C6C",
           600: "#B74C85",
         },
+        red: {
+          400: "#D24E34",
+          500: "#FF5900",
+        }
       },
       keyframes: {
         "accordion-down": {

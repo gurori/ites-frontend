@@ -5,16 +5,16 @@ import { IUser } from "@/lib/types/IUser";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
 import Completed from "../(tabs)/(contents)/Completed";
-import Applications from "../(tabs)/(contents)/Applications";
+import Applications from "../(tabs)/(contents)/ApplicationsTab";
 import Favorites from "../(tabs)/(contents)/Favorites";
 
 export default async function ClientProfilePage() {
     const user: IUser = await getUserData();
   if (user.role !== "client") redirect(`/profile/${user.role}`);
   const tabs: ITab[] = [
-    { name: "Выполненное", content: <Completed /> },
-    { name: "Заявки", content: <Applications /> },
-    { name: "Избранное", content: <Favorites /> },
+    { name: "Выполненное", content: <Completed index={0} /> },
+    { name: "Заявки", content: <Applications index={1} /> },
+    { name: "Избранное", content: <Favorites index={2} /> },
   ];
   return (
     <>

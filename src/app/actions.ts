@@ -3,5 +3,5 @@
 import { cookies } from "next/headers";
 
 export async function deleteCookie(name: string) {
-  cookies().delete(name);
+  await Promise.resolve(cookies().delete(name))
 }

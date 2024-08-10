@@ -1,9 +1,11 @@
-import ThereIsNothingMessage from "./ThereIsNothingMessage";
+import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 
-export default function MyWorks() {
+export default function MyWorks({
+    index,
+  }: Readonly<{ index: number }>) {
     return (
         <>
-            <ThereIsNothingMessage emoji="¯\_(ツ)_/¯">Тут ничего нету.</ThereIsNothingMessage>
+            <ThereIsNothingMessage index={index} />
         </>
     )
 }

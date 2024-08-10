@@ -1,0 +1,22 @@
+.balckButton {
+  width: 188px;
+  height: 202px;
+  padding: 28px;
+
+  background: #252628;
+  box-shadow: 1px 4px 22px rgba(0, 0, 0, 0.25);
+  border-radius: 22px;
+}
+
+.border {
+  position: relative;
+  box-sizing: border-box;
+
+  width: 131px;
+  height: 139px;
+  padding-top: 28px;
+  text-align: center;
+
+  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}

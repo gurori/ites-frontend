@@ -1,9 +1,11 @@
-import ThereIsNothingMessage from "./ThereIsNothingMessage";
+import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 
-export default function Favorites() {
+export default function Favorites({
+    index,
+  }: Readonly<{ index: number }>) {
     return (
         <>
-            <ThereIsNothingMessage emoji="(:\/)">Однако, тут ничего нету.</ThereIsNothingMessage>
+            <ThereIsNothingMessage index={index} />
         </>
     )
 }

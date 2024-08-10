@@ -22,7 +22,7 @@ export default function Tabs({ tabs }: { tabs: ITab[] }) {
   }, [activeTab]);
 
   return (
-    <div>
+    <>
       <div className="relative overflow-x-scroll scrollbar-none">
         <div className=" flex">
           {tabs.map((tab, index) => (
@@ -44,6 +44,6 @@ export default function Tabs({ tabs }: { tabs: ITab[] }) {
         />
       </div>
       <div className={styles.content}>{tabs[activeTab].content}</div>
-    </div>
+    </>
   );
 }

@@ -9,9 +9,9 @@
 }
 
 .content {
-  @apply px-10 py-10 overflow-y-auto;
+  @apply p-10 overflow-y-auto;
   max-width: 1266px;
-  height: calc(100vh - 1.25rem - 51px);
+  height: calc(100% - 51px);
 
   background: rgba(217, 217, 217, 0.12);
   backdrop-filter: blur(3px);

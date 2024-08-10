@@ -24,10 +24,22 @@ export const nameSchema = z
     "ФИО должно содержать только буквы, пробелы и дефисы"
   );
 
-export const textSchema = z
-  .string()
-  .min(3, "Введите не менее 3 символов")
-  .max(300, "Введите не более 300 символов");
+export const textSchema = z.string().min(3, "Введите не менее 3 символов");
+
+export const mdTextSchema = textSchema.max(
+  300,
+  "Введите не более 300 символов"
+);
+
+export const smTextSchema = textSchema.max(
+  50,
+  "Введите не более 50 символов"
+);
+
+export const lgTextSchema = textSchema.max(
+  1000,
+  "Введите не более 1000 символов"
+);
 
 export const filesSchema = z
   .any()
@@ -54,4 +66,6 @@ export const imageSchema = fileSchema.refine(
   "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
 );
 
-export const roleSchema = z.string({ message: "Необходимо выбрать 1 роль" })
+export const roleSchema = z.string({ message: "Необходимо выбрать 1 роль" });
+
+export const dateSchema = z.date({ required_error: "Выберите дату" });

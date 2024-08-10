@@ -1,11 +1,13 @@
 import { type JobTitle } from "@/lib/types/JobTitle";
 import { type Role, type RoleEng } from "@/lib/types/Role";
-import { getRoleRus } from "@/lib/utils";
+import { cn, getRoleRus } from "@/lib/utils";
 
 export default function JobTitle({
   title,
+  className,
 }: {
   title: JobTitle | Role | RoleEng;
+  className?: string;
 }) {
   let color = {
     Разработчик: "#3C1F63",
@@ -19,7 +21,7 @@ export default function JobTitle({
   }
   return (
     <div
-      className="h-5 px-2 rounded-2xl bg-gray-200 text-sm"
+      className={cn("h-5 px-2 rounded-2xl bg-gray-200 text-sm", className)}
       style={{ color: color }}
     >
       ★{"  "}

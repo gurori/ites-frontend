@@ -1,5 +1,5 @@
 .sidePanel {
-  @apply h-screen px-8 overflow-y-scroll;
+  @apply h-screen px-8 fixed overflow-y-scroll;
   width: 283px;
 
   background: #252628;

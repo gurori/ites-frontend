@@ -12,8 +12,8 @@ export default function SelectRole({
       onClick={onClick}
       className={cn(
         styles.selection,
-        "cursor-pointer transition-all border-purple",
-        active && "border-4 "
+        "cursor-pointer transition-all center",
+        active && "active-lights"
       )}
     >
       <p className={styles.role}>{role.toUpperCase()}</p>

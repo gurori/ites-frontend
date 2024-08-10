@@ -1,0 +1,5 @@
+.logout {
+    @apply bg-black p-12 rounded-2xl grid gap-8;
+    width: clamp(300px, 32vw, 500px);
+    box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.25);
+}

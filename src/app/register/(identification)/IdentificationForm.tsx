@@ -75,7 +75,7 @@ export default function IdentificationForm({
             />
           ))}
         </div>
-        <button className="large bg-purple text-white">Продолжить</button>
+        <button className="small px-16 bg-purple text-white">Далее</button>
         <FormError error={errors.role} />
       </form>
     </div>

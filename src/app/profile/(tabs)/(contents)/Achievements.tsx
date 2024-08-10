@@ -1,9 +1,11 @@
-import ThereIsNothingMessage from "./ThereIsNothingMessage";
+import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 
-export default function Achievements() {
+export default function Achievements({
+    index,
+  }: Readonly<{ index: number }>) {
     return (
         <>
-            <ThereIsNothingMessage emoji="(＃￣ω￣)">Тут правда ничего нету?</ThereIsNothingMessage>
+            <ThereIsNothingMessage index={index} />
         </>
     )
 }

@@ -7,7 +7,7 @@ import { z } from "zod";
 import {
   nameSchema,
   optionalString,
-  textSchema,
+  mdTextSchema,
 } from "@/lib/zod-schemas";
 import FormError from "@/components/ui/FormError";
 import { useEffect } from "react";
@@ -25,7 +25,7 @@ export default function ProfileSettings({ token }: { token: string }) {
     lastName: nameSchema,
     firstName: nameSchema,
     middleName: optionalString(nameSchema),
-    description: optionalString(textSchema),
+    description: optionalString(mdTextSchema),
   });
   const { errors, formError, formSuccess, handleSubmit, register, onSubmit } =
     useFormHandler({

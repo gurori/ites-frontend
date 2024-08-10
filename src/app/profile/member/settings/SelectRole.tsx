@@ -19,8 +19,7 @@ export default function SelectJobTitle({
   return (
     <div
       key={key}
-      className={cn(styles.selectRole, "transition-all flex-shrink-0", active && "border-4")}
-      style={{ borderColor: `${color}86` }}
+      className={cn(styles.selectRole, "transition-all flex-shrink-0", active && "active-lights")}
       onClick={onClick}
     >
       <p className={styles.role} style={{ color: color }}>

@@ -1,0 +1,8 @@
+.infoBlock {
+  width: 218px;
+  height: 164px;
+
+  background: #d9d9d9;
+  box-shadow: 3px 4px 21px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+}
