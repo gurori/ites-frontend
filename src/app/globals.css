@@ -82,7 +82,7 @@ input[type="submit"] {
   }
   &.rounded-gray {
     @apply flex items-center text-white;
-    width: 410px;
+    width: clamp(256px, 40%, 410px);
     height: 36px;
     padding: 0 24px;
 
@@ -121,7 +121,7 @@ textarea {
   }
   &.rounded-gray {
     @apply flex items-center text-slate-50;
-    width: 410px;
+    width: clamp(256px, 40%, 410px);
     height: 128px;
     padding: 8px 24px;
 
@@ -161,7 +161,7 @@ select {
   }
   &.rounded-gray {
     @apply flex items-center text-white;
-    width: 410px;
+    width: clamp(256px, 40%, 410px);
     height: 36px;
     padding: 0 24px;
 
@@ -221,11 +221,20 @@ input[type="file"] {
 }
 
 .black-card {
-  min-width: 920px;
+  width: clamp(360px, 50vw, 920px);
   min-height: 678px;
   padding: 32px;
 
   background: #28292c;
   box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.25);
   border-radius: 18px;
+}
+
+input.arrows-hidden::-webkit-outer-spin-button,
+input.arrows-hidden::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number].arrows-hidden {
+  -moz-appearance: textfield;
 }

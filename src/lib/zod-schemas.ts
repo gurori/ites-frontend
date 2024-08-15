@@ -69,3 +69,10 @@ export const imageSchema = fileSchema.refine(
 export const roleSchema = z.string({ message: "Необходимо выбрать 1 роль" });
 
 export const dateSchema = z.date({ required_error: "Выберите дату" });
+
+export const priceSchema = z
+  .coerce
+  .number({required_error: "Введите число"})
+  .min(50, "Введите не менее 50₽")
+  .max(10000000, "Введите не более 10,000,000₽")
+  .step(0.01, "Максимум 2 десятичных знака");

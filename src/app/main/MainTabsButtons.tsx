@@ -6,7 +6,7 @@ export default function MainTabsButtons({
 }: Readonly<{ active: "Новости" | "Заказы" | "Задания" | "Конкурсы" }>) {
   return (
     <>
-      <div className="flex gap-16 [&>*]:pb-6 pt-12 [&>*]:relative [&>*]:grid [&>*]:justify-items-center ml-4">
+      <div className="flex gap-16 [&>*]:pb-6 pt-12 [&>*]:relative [&>*]:grid [&>*]:justify-items-center px-5 overflow-x-scroll scrollbar-none">
         <Link href="/main/competitions" className={styles.title}>
           Конкурсы
           {active === "Конкурсы" && (

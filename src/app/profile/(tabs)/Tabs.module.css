@@ -10,11 +10,9 @@
 
 .content {
   @apply p-10 overflow-y-auto;
-  max-width: 1266px;
   height: calc(100% - 51px);
 
   background: rgba(217, 217, 217, 0.12);
   backdrop-filter: blur(3px);
-  /* Note: backdrop-filter has minimal browser support */
   border-radius: 0px;
 }

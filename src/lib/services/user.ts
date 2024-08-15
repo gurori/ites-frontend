@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import apiFetch from "../apiFetch";
 
-import type { IMember, IOrganizer, IUser } from "../types/IUser";
+import type { IClient, IMember, IOrganizer, IUser } from "../types/IUser";
 import type { RoleEng } from "../types/Role";
 import type { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
@@ -32,11 +32,9 @@ export const getMember = async (id?: string) => {
       Authorization: `Bearer ${token.value}`,
     },
   }).then(async (res) => {
-    console.log("res - ", res)
     if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
     return await res.json();
   });
-  console.log("user - ", user)
   return user;
 };
 export const getOrganizer = async () => {
@@ -52,6 +50,23 @@ export const getOrganizer = async () => {
     if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
     return await res.json();
   });
+  return user;
+};
+export const getClient = async () => {
+  const token = await getToken()
+  if (!token) redirect("/login");
+  const user: IClient = await apiFetch("/api/User/client", {
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token.value}`,
+    },
+  }).then(async (res) => {
+    console.log(res)
+    if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
+    return await res.json();
+  });
+  console.log(user)
   return user;
 };
 

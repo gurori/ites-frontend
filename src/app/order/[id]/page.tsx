@@ -1,22 +1,22 @@
 import apiFetch from "@/lib/apiFetch";
-import { ICompetition } from "@/lib/types/ICompetition";
 import { notFound } from "next/navigation";
-import CompetitionInfo from "./CompetitionInfo";
 import { getToken } from "@/lib/services/user";
+import type { IOrder } from "@/lib/types/IOrder";
+import OrderInfo from "./OrderInfo";
 
 export default async function CompetitionInfoPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const competition: ICompetition = await apiFetch(
-    `/api/competitions/get/${params.id}`
+  const order: IOrder = await apiFetch(
+    `/api/orders/${params.id}`
   ).then(async (res) => {
     if (res.status === 404) notFound();
     return await res.json();
   });
   const token = await getToken();
   return (
-    <CompetitionInfo competition={competition} token={token!.value} />
+    <OrderInfo order={order} token={token!.value} />
   );
 }

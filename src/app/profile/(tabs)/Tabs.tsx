@@ -24,7 +24,7 @@ export default function Tabs({ tabs }: { tabs: ITab[] }) {
   return (
     <>
       <div className="relative overflow-x-scroll scrollbar-none">
-        <div className=" flex">
+        <div className="flex">
           {tabs.map((tab, index) => (
             <Tab
               key={index}

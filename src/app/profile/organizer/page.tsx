@@ -7,7 +7,7 @@ import Tabs from "../(tabs)/Tabs";
 import Favorites from "../(tabs)/(contents)/Favorites";
 import BlackButton from "../(ui)/BlackButton";
 import CompetitionsTab from "../(tabs)/(contents)/CompetitionsTab";
-import MembersApplicationsTab from "../(tabs)/(contents)/MembersApplicationsTab";
+import CompetitionsApplicationsTab from "../(tabs)/(contents)/CompetitionsApplicationsTab";
 
 export const revalidate = 10;
 
@@ -22,15 +22,14 @@ export default async function OrganizerProfilePage() {
     },
     {
       name: "Заявки",
-      content: <MembersApplicationsTab index={1} applications={user.applications} />,
+      content: <CompetitionsApplicationsTab index={1} applications={user.applications} />,
     },
     { name: "Избранное", content: <Favorites index={2} /> },
   ];
   return (
-    <>
+      <div className="container lg:pl-8">
       <ProfileSidePanel user={user} />
-      <div className="container">
-        <div className="flex gap-6 py-8">
+        <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
           <BlackButton href="/competition/new" className="border-purple">
             <p className="text-white text-xl">
               <b>Создать конкурс</b>
@@ -42,6 +41,5 @@ export default async function OrganizerProfilePage() {
         </div>
         <Tabs tabs={tabs} />
       </div>
-    </>
   );
 }

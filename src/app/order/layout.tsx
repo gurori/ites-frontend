@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export default function CompetitionLayout({
+export default function OrderLayout({
     children,
   }: Readonly<{ children: ReactNode }>) {
     return (

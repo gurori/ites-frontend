@@ -2,21 +2,21 @@
 
 import InfoCard from "@/components/info-card/InfoCard";
 import apiFetch from "@/lib/apiFetch";
-import { dateFormat } from "@/lib/format";
-import type { CompetitionProp } from "@/lib/types/ICompetition";
+import { dateFormat, priceFormat } from "@/lib/format";
+import type { OrderProp } from "@/lib/types/IOrder";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default async function CompetitionInfo({
-  competition,
+export default async function OrderInfo({
+    order,
   token,
-}: Readonly<CompetitionProp & { token: string }>) {
-  const start = dateFormat(competition.startDate);
-  const end = dateFormat(competition.endDate);
+}: Readonly<OrderProp & { token: string }>) {
+  const deadLine = dateFormat(order.deadLine);
+  const price = priceFormat(order.price);
   const { push } = useRouter();
   const addApplication = async () => {
-    const res = await apiFetch(
-      `/api/Competitions/application/${competition.id}`,
+    await apiFetch(
+      `/api/orders/application/${order.id}`,
       {
         method: "PUT",
         credentials: "include",
@@ -26,9 +26,10 @@ export default async function CompetitionInfo({
         },
       }
     ).then(async (res) => {
+      console.log(res)
       if (res.ok) {
         toast("Ваша заявка успешно отправлена!");
-        push("/main/competitions");
+        push("/main/orders");
       } else if (res.status === 403) {
         toast("Нужно быть участником, чтобы подавать заявки");
         push("/profile");
@@ -36,15 +37,15 @@ export default async function CompetitionInfo({
     });
   };
   return (
-    <InfoCard type="competition">
-      <h6>{competition.title}</h6>
+    <InfoCard type="order">
+      <h6>{order.title}</h6>
       <p className="pt-2">
         <b>
-          С {start} по {end}
-        </b>
+        Дедлайн: {deadLine}
+        </b><br /><b>Цена: {price}</b>
       </p>
-      <p className="py-10">{competition.description}</p>
-      <button className="flash purple" onClick={addApplication}>
+      <p className="py-10">{order.description}</p>
+      <button className="flash yellow" onClick={addApplication}>
         Отправить заявку
       </button>
     </InfoCard>

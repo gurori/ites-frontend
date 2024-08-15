@@ -1,10 +1,9 @@
 .main {
+  @apply rounded-3xl md:rounded-[52px] px-2 md:px-[128px];
   position: relative;
-  height: clamp(64px, 50vw, 578px);
-  padding: 0 10%;
+  height: clamp(64px, 36vw, 578px);
 
   background: #ffffff;
-  border-radius: 52px;
 }
 
 .title {
