@@ -7,19 +7,31 @@ import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import Image from "next/image";
+import apiFetch from "@/lib/apiFetch";
+import { setCookie } from "../actions";
 
 export default function LoginForm() {
   const userSchema = z.object({
     email: emailSchema,
     password: passwordSchema,
   });
-  const { register, handleSubmit, onSubmit, errors, formError } =
+  const { register, handleSubmit, errors, formError, handleFetch } =
     useFormHandler({
       schema: userSchema,
-      apiPath: "/api/User/login",
       pushPath: "/profile",
       userInputError: "Неверные почта или пароль",
     });
+    const onSubmit = async (data: any) => {//hot fix
+      handleFetch(data, async (data) => {
+        const res = await apiFetch("/api/User/login", {
+          method: "POST"
+        })
+        if(res.ok) {
+          setCookie("auth", await res.text(), {secure: true, httpOnly: true, sameSite: "strict"});
+        }
+        return res
+      });
+    }
   return (
     <div className="h-screen center bg-black px-4">
       <div className={styles.whiteBox}>
