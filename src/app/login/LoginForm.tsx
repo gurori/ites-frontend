@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import styles from "./Login.module.css";
-import { z } from "zod";
+import { boolean, z } from "zod";
 import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
@@ -24,6 +24,10 @@ export default function LoginForm() {
     const onSubmit = async (data: any) => {//hot fix
       handleFetch(data, async (data) => {
         const res = await apiFetch("/api/User/login", {
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          },
           method: "POST"
         })
         if(res.ok) {
