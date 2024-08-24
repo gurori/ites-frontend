@@ -59,7 +59,7 @@ export default function IdentificationForm({
     <div className="bg-black-800 h-screen center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid gap-12 justify-items-center"
+        className="grid gap-6 md:gap-12 justify-items-center"
       >
         <label className="text-white">Продолжить как...</label>
         <div className="grid gap-4 md:flex md:gap-8">
