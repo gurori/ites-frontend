@@ -1,15 +1,15 @@
 import { redirect } from "next/navigation";
 import { getRole, getToken } from "@/lib/services/user";
-import { getCookie, setCookie } from "../actions";
+import { cookies } from "next/headers";
 
 export default async function ProfilePageProvider() {
-  const roleCookie = await getCookie("role");
+  const roleCookie = cookies().get("role");
   if(roleCookie)
     redirect(`/profile/${roleCookie.value}`);
 
   const token = await getToken();
   const role = await getRole(token!);
 
-  setCookie("role", role);
+  cookies().set("role", role);
   redirect(`/profile/${role}`);
 }
