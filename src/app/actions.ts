@@ -10,7 +10,3 @@ export async function deleteCookie(name: string) {
 export async function setCookie(name: string, value: string, options?: ResponseCookie | Partial<ResponseCookie>) {
   await Promise.resolve(cookies().set(name, value, options))
 }
-
-export async function getCookie(name: string,) {
-  return await Promise.resolve(cookies().get(name))
-}
