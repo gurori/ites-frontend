@@ -18,6 +18,7 @@ export default function Logout() {
             className="small bg-red-400 text-black-800 px-4"
             onClick={async () => {
               await deleteCookie("auth");
+              await deleteCookie("role");
               push("/");
             }}
           >

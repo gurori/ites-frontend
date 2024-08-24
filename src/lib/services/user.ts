@@ -5,6 +5,7 @@ import apiFetch from "../apiFetch";
 import type { IClient, IMember, IOrganizer, IUser } from "../types/IUser";
 import type { RoleEng } from "../types/Role";
 import type { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { getCookie } from "@/app/actions";
 
 export const getUserData = async () => {
   const token = await Promise.resolve(cookies().get("auth"));
@@ -87,6 +88,9 @@ export const getManyUsers = async (ids: string[]) => {
 };
 
 export const getRole = async (token: RequestCookie) => {
+  const roleCookie = await getCookie("role");
+  if(roleCookie)
+    return roleCookie.value;
   const role = await apiFetch("/api/user/role", {
     credentials: "include",
     headers: {
