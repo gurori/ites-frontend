@@ -90,7 +90,7 @@ export const getManyUsers = async (ids: string[]) => {
 export const getRole = async (token: RequestCookie) => {
   const roleCookie = await getCookie("role");
   if(roleCookie)
-    return roleCookie.value;
+    return roleCookie.value as RoleEng;
   const role = await apiFetch("/api/user/role", {
     credentials: "include",
     headers: {
