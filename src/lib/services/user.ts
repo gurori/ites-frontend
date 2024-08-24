@@ -1,5 +1,3 @@
-"use server"
-
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import apiFetch from "../apiFetch";
@@ -90,7 +88,7 @@ export const getManyUsers = async (ids: string[]) => {
 };
 
 export const getRole = async (token: RequestCookie) => {
-  const roleCookie = await getCookie("role");
+  const roleCookie = cookies().get("role");
   if(roleCookie)
     return roleCookie.value as RoleEng;
   const role = await apiFetch("/api/user/role", {
