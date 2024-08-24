@@ -4,26 +4,26 @@ import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import styles from "./Footer.module.css";
 import Image from "next/image";
-import { Phone } from "lucide-react";
+import { MailIcon, Phone } from "lucide-react";
 
 const Footer = () => {
-  const phoneNumber = "+79841162646";
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
-  const nodeRef = useRef(null);
-  const handleCopyText = (text: string): void => {
-    navigator.clipboard.writeText(text);
-    setIsMessageVisible(true);
-  };
+  // const phoneNumber = "+79841162646";
+  // const [isMessageVisible, setIsMessageVisible] = useState(false);
+  // const nodeRef = useRef(null);
+  // const handleCopyText = (text: string): void => {
+  //   navigator.clipboard.writeText(text);
+  //   setIsMessageVisible(true);
+  // };
 
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    if (isMessageVisible) {
-      timeoutId = setTimeout(() => {
-        setIsMessageVisible(false);
-      }, 400);
-    }
-    return () => clearTimeout(timeoutId);
-  }, [isMessageVisible]);
+  // useEffect(() => {
+  //   let timeoutId: NodeJS.Timeout;
+  //   if (isMessageVisible) {
+  //     timeoutId = setTimeout(() => {
+  //       setIsMessageVisible(false);
+  //     }, 400);
+  //   }
+  //   return () => clearTimeout(timeoutId);
+  // }, [isMessageVisible]);
 
   return (
     <footer className="relative">
@@ -33,7 +33,7 @@ const Footer = () => {
             <h3 className="pb-4">Остались еще вопросы?</h3>
             <p>Свяжитесь с нами в социальных сетях!</p>
           </div>
-          <div className="flex gap-7 items-center pt-16 pb-4">
+          {/* <div className="flex gap-7 items-center pt-16 pb-4">
             <button
               onClick={() => {
                 handleCopyText("@Gurori124");
@@ -84,10 +84,12 @@ const Footer = () => {
             >
               {() => <div ref={nodeRef}>Скопировано!</div>}
             </CSSTransition>
-          </div>
+          </div> */}
           <div className="flex gap-2 items-center text-black">
-            <Phone size={18} />
-            {phoneNumber}
+            {/* <Phone size={18} />
+            {phoneNumber} */}
+            <MailIcon />
+            itelectronicschool@gmail.com
           </div>
         </div>
         <Image

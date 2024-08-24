@@ -41,7 +41,7 @@ export function UserForCompetitionInfo({
         заявку на {application.forCompetition.title}
       </p>
       <JobTitle className="place-self-start" title={user.jobTitle || user.role} />
-      <div className="flex justify-between self-end">
+      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
         <Link
           href={`/profile/${user.role}/${user.id}`}
           className={s.toProfileLink}
@@ -93,7 +93,7 @@ export function UserForOrderInfo({
         заявку на {application.forOrder.title}
       </p>
       <JobTitle className="place-self-start" title={user.jobTitle || user.role} />
-      <div className="flex justify-between self-end">
+      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
         <Link
           href={`/profile/${user.role}/${user.id}`}
           className={s.toProfileLink}

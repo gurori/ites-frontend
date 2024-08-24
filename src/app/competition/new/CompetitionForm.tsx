@@ -43,9 +43,9 @@ export default function CompetitionForm({
         <BackButton onClick={() => back()} />
         <p className="text-white">Новый конкурс</p>
       </div>
-      <form className="pl-5" onSubmit={handleSubmit(onSubmit)}>
-        <div className="space-y-4 w-[560px] pt-20">
-          <label className="flex justify-between items-center">
+      <form className="pl-1 md:pl-5" onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid gap-4 md:w-[560px] pt-20">
+          <label className="space-y-2 md:flex md:justify-between md:items-center">
             <p className="text-zinc-400">Название:</p>
             <input
               className="rounded-gray"
@@ -59,12 +59,12 @@ export default function CompetitionForm({
             <textarea className="rounded-gray" {...register("description")} />
           </label>
           <FormError error={errors.description} />
-          <label className="flex justify-between items-center">
+          <label className="space-y-2 md:flex md:justify-between md:items-center">
             <p className="text-zinc-400">Дата проведения:</p>
             <DatePicker field={startDateField} />
           </label>
           <FormError error={errors.startDate} />
-          <label className="flex justify-between items-center">
+          <label className="space-y-2 md:flex md:justify-between md:items-center">
             <p className="text-zinc-400">Дата окончания:</p>
             <DatePicker
               field={endDateField}

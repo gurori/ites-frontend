@@ -1,8 +1,7 @@
 .order {
-  @apply p-10 md:h-[333px] md:px-16 md:py-12;
+  @apply p-10 md:h-[333px] md:px-16 md:py-12 rounded-3xl md:rounded-[52px];
 
   background: #efde68;
-  border-radius: 52px;
 }
 
 .title {

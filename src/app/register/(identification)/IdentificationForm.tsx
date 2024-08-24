@@ -62,7 +62,7 @@ export default function IdentificationForm({
         className="grid gap-12 justify-items-center"
       >
         <label className="text-white">Продолжить как...</label>
-        <div className="flex gap-8">
+        <div className="grid gap-4 md:flex md:gap-8">
           {roles.map((role) => (
             <SelectRole
               key={role}

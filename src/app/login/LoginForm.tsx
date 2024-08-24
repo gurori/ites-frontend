@@ -21,7 +21,7 @@ export default function LoginForm() {
       pushPath: "/profile",
       userInputError: "Неверные почта или пароль",
     });
-    const onSubmit = async (data: any) => {//hot fix
+    const onSubmit = async (data: any) => {
       handleFetch(data, async (data) => {
         const res = await apiFetch("/api/User/login", {
           body: JSON.stringify(data),

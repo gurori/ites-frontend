@@ -5,7 +5,7 @@ export default function NavBar() {
         <>
             <Link href="/">Главная</Link>
             <Link href="https://github.com/gurori/ites-frontend">Про сайт</Link>
-            <Link href="/about">О нас</Link>
+            {/* <Link href="/about">О нас</Link> */}
         </>
     )
 }

@@ -82,7 +82,7 @@ input[type="submit"] {
   }
   &.rounded-gray {
     @apply flex items-center text-white;
-    width: clamp(256px, 40%, 410px);
+    width: clamp(256px, 90%, 410px);
     height: 36px;
     padding: 0 24px;
 
@@ -121,7 +121,7 @@ textarea {
   }
   &.rounded-gray {
     @apply flex items-center text-slate-50;
-    width: clamp(256px, 40%, 410px);
+    width: clamp(256px, 90%, 410px);
     height: 128px;
     padding: 8px 24px;
 
@@ -161,7 +161,7 @@ select {
   }
   &.rounded-gray {
     @apply flex items-center text-white;
-    width: clamp(256px, 40%, 410px);
+    width: clamp(256px, 90%, 410px);
     height: 36px;
     padding: 0 24px;
 

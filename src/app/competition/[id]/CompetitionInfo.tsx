@@ -15,7 +15,7 @@ export default async function CompetitionInfo({
   const end = dateFormat(competition.endDate);
   const { push } = useRouter();
   const addApplication = async () => {
-    const res = await apiFetch(
+    await apiFetch(
       `/api/Competitions/application/${competition.id}`,
       {
         method: "PUT",

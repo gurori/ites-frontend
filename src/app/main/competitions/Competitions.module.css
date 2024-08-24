@@ -1,14 +1,13 @@
 .competition {
-  @apply p-10 md:h-[333px] md:px-16 md:py-12;
+  @apply p-10 md:h-[333px] md:px-16 md:py-12 rounded-3xl md:rounded-[52px];
 
   background: #665be3;
-  border-radius: 52px;
 }
 
 .title {
   font-style: normal;
   font-weight: 800;
-  font-size: 60px;
+  font-size: 40px;
   line-height: 85px;
 
   color: #fff;

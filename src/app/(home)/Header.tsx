@@ -44,9 +44,9 @@ export default function Header() {
               <MenubarItem>
                 <Link className="w-full" href="https://github.com/gurori/ites-frontend">Про сайт</Link>
               </MenubarItem>
-              <MenubarItem>
+              {/* <MenubarItem>
                 <Link className="w-full" href="/about">О нас</Link>
-              </MenubarItem>
+              </MenubarItem> */}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
