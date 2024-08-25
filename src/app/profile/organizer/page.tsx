@@ -30,13 +30,13 @@ export default async function OrganizerProfilePage() {
       <div className="container lg:pl-8">
       <ProfileSidePanel user={user} />
         <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
-          <BlackButton href="/competition/new" className="border-purple">
+          <BlackButton href="/main/competitions">
             <p className="text-white text-xl">
-              <b>Создать конкурс</b>
+              <b>Главная</b>
             </p>
           </BlackButton>
-          <BlackButton href="/main/competitions">
-            <p className="text-white text-2xl">Главная</p>
+          <BlackButton href="/competition/new" className="border-purple">
+            <p className="text-white text-2xl">Создать конкурс</p>
           </BlackButton>
         </div>
         <Tabs tabs={tabs} />

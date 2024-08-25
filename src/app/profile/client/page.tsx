@@ -34,13 +34,13 @@ export default async function ClientProfilePage() {
       <div className="container mt-5 lg:pl-8">
           <ProfileSidePanel user={user} />
         <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
-          <BlackButton href="/order/new" className="border-purple">
+          <BlackButton href="/order/new">
             <p className="text-white text-xl">
-              <b>Создать заказ</b>
+              <b>Главная</b>
             </p>
           </BlackButton>
-          <BlackButton href="/main/competitions">
-            <p className="text-white text-2xl">Главная</p>
+          <BlackButton href="/main/competitions" className="border-purple">
+            <p className="text-white text-2xl">Создать заказ</p>
           </BlackButton>
         </div>
         <Tabs tabs={tabs} />

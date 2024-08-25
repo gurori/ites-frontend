@@ -43,10 +43,10 @@ export default async function MemberProfilePage() {
       <ProfileSidePanel user={user} />
         <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
           <BlackButton href="/main/competitions">
-            <p className="text-white text-2xl">Главная</p>
+            <p className="text-white text-2xl"><b>Главная</b></p>
           </BlackButton>
-          <BlackButton href="/main/competitions">
-            <p className="text-white text-2xl">Главная</p>
+          <BlackButton href={`/team/${user.teamId || "new"}`} className="border-purple">
+            <p className="text-white text-2xl">Команда</p>
           </BlackButton>
         </div>
         <Tabs tabs={tabs} />
