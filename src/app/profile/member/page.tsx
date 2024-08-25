@@ -45,6 +45,9 @@ export default async function MemberProfilePage() {
           <BlackButton href="/main/competitions">
             <p className="text-white text-2xl">Главная</p>
           </BlackButton>
+          <BlackButton href="/main/competitions">
+            <p className="text-white text-2xl">Главная</p>
+          </BlackButton>
         </div>
         <Tabs tabs={tabs} />
       </div>
