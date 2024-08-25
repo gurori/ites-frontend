@@ -30,7 +30,7 @@ export function UserForCompetitionInfo({
     <div className={s.userInfoCard}>
       <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_DOMAIN}/api/files/users/${user.id}/avatar.jpg`}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
           className={s.imgShadow}
           fill
           alt="avatar"
@@ -82,7 +82,7 @@ export function UserForOrderInfo({
     <div className={s.userInfoCard}>
       <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_DOMAIN}/api/files/users/${user.id}/avatar.jpg`}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
           className={s.imgShadow}
           fill
           alt="avatar"

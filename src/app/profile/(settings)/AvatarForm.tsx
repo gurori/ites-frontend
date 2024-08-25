@@ -76,7 +76,7 @@ export default function AvatarForm({
         <Image
           width={200}
           height={200}
-          src={imageUrl || `${process.env.NEXT_PUBLIC_API_DOMAIN}/api/Files/users/${userId}/avatar.jpg`}
+          src={imageUrl || `${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${userId}/avatar.jpg`}
           alt="avatar"
           className="rounded-full size-[200px]"
         />
