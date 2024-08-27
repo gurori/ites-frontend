@@ -7,7 +7,7 @@ import type { OrderProp } from "@/lib/types/IOrder";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default async function OrderInfo({
+export default function OrderInfo({
     order,
   token,
 }: Readonly<OrderProp & { token: string }>) {

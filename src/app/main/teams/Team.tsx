@@ -9,7 +9,7 @@ export default function Team({ team }: Readonly<TeamProp>) {
     <div className={cn(styles.team, "grid gap-8 md:flex md:gap-32 justify-between")}>
       <div className="grid content-between">
         <p className={styles.title}>{team.name}</p>
-        <p><b>Команда "{team.name}" ищет будущих участников</b></p>
+        <p><b>Команда &quot;{team.name}&quot; ищет будущих участников</b></p>
         <p className="line-clamp-4 md:line-clamp-3">{team.description}</p>
         <div className={styles.bold}>
           <p>Всего участников: {team.membersIds?.length}</p>

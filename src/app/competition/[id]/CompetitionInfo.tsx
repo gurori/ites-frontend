@@ -7,7 +7,7 @@ import type { CompetitionProp } from "@/lib/types/ICompetition";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default async function CompetitionInfo({
+export default function CompetitionInfo({
   competition,
   token,
 }: Readonly<CompetitionProp & { token: string }>) {
