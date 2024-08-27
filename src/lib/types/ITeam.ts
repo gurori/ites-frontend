@@ -5,6 +5,7 @@ export interface ITeam {
     name: string;
     description: string;
     members: IUser[]
+    membersIds?: string[];
     adminId: string;
 }
 

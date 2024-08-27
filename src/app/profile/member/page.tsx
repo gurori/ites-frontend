@@ -12,12 +12,20 @@ import { getMember } from "@/lib/services/user";
 import BlackButton from "../(ui)/BlackButton";
 import CompetitionsTab from "../(tabs)/(contents)/CompetitionsTab";
 import OrdersTab from "../(tabs)/(contents)/OrdersTab";
+import { Url } from "next/dist/shared/lib/router/router";
+import TeamsApplicationTab from "../(tabs)/(contents)/TeamsApplicationTab";
 
 export const revalidate = 10;
 
 export default async function MemberProfilePage() {
   const user: IMember = await getMember();
   if (user.role !== "member") redirect(`/profile/${user.role}`);
+  const teamUrl: Url = {
+    pathname: `/team/${user.teamId || "new"}`,
+    query: user.teamId ? {
+      mode: "member"
+    } : null
+  }
   const tabs: ITab[] = [
     {
       name: "Конкурсы",
@@ -34,7 +42,14 @@ export default async function MemberProfilePage() {
           index={2}
           competitions={user.applicationsForCompetitions}
           orders={user.applicationsForOrders}
+          teams={user.ApplicationsForTeams}
         />
+      ),
+    },
+    {
+      name: "Команда",
+      content: (
+        <TeamsApplicationTab applications={user.applications} index={3} />
       ),
     },
   ];
@@ -45,7 +60,7 @@ export default async function MemberProfilePage() {
           <BlackButton href="/main/competitions">
             <p className="text-white text-2xl"><b>Главная</b></p>
           </BlackButton>
-          <BlackButton href={`/team/${user.teamId || "new"}`} className="border-purple">
+          <BlackButton href={teamUrl} className="border-purple">
             <p className="text-white text-2xl">Команда</p>
           </BlackButton>
         </div>

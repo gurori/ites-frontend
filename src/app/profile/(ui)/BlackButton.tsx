@@ -3,12 +3,13 @@ import styles from "./UI.module.css";
 import type { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Url } from "next/dist/shared/lib/router/router";
 
 export default function BlackButton({
   children,
   href,
   className,
-}: Readonly<{ href: string; children: ReactNode; className?: string }>) {
+}: Readonly<{ href: Url; children: ReactNode; className?: string }>) {
   return (
     <Link href={href} className={styles.balckButton}>
       <div className={cn(styles.border, "border-2 border-solid border-white", className)}>

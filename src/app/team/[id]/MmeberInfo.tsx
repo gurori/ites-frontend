@@ -1,6 +1,7 @@
 import type { UserProp } from "@/lib/types/IUser";
 import Image from "next/image";
 import JobTitle from "@/components/ui/JobTitle";
+import Link from "next/link";
 
 export default function MemberInfo({ user }: Readonly<UserProp>) {
   return (
@@ -13,7 +14,7 @@ export default function MemberInfo({ user }: Readonly<UserProp>) {
           src={`${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${user.id}/avatar.jpg`}
         />
       </div>
-      <p className="text-white text-xl">{user.firstName}</p>
+      <Link href={`/profile/${user.role}/${user.id}`} className="text-white text-2xl">{user.firstName}</Link>
       <JobTitle title={user.jobTitle || user.role} />
     </div>
   );

@@ -1,4 +1,4 @@
-import type { ICompetitionApplication, IOrderApplication } from "./IApplication";
+import type { ICompetitionApplication, IOrderApplication, ITeamApplication } from "./IApplication";
 import type { ICompetition } from "./ICompetition";
 import type { IOrder } from "./IOrder";
 import type { ITeam } from "./ITeam";
@@ -23,6 +23,7 @@ export interface IMember extends IUser {
     applicationsForOrders: IOrder[]
     ApplicationsForTeams: ITeam[]
     teamId?: string
+    applications: ITeamApplication[]
 }
 
 export interface IOrganizer extends IUser {

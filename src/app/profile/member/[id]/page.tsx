@@ -10,6 +10,9 @@ import Favorites from "../../(tabs)/(contents)/Favorites";
 import Achievements from "../../(tabs)/(contents)/Achievements";
 import Tabs from "../../(tabs)/Tabs";
 import CompetitionsTab from "../../(tabs)/(contents)/CompetitionsTab";
+import BlackButton from "../../(ui)/BlackButton";
+import { Url } from "next/dist/shared/lib/router/router";
+import OrdersTab from "../../(tabs)/(contents)/OrdersTab";
 
 export const revalidate = 10;
 
@@ -20,20 +23,42 @@ export default async function MemberProfilePage({
   }) {
   const user: IMember = await getMember(params.id);
   if (user.role !== "member") redirect(`/profile/${user.role}`);
+  const teamUrl: Url = {
+    pathname: `/team/${user.teamId || "new"}`,
+    query: user.teamId ? {
+      mode: "invite"
+    } : null
+  }
   const tabs: ITab[] = [
-    { name: "Мои работы", content: <MyWorks index={0} /> },
-    { name: "Конкурсы", content: <CompetitionsTab index={1} competitions={user.competitions} /> },
-    { name: "Выполненное", content: <Completed index={2} /> },
-    { name: "Достижения", content: <Achievements index={3} /> },
+    {
+      name: "Конкурсы",
+      content: <CompetitionsTab index={0} competitions={user.competitions} />,
+    },
+    {
+      name: "Заказы",
+      content: <OrdersTab index={1} orders={user.orders} />,
+    },
+    {
+      name: "Заявки",
+      content: (
+        <ApplicationsTab
+          index={2}
+          competitions={user.applicationsForCompetitions}
+          orders={user.applicationsForOrders}
+          teams={user.ApplicationsForTeams}
+        />
+      ),
+    },
   ];
   return (
-    <>
-      <ProfileSidePanel user={user} onlyInfo />
       <div className="container mt-5">
-        <div className="flex gap-6 py-8">
+      <ProfileSidePanel user={user} onlyInfo />
+      <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
+          <BlackButton href={teamUrl} className="border-purple">
+            <p className="text-white text-2xl">Команда</p>
+          </BlackButton>
         </div>
         <Tabs tabs={tabs} />
       </div>
-    </>
   );
 }

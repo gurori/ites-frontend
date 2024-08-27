@@ -31,7 +31,7 @@ const Footer = () => {
         <div className="container relative z-10">
           <div className="text-white">
             <h3 className="pb-4">Остались еще вопросы?</h3>
-            <p>Свяжитесь с нами в социальных сетях!</p>
+            <p className="pt-8">Свяжитесь с нами!</p>
           </div>
           {/* <div className="flex gap-7 items-center pt-16 pb-4">
             <button
@@ -85,10 +85,10 @@ const Footer = () => {
               {() => <div ref={nodeRef}>Скопировано!</div>}
             </CSSTransition>
           </div> */}
-          <div className="flex gap-2 items-center text-black">
+          <div className="flex gap-2 items-center text-black pt-4">
             {/* <Phone size={18} />
             {phoneNumber} */}
-            <MailIcon />
+            <MailIcon size={20} />
             itelectronicschool@gmail.com
           </div>
         </div>

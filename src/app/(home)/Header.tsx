@@ -1,5 +1,3 @@
-"use client";
-
 import { AlignJustify } from "lucide-react";
 import Link from "next/link";
 import NavBar from "./NavBar";
@@ -15,19 +13,15 @@ import {
 export default function Header() {
   return (
     <header className="flex items-center md:gap-6 lg:gap-8 relative lg:ml-4 mr-4">
+        <Link href="/">
         <Image
           src="/logos/ites-purple-small.svg"
           alt="logo"
           className="-mb-4 cursor-pointer"
           height={104}
           width={178}
-          onClick={() => window.location.reload()}
         />
-      <select className="hidden md:block" name="" id="">
-        <option value="">РУС</option>
-        <option value="">ENG</option>
-        <option value="">САХ</option>
-      </select>
+        </Link>
       <div className="flex items-center ml-auto gap-4 md:gap-16">
         <nav className="md:flex gap-10 lg:gap-16 hidden">
           <NavBar />

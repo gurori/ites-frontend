@@ -9,7 +9,7 @@ export default async function TeamInfoPage({
 }: {
   params: { id: string };
 }) {
-    const token = await getToken();
+    const token = await getToken("auth", false);
   const team: ITeam = await apiFetch(`/api/teams/${params.id}`).then(
     async (r) => {
       if (r.status === 404) return notFound();
