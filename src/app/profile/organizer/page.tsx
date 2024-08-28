@@ -31,7 +31,7 @@ export default async function OrganizerProfilePage() {
       <ProfileSidePanel user={user} />
         <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
           <BlackButton href="/main/competitions">
-            <p className="text-white text-xl">
+            <p className="text-white text-2xl">
               <b>Главная</b>
             </p>
           </BlackButton>

@@ -17,7 +17,7 @@ export default function InfoCard({
   }[type];
   return (
     <div className={styles.card}>
-      <div className={cn("h-1/3 rounded-t-[28px]", color)}></div>
+      <div className={cn("h-64 rounded-t-[28px]", color)}></div>
       <div className="px-2 md:px-14 py-8 h-2/3">
         <h6>{title}</h6>
         {children}

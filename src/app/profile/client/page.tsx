@@ -4,14 +4,10 @@ import type { ITab } from "@/lib/types/ITab";
 import type { IClient } from "@/lib/types/IUser";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
-import Completed from "../(tabs)/(contents)/Completed";
-import Applications from "../(tabs)/(contents)/ApplicationsTab";
 import Favorites from "../(tabs)/(contents)/Favorites";
 import BlackButton from "../(ui)/BlackButton";
 import OrdersTab from "../(tabs)/(contents)/OrdersTab";
 import OrdersApplicationsTab from "../(tabs)/(contents)/OrdersApplicationsTab";
-import { AlignJustifyIcon } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default async function ClientProfilePage() {
   const user: IClient = await getClient();
@@ -34,12 +30,12 @@ export default async function ClientProfilePage() {
       <div className="container mt-5 lg:pl-8">
           <ProfileSidePanel user={user} />
         <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
-          <BlackButton href="/order/new">
-            <p className="text-white text-xl">
+          <BlackButton href="/main/competitions">
+            <p className="text-white text-2xl">
               <b>Главная</b>
             </p>
           </BlackButton>
-          <BlackButton href="/main/competitions" className="border-purple">
+          <BlackButton href="/order/new" className="border-purple">
             <p className="text-white text-2xl">Создать заказ</p>
           </BlackButton>
         </div>
