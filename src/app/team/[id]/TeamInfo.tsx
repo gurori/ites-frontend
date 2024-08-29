@@ -45,7 +45,7 @@ export default function TeamInfo({
   return (
     <div className={s.card}>
       <h4 className={s.name}>{team.name}</h4>
-      <div className="flex justify-between">
+      <div className="grid gap-2 lg:flex lg:justify-between">
         <p className={s.gray}>Всего участников: {team.members.length}</p>
         <p className={s.gray}>Админ: {admin?.firstName}</p>
       </div>

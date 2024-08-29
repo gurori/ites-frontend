@@ -10,7 +10,7 @@
 }
 
 .name {
-  @apply absolute top-0 left-0 -translate-x-1/3 -translate-y-1/2;
+  @apply lg:absolute lg:top-0 lg:left-0 lg:-translate-x-1/3 lg:-translate-y-1/2;
   font-style: normal;
   font-weight: 700;
   font-size: 47px;
