@@ -54,7 +54,7 @@ export default function CompetitionForm({
             />
           </label>
           <FormError error={errors.title} />
-          <label className="flex justify-between">
+          <label className="space-y-2 md:flex md:justify-between md:items-center">
             <p className="text-zinc-400">Описание:</p>
             <textarea className="rounded-gray" {...register("description")} />
           </label>
