@@ -19,11 +19,11 @@ export default function HomePage() {
         <div className="flex-1 py-16">
           <TextCard
             title="ПРИВЕТСТВУЕМ ВАС!"
-            description="У нас собраны все самые необходимые функции для развития сообщества МПИТ."
+            description="У нас собраны все самые необходимые функции для развития в IT-сообществе."
           >
             <h1>
               Платформа для
-              <div className="text-purple">проведения конкурсов МПИТ</div>
+              <div className="text-purple">самореализации в IT-сфере</div>
             </h1>
           </TextCard>
           <Link href="/login">
