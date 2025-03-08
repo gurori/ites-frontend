@@ -13,22 +13,27 @@ import CompetitionsTab from "../../(tabs)/(contents)/CompetitionsTab";
 import BlackButton from "../../(ui)/BlackButton";
 import { Url } from "next/dist/shared/lib/router/router";
 import OrdersTab from "../../(tabs)/(contents)/OrdersTab";
+import Image from "next/image";
+import Link from "next/link";
+import JobTitle from "@/components/ui/JobTitle";
 
 export const revalidate = 10;
 
 export default async function MemberProfilePage({
-    params,
-  }: {
-    params: { id: string };
-  }) {
+  params,
+}: {
+  params: { id: string };
+}) {
   const user: IMember = await getMember(params.id);
   if (user.role !== "member") redirect(`/profile/${user.role}`);
   const teamUrl: Url = {
     pathname: `/team/${user.teamId || "new"}`,
-    query: user.teamId ? {
-      mode: "invite"
-    } : null
-  }
+    query: user.teamId
+      ? {
+          mode: "invite",
+        }
+      : null,
+  };
   const tabs: ITab[] = [
     {
       name: "Конкурсы",
@@ -51,14 +56,29 @@ export default async function MemberProfilePage({
     },
   ];
   return (
-      <div className="container mt-5">
-      <ProfileSidePanel user={user} onlyInfo />
-      <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
-          <BlackButton href={teamUrl} className="border-purple">
-            <p className="text-white text-2xl">Команда</p>
-          </BlackButton>
+    <div className="container mt-5">
+      <div className="md:flex gap-8 my-8 grid ">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${user.id}/avatar.jpg`}
+          alt="avatar"
+          width={160}
+          height={160}
+          className="rounded-full size-[160px]"
+        />
+        <div className="grid gap-2 place-items-start items-center justify-between">
+          <JobTitle title={user.jobTitle || user.role} />
+          <p className="flex items-center text-white gap-4 text-2xl">
+            {`${user.lastName} ${user.firstName} ${user.middleName}`}
+          </p>
+          <p className="text-[#a7a7a7]">{user.description}</p>
         </div>
-        <Tabs tabs={tabs} />
       </div>
+      <div className="flex gap-6 pb-8">
+        <BlackButton href={teamUrl} className="border-purple">
+          <p className="text-white text-2xl">Команда</p>
+        </BlackButton>
+      </div>
+      <Tabs tabs={tabs} />
+    </div>
   );
 }

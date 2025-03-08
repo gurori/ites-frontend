@@ -22,24 +22,29 @@ export default async function OrganizerProfilePage() {
     },
     {
       name: "Заявки",
-      content: <CompetitionsApplicationsTab index={1} applications={user.applications} />,
+      content: (
+        <CompetitionsApplicationsTab
+          index={1}
+          applications={user.applications}
+        />
+      ),
     },
     { name: "Избранное", content: <Favorites index={2} /> },
   ];
   return (
-      <div className="container lg:pl-8">
+    <div className="container lg:pl-8">
       <ProfileSidePanel user={user} />
-        <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
-          <BlackButton href="/main/competitions">
-            <p className="text-white text-2xl">
-              <b>Главная</b>
-            </p>
-          </BlackButton>
-          <BlackButton href="/competition/new" className="border-purple">
-            <p className="text-white text-2xl">Создать конкурс</p>
-          </BlackButton>
-        </div>
-        <Tabs tabs={tabs} />
+      <div className="grid md:flex gap-6 py-8">
+        <BlackButton href="/main/competitions">
+          <p className="text-white text-2xl">
+            <b>Главная</b>
+          </p>
+        </BlackButton>
+        <BlackButton href="/competition/new" className="border-purple">
+          <p className="text-white text-2xl">Создать конкурс</p>
+        </BlackButton>
       </div>
+      <Tabs tabs={tabs} />
+    </div>
   );
 }

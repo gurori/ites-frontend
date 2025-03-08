@@ -12,7 +12,7 @@ import { getMember } from "@/lib/services/user";
 import BlackButton from "../(ui)/BlackButton";
 import CompetitionsTab from "../(tabs)/(contents)/CompetitionsTab";
 import OrdersTab from "../(tabs)/(contents)/OrdersTab";
-import { Url } from "next/dist/shared/lib/router/router";
+import { type Url } from "next/dist/shared/lib/router/router";
 import TeamsApplicationTab from "../(tabs)/(contents)/TeamsApplicationTab";
 
 export const revalidate = 10;
@@ -22,10 +22,12 @@ export default async function MemberProfilePage() {
   if (user.role !== "member") redirect(`/profile/${user.role}`);
   const teamUrl: Url = {
     pathname: `/team/${user.teamId || "new"}`,
-    query: user.teamId ? {
-      mode: "member"
-    } : null
-  }
+    query: user.teamId
+      ? {
+          mode: "member",
+        }
+      : null,
+  };
   const tabs: ITab[] = [
     {
       name: "Конкурсы",
@@ -54,17 +56,19 @@ export default async function MemberProfilePage() {
     },
   ];
   return (
-      <div className="container mt-5 lg:pl-8">
+    <div className="container mt-5 lg:pl-8">
       <ProfileSidePanel user={user} />
-        <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
-          <BlackButton href="/main/competitions">
-            <p className="text-white text-2xl"><b>Главная</b></p>
-          </BlackButton>
-          <BlackButton href={teamUrl} className="border-purple">
-            <p className="text-white text-2xl">Команда</p>
-          </BlackButton>
-        </div>
-        <Tabs tabs={tabs} />
+      <div className="grid md:flex gap-6 py-8">
+        <BlackButton href="/main/competitions">
+          <p className="text-white text-2xl">
+            <b>Главная</b>
+          </p>
+        </BlackButton>
+        <BlackButton href={teamUrl} className="border-purple">
+          <p className="text-white text-2xl">Команда</p>
+        </BlackButton>
       </div>
+      <Tabs tabs={tabs} />
+    </div>
   );
 }

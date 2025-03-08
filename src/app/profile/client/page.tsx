@@ -28,8 +28,8 @@ export default async function ClientProfilePage() {
   return (
     <>
       <div className="container mt-5 lg:pl-8">
-          <ProfileSidePanel user={user} />
-        <div className="flex gap-6 py-8 overflow-x-scroll scrollbar-none pl-4">
+        <ProfileSidePanel user={user} />
+        <div className="grid md:flex gap-6 py-8">
           <BlackButton href="/main/competitions">
             <p className="text-white text-2xl">
               <b>Главная</b>
