@@ -64,7 +64,8 @@ export default function ProfileSidePanel({
             <>
               <hr className="my-8" />
               <div className="grid gap-10 pb-10 text-[#FAFAFA] justify-items-start">
-                <Link href={hrefParams}>Настроить профиль</Link>
+                <Link href={hrefParams}>Редактировать профиль</Link>
+                <Link href="/settings">Настройки</Link>
                 <Link href="/logout">Выйти</Link>
               </div>
             </>
