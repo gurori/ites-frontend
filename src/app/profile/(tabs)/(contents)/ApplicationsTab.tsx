@@ -10,15 +10,21 @@ export default function ApplicationsTab({
   orders,
   teams,
   index,
-}: Readonly<Partial<CompetitionsProp & OrdersProp & TeamsProp> & { index: number }>) {
+}: Readonly<
+  Partial<CompetitionsProp & OrdersProp & TeamsProp> & { index: number }
+>) {
   const anyCompetition = competitions && competitions.length > 0;
   const anyOrder = orders && orders.length > 0;
   const anyTeam = teams && teams.length > 0;
+  console.log(teams, anyTeam);
+
   return (
     <>
       {anyCompetition || anyOrder ? (
         <>
-          <p className={styles.title}>Отправлено заявок на конкурсы: {competitions?.length}</p>
+          <p className={styles.title}>
+            Отправлено заявок на конкурсы: {competitions?.length}
+          </p>
           {anyCompetition && (
             <div className="flex flex-wrap gap-8">
               {competitions.map((c) => (
@@ -31,7 +37,9 @@ export default function ApplicationsTab({
               ))}
             </div>
           )}
-          <p className={styles.title}>Всего ожидается заказов: {orders?.length}</p>
+          <p className={styles.title}>
+            Всего ожидается заказов: {orders?.length}
+          </p>
           {anyOrder && (
             <div className="flex flex-wrap gap-8">
               {orders.map((o) => (
@@ -44,7 +52,9 @@ export default function ApplicationsTab({
               ))}
             </div>
           )}
-          <p className={styles.title}>Отправлено заявок в команды: {teams?.length}</p>
+          <p className={styles.title}>
+            Отправлено заявок в команды: {teams?.length}
+          </p>
           {anyTeam && (
             <div className="flex flex-wrap gap-8">
               {teams.map((t) => (

@@ -32,7 +32,7 @@ export default async function OrganizerProfilePage() {
     { name: "Избранное", content: <Favorites index={2} /> },
   ];
   return (
-    <div className="container lg:pl-8">
+    <div className="container mt-5 lg:pl-8">
       <ProfileSidePanel user={user} />
       <div className="grid md:flex gap-6 py-8">
         <BlackButton href="/main/competitions">

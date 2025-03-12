@@ -13,11 +13,14 @@ import apiFetch from "@/lib/apiFetch";
 import FormError from "@/components/ui/FormError";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import SecretKeyForm from "./SecretKeyForm";
 
 export default function IdentificationForm({
   formData,
 }: Readonly<{ formData: any }>) {
   const [activeRole, setActiveRole] = useState<Role | null>(null);
+  const [isOrganizer, setIsOrganizer] = useState(false);
+  const [userData, setUserData] = useState<any>(null)
   const { push } = useRouter();
 
   const identificationSchema = z.object({ role: roleSchema });
@@ -31,7 +34,12 @@ export default function IdentificationForm({
     name: "role",
     defaultValue: "Member",
   });
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: any) => {    
+    if (data.role == "organizer") {
+      setUserData({ ...data, ...formData })
+      setIsOrganizer(true)
+    }
+    else
     handleFetch(
       data,
       async (data) =>
@@ -55,7 +63,7 @@ export default function IdentificationForm({
       push("/login");
     }
   }, [formSuccess, formError]);
-  return (
+  return !isOrganizer ? (
     <div className="bg-black-800 h-screen center">
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -79,5 +87,5 @@ export default function IdentificationForm({
         <FormError error={errors.role} />
       </form>
     </div>
-  );
+  ) : (<SecretKeyForm formData={userData} handleFetch={handleFetch} />);
 }

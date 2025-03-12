@@ -31,10 +31,7 @@ export const mdTextSchema = textSchema.max(
   "Введите не более 300 символов"
 );
 
-export const smTextSchema = textSchema.max(
-  50,
-  "Введите не более 50 символов"
-);
+export const smTextSchema = textSchema.max(64, "Введите не более 64 символов");
 
 export const lgTextSchema = textSchema.max(
   1000,
@@ -70,9 +67,8 @@ export const roleSchema = z.string({ message: "Необходимо выбрат
 
 export const dateSchema = z.date({ required_error: "Выберите дату" });
 
-export const priceSchema = z
-  .coerce
-  .number({required_error: "Введите число"})
+export const priceSchema = z.coerce
+  .number({ required_error: "Введите число" })
   .min(50, "Введите не менее 50₽")
   .max(10000000, "Введите не более 10,000,000₽")
   .step(0.01, "Максимум 2 десятичных знака");

@@ -44,7 +44,7 @@ export default async function MemberProfilePage() {
           index={2}
           competitions={user.applicationsForCompetitions}
           orders={user.applicationsForOrders}
-          teams={user.ApplicationsForTeams}
+          teams={user.applicationsForTeams}
         />
       ),
     },
