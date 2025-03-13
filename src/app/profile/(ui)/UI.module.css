@@ -20,3 +20,13 @@
   box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
+
+.PurpleButton {
+width: clamp(280px, 50vw, 506px);
+height: 93px;
+
+background: #665BE3;
+box-shadow: inset 2px 2px 14px rgba(0, 0, 0, 0.25);
+border-radius: 22px;
+
+}

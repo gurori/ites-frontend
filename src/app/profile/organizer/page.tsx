@@ -8,6 +8,8 @@ import Favorites from "../(tabs)/(contents)/Favorites";
 import BlackButton from "../(ui)/BlackButton";
 import CompetitionsTab from "../(tabs)/(contents)/CompetitionsTab";
 import CompetitionsApplicationsTab from "../(tabs)/(contents)/CompetitionsApplicationsTab";
+import PurpleButton from "../(ui)/PurpleButton";
+import Link from "next/link";
 
 export const revalidate = 10;
 
@@ -43,6 +45,11 @@ export default async function OrganizerProfilePage() {
         <BlackButton href="/competition/new" className="border-purple">
           <p className="text-white text-2xl">Создать конкурс</p>
         </BlackButton>
+        <Link href={"/moderate"}>
+        <PurpleButton>
+          <b><p className="text-white text-2xl">Модерация</p></b>
+        </PurpleButton>
+        </Link>
       </div>
       <Tabs tabs={tabs} />
     </div>

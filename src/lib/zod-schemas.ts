@@ -34,8 +34,8 @@ export const mdTextSchema = textSchema.max(
 export const smTextSchema = textSchema.max(64, "Введите не более 64 символов");
 
 export const lgTextSchema = textSchema.max(
-  1000,
-  "Введите не более 1000 символов"
+  2048,
+  "Введите не более 2048 символов"
 );
 
 export const filesSchema = z
