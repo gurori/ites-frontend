@@ -102,7 +102,7 @@ export default function useImageCropper(
     ctx.restore();
   };
 
-  const handleCropChange = (crop: PixelCrop, percentageCrop: PercentCrop) => 
+  const handleCropChange = (crop: PixelCrop, percentageCrop: PercentCrop) =>
     setCrop(percentageCrop);
 
   const handleCrop = () => {
