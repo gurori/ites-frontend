@@ -1,17 +1,18 @@
 export interface ICompetition {
-    id: string;
-    title: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    membersIds: string[];
-    organizersIds: string[];
+  id: string;
+  contentInHtml: string;
+  // title: string;
+  // description: string;
+  // startDate: string;
+  // endDate: string;
+  membersIds: string[];
+  organizersIds: string[];
 }
 
 export type CompetitionProp = {
-    competition: ICompetition
-}
+  competition: ICompetition;
+};
 
 export type CompetitionsProp = {
-    competitions: ICompetition[]
-}
+  competitions: ICompetition[];
+};

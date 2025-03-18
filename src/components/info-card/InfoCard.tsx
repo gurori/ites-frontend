@@ -10,7 +10,7 @@ export default function InfoCard({
   type: "competition" | "order" | "news" | "task";
 }>) {
   const { color, title } = {
-    competition: { title: "О задании", color: "bg-purple" },
+    competition: { title: "", color: "bg-purple" },
     order: { title: "О заказе", color: "bg-yellow" },
     news: { title: "Новость", color: "bg-gray-450" },
     task: { title: "О задании", color: "bg-gray-600" },

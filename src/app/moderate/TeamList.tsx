@@ -44,14 +44,14 @@ export default async function TeamList({
         <button
           className={s.red}
           style={{ boxShadow: "none" }}
-          onClick={async () => await handleDelete(t.id)}
+          onClick={() =>  handleDelete(t.id)}
         >
           Удалить
         </button>
         <button
           className={s.green}
           style={{ boxShadow: "none" }}
-          onClick={async () => await handleAccept(t.id)}
+          onClick={() =>  handleAccept(t.id)}
         >
           Опубликовать
         </button>

@@ -63,6 +63,8 @@ export const useFormHandler = ({
             : { Authorization: auth, "Content-Type": "application/json" },
           body: isFile ? formData : JSON.stringify(data),
         });
+        console.log(response);
+        
         return response;
       });
   };
@@ -73,6 +75,8 @@ export const useFormHandler = ({
   ) => {
     try {
       const response = await getResponse(data);
+      console.log(response);
+      
       if (response.status === 401) push("/login");
       else if (response.ok) {
         setFormStates(null, true); //HERE

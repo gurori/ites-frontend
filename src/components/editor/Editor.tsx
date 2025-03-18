@@ -3,7 +3,6 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import * as IamgeExtension from "@tiptap/extension-image";
-import s from "@/components/info-card/InfoCard.module.css";
 import { cn } from "@/lib/utils";
 import {
   BoldIcon,
@@ -18,11 +17,21 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState, type ChangeEvent } from "react";
+import type { ControllerRenderProps, UseFormHandleSubmit } from "react-hook-form";
 
 export default function Editor({
-  handleSubmit,
-}: Readonly<{ handleSubmit: () => Promise<void> }>) {
-  const editor = useEditor({ extensions: [StarterKit, IamgeExtension.Image] });
+  field,handleSubmit,onSubmit
+}: Readonly<{ field: ControllerRenderProps<{
+    [x: string]: any;
+}, "contentInHtml">, handleSubmit: UseFormHandleSubmit<{
+    [x: string]: any;
+}, undefined>, onSubmit: (data: any) => void }>) {
+  const editor = useEditor({
+    extensions: [StarterKit, IamgeExtension.Image],
+    content: `<h1>Заголовок</h1>
+      <hr /><br />
+      <p>Начните редактировать...</p>`, immediatelyRender: false
+  });
   const [isOpen, setIsOpen] = useState(false);
 
   if (!editor) return null;
@@ -213,12 +222,15 @@ export default function Editor({
       <hr className="my-6" />
       <EditorContent editor={editor} />
       {/* <div dangerouslySetInnerHTML={{ __html: editor.getHTML() }}></div> */}
-      <button
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <button
+        type="submit"
         className="bg-purple text-white rounded-3xl py-2 mt-10 px-6 gap-4 flex items-center"
-        onClick={handleSubmit}
+        onClick={() => field.onChange(editor.getHTML())}
       >
         Опубликовать <SendHorizonalIcon size={18} />
       </button>
+      </form>
     </>
   );
 }

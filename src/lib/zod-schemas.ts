@@ -38,6 +38,11 @@ export const lgTextSchema = textSchema.max(
   "Введите не более 2048 символов"
 );
 
+export const xlTextSchema = textSchema.max(
+  10_000_000,
+  "Введите не более 10 000 000 символов"
+);
+
 export const filesSchema = z
   .any()
   .refine(

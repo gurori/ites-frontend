@@ -14,7 +14,7 @@ h6 {
 
 h1 {
   font-weight: 800;
-  font-size: clamp(50px, 5vw, 70px);
+  font-size: clamp(48px, 5vw, 70px);
   line-height: clamp(54px, 5vw, 85px);
 }
 h2 {

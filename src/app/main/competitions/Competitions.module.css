@@ -1,5 +1,5 @@
 .competition {
-  @apply p-10 md:h-[333px] md:px-16 md:py-12 rounded-3xl md:rounded-[52px];
+  @apply p-3 md:p-10 md:h-[333px] md:px-16 md:py-12 rounded-3xl md:rounded-[52px] break-words;
 
   background: #665be3;
 }

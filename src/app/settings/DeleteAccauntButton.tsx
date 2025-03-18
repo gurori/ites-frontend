@@ -29,7 +29,7 @@ export default function DeleteAccauntButton({
         </GhostButton>
       </DialogTrigger>
       <DialogContent>
-        <p className="text-white">Вы уверены, что хоите выйти?</p>
+        <p className="text-white">Вы уверены, что хоите безвозвратно удалить ваш аккаунт?</p>
         <button
           className="small bg-red-400 text-black-800 px-6 justify-self-start"
           onClick={handleDelete}
