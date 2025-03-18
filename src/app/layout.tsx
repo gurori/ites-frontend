@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "ITes",
   description: "Платформа для проведения конкурсов МПИТ",
 };
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 export default function RootLayout({
   children,
 }: Readonly<{
