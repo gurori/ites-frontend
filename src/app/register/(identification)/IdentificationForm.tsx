@@ -45,6 +45,7 @@ export default function IdentificationForm({
       async (data) =>
         await apiFetch("/api/user/register", {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

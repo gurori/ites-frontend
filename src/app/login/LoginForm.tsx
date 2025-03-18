@@ -28,7 +28,8 @@ export default function LoginForm() {
           headers: {
             "Content-Type": "application/json"
           },
-          method: "POST"
+          method: "POST", 
+          credentials: "include"
         })      
         console.log(res);
           
