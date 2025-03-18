@@ -37,7 +37,7 @@ export default async function TeamList({
   };
   const [list, setList] = useState(teams);
   return list.map((t) => (
-    <div className="border-[#000] border-2 border-opacity-50 rounded-3xl p-8">
+    <div className="border-[#000] border-2 border-opacity-50 rounded-3xl p-8" key={t.id}>
       <h4 className="text-white text-4xl md:text-5xl">{t.name}</h4>
       <p className="text-white text-xl pt-4">{t.description}</p>
       <div className="flex gap-4 mt-6">

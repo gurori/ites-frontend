@@ -37,7 +37,7 @@ export default function OrderList({
   };
   const [list, setList] = useState(orders);
   return list.map((o) => (
-    <div className="border-[#000] border-2 border-opacity-50 rounded-3xl p-8">
+    <div className="border-[#000] border-2 border-opacity-50 rounded-3xl p-8" key={o.id}>
       <h4 className="text-white text-4xl md:text-5xl">{o.title}</h4>
       <p className="text-white text-xl pt-4">{o.description}</p>
       <div className="flex gap-4 mt-6">

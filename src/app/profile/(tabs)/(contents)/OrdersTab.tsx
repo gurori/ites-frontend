@@ -12,8 +12,8 @@ export default async function OrdersTab({
       {orders && orders.length !== 0 ? (
         <div className="flex flex-wrap gap-8">
           {orders.map((o) => (
-            <Link href={`/order/${o.id}`}>
-              <div className="w-[218px]" key={o.id}>
+            <Link href={`/order/${o.id}`} key={o.id}>
+              <div className="w-[218px]">
                 <div className={styles.infoBlock}></div>
                 <p className="text-center text-white pt-2 line-clamp-2 break-words">
                   {o.title}
