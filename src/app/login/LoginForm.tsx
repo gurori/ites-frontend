@@ -21,24 +21,28 @@ export default function LoginForm() {
       pushPath: "/profile",
       userInputError: "Неверные почта или пароль",
     });
-    const onSubmit = async (data: any) => {
-      handleFetch(data, async (data) => {
-        const res = await apiFetch("/api/User/login", {
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json"
-          },
-          method: "POST", 
-          credentials: "include"
-        })      
-        console.log(res);
-          
-        if(res.ok) {
-          setCookie("auth", await res.text(), {secure: true, httpOnly: true, sameSite: "strict"});
-        }
-        return res
+  const onSubmit = async (data: any) => {
+    handleFetch(data, async (data) => {
+      const res = await apiFetch("/api/User/login", {
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        credentials: "include",
       });
-    }
+      console.log(res);
+
+      if (res.ok) {
+        setCookie("auth", await res.text(), {
+          secure: true,
+          httpOnly: true,
+          sameSite: "lax",
+        });
+      }
+      return res;
+    });
+  };
   return (
     <div className="h-screen center bg-black px-4">
       <div className={styles.whiteBox}>
