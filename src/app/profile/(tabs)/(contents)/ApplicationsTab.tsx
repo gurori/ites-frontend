@@ -4,6 +4,7 @@ import type { TeamsProp } from "@/lib/types/ITeam";
 
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import styles from "./Styles.module.css";
+import { getHtmlTags } from "@/lib/utils";
 
 export default function ApplicationsTab({
   competitions,
@@ -30,9 +31,8 @@ export default function ApplicationsTab({
               {competitions.map((c) => (
                 <div className="w-[218px]" key={c.id}>
                   <div className={styles.infoBlock}></div>
-                  <p className="text-center text-white pt-2 line-clamp-2 break-words">
-                    {c.title}
-                  </p>
+                  <p className="text-center text-white pt-2 line-clamp-2 break-words [&>*]:text-lg [&>*]:font-normal" dangerouslySetInnerHTML={{__html: getHtmlTags(c.contentInHtml, 2)}}>
+                                  </p>
                 </div>
               ))}
             </div>

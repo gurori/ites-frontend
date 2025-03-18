@@ -8,6 +8,7 @@ import { CheckIcon, MoveRightIcon, XIcon } from "lucide-react";
 import type { CompetitionApplicationProp, OrderApplicationProp, TeamApplicationProp } from "@/lib/types/IApplication";
 import apiFetch from "@/lib/apiFetch";
 import { useState } from "react";
+import { getHtmlTags } from "@/lib/utils";
 
 export function UserForCompetitionInfo({
   application,
@@ -38,7 +39,7 @@ export function UserForCompetitionInfo({
       </div>
       <p>
         {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а) Вам
-        заявку на {application.forCompetition.title}
+        заявку на <div className="text-white break-words [&>*]:text-lg [&>*]:font-normal" dangerouslySetInnerHTML={{__html: getHtmlTags(application.forCompetition.contentInHtml, 2)}}></div>
       </p>
       <JobTitle className="place-self-start" title={user.jobTitle || user.role} />
       <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
