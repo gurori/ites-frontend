@@ -33,13 +33,13 @@ export default function LoginForm() {
       });
       console.log(res);
 
-      // if (res.ok) {
-      //   setCookie("auth", await res.text(), {
-      //     secure: true,
-      //     httpOnly: true,
-      //     sameSite: "lax",
-      //   });
-      // }
+      if (res.ok) {
+        setCookie("auth", await res.text(), {
+          secure: true,
+          httpOnly: true,
+          sameSite: "lax",
+        });
+      }
       return res;
     });
   };
