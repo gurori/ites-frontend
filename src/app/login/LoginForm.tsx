@@ -29,7 +29,9 @@ export default function LoginForm() {
             "Content-Type": "application/json"
           },
           method: "POST"
-        })        
+        })      
+        console.log(res);
+          
         if(res.ok) {
           setCookie("auth", await res.text(), {secure: true, httpOnly: true, sameSite: "strict"});
         }
