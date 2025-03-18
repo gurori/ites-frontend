@@ -16,8 +16,12 @@ export default async function CompetitionsTab({
             <Link href={`/competition/${c.id}`} key={c.id}>
               <div className="w-[218px]">
                 <div className={styles.infoBlock}></div>
-                <p className="text-center text-white pt-2 line-clamp-2 break-words [&>*]:text-lg [&>*]:font-normal" dangerouslySetInnerHTML={{__html: getHtmlTags(c.contentInHtml, 2)}}>
-                </p>
+                <p
+                  className="text-center text-white pt-2 line-clamp-2 break-words [&>*]:text-lg [&>*]:font-normal"
+                  dangerouslySetInnerHTML={{
+                    __html: getHtmlTags(c.contentInHtml, 2),
+                  }}
+                ></p>
               </div>
             </Link>
           ))}
