@@ -17,20 +17,36 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState, type ChangeEvent } from "react";
-import type { ControllerRenderProps, UseFormHandleSubmit } from "react-hook-form";
+import type {
+  ControllerRenderProps,
+  UseFormHandleSubmit,
+} from "react-hook-form";
 
 export default function Editor({
-  field,handleSubmit,onSubmit
-}: Readonly<{ field: ControllerRenderProps<{
-    [x: string]: any;
-}, "contentInHtml">, handleSubmit: UseFormHandleSubmit<{
-    [x: string]: any;
-}, undefined>, onSubmit: (data: any) => void }>) {
+  field,
+  handleSubmit,
+  onSubmit,
+}: Readonly<{
+  field: ControllerRenderProps<
+    {
+      [x: string]: any;
+    },
+    "contentInHtml"
+  >;
+  handleSubmit: UseFormHandleSubmit<
+    {
+      [x: string]: any;
+    },
+    undefined
+  >;
+  onSubmit: (data: any) => void;
+}>) {
   const editor = useEditor({
     extensions: [StarterKit, IamgeExtension.Image],
     content: `<h1>Заголовок</h1>
       <hr /><br />
-      <p>Начните редактировать...</p>`, immediatelyRender: false
+      <p>Начните редактировать...</p>`,
+    immediatelyRender: false,
   });
   const [isOpen, setIsOpen] = useState(false);
 
@@ -224,12 +240,12 @@ export default function Editor({
       {/* <div dangerouslySetInnerHTML={{ __html: editor.getHTML() }}></div> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <button
-        type="submit"
-        className="bg-purple text-white rounded-3xl py-2 mt-10 px-6 gap-4 flex items-center"
-        onClick={() => field.onChange(editor.getHTML())}
-      >
-        Опубликовать <SendHorizonalIcon size={18} />
-      </button>
+          type="submit"
+          className="bg-purple text-white rounded-3xl py-2 mt-10 px-6 gap-4 flex items-center"
+          onClick={() => field.onChange(editor.getHTML())}
+        >
+          Опубликовать <SendHorizonalIcon size={18} />
+        </button>
       </form>
     </>
   );

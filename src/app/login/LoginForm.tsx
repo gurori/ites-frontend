@@ -34,7 +34,8 @@ export default function LoginForm() {
       console.log(res);
 
       if (res.ok) {
-        setCookie("auth", await res.text(), {
+        const token = await res.text();
+        await setCookie("auth", token, {
           secure: true,
           httpOnly: true,
           sameSite: "lax",

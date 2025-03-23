@@ -8,8 +8,18 @@ export default function Competition({
   competition,
 }: Readonly<CompetitionProp>) {
   return (
-    <div className={cn(styles.competition, "grid gap-8 md:flex md:gap-32 justify-between")}>
-      <div className="grid content-between [&>*]:text-white [&>*]:line-clamp-3 [&>*]:md:line-clamp-2" dangerouslySetInnerHTML={{__html: getHtmlTags(competition.contentInHtml, 4)}}>
+    <div
+      className={cn(
+        styles.competition,
+        "grid gap-8 md:flex md:gap-32 justify-between"
+      )}
+    >
+      <div
+        className="grid content-between [&>*]:text-white [&>*]:line-clamp-3 [&>*]:md:line-clamp-2"
+        dangerouslySetInnerHTML={{
+          __html: getHtmlTags(competition.contentInHtml, 3),
+        }}
+      >
         {/* <p className={styles.title}>{competition.title}</p>
         <p className="text-white line-clamp-4 md:line-clamp-3">{competition.description}</p>
         <p className={styles.date}>

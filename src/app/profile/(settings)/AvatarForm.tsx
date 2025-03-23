@@ -76,7 +76,10 @@ export default function AvatarForm({
         <Image
           width={200}
           height={200}
-          src={imageUrl || `${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${userId}/avatar.jpg`}
+          src={
+            imageUrl ||
+            `${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${userId}/avatar.jpg`
+          }
           alt="avatar"
           className="rounded-full size-[200px]"
         />
@@ -95,7 +98,7 @@ export default function AvatarForm({
                 onChange={handleSelectedImage}
                 type="file"
                 accept="image/*"
-                className="yellow-border file:pr-16 file:pl-7"
+                className="yellow-border file:pr-20 file:pl-7"
               />
               <Upload
                 size={20}
