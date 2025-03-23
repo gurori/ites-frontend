@@ -107,12 +107,12 @@ input[type="submit"] {
   }
   &.editor {
     @apply px-2 py-1.5 rounded-lg bg-gray-400 text-black-700;
-
-    &.is-active {
-      background-color: #665be3;
-      color: #fff;
-    }
   }
+}
+
+button.editor.is-active {
+  background-color: #665be3;
+  color: #fff;
 }
 
 textarea {
@@ -243,6 +243,6 @@ input.arrows-hidden::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type=number].arrows-hidden {
+input[type="number"].arrows-hidden {
   -moz-appearance: textfield;
 }
