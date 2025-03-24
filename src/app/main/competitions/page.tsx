@@ -16,7 +16,7 @@ export default async function CompetitionsPage() {
   return (
     <>
       <MainTabsButtons active="Конкурсы" />
-      <div className="pt-16 grid gap-16">
+      <div className="pt-8 md:pt-16 grid gap-16">
         {competitions.map((c) => (
           <Competition competition={c} key={c.id} />
         ))}

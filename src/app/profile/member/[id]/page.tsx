@@ -57,20 +57,25 @@ export default async function MemberProfilePage({
   ];
   return (
     <div className="container mt-5">
-      <div className="md:flex gap-8 my-8 grid ">
+      <div className="md:flex gap-8 my-8 grid">
         <Image
           src={`${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${user.id}/avatar.jpg`}
           alt="avatar"
           width={160}
           height={160}
-          className="rounded-full size-[160px]"
+          className="rounded-full size-[160px] place-self-center"
         />
-        <div className="grid gap-2 place-items-start items-center justify-between">
-          <JobTitle title={user.jobTitle || user.role} />
-          <p className="flex items-center text-white gap-4 text-2xl">
+        <div className="grid gap-2 place-items-start items-center justify-center">
+          <JobTitle
+            title={user.jobTitle || user.role}
+            className="place-self-center md:place-self-start"
+          />
+          <p className="flex items-center text-white gap-4 text-2xl place-self-center md:place-self-start">
             {`${user.lastName} ${user.firstName} ${user.middleName}`}
           </p>
-          <p className="text-[#a7a7a7]">{user.description}</p>
+          <p className="text-[#a7a7a7] place-self-center md:place-self-start">
+            {user.description}
+          </p>
         </div>
       </div>
       <div className="flex gap-6 pb-8">
