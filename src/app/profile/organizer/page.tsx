@@ -46,9 +46,11 @@ export default async function OrganizerProfilePage() {
           <p className="text-white text-2xl">Создать конкурс</p>
         </BlackButton>
         <Link href={"/moderate"}>
-        <PurpleButton>
-          <b><p className="text-white text-2xl">Модерация</p></b>
-        </PurpleButton>
+          <PurpleButton>
+            <b>
+              <p className="text-white text-2xl">Модерация</p>
+            </b>
+          </PurpleButton>
         </Link>
       </div>
       <Tabs tabs={tabs} />

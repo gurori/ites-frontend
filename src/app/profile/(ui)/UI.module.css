@@ -1,8 +1,4 @@
 .balckButton {
-  width: 188px;
-  height: 202px;
-  padding: 28px;
-
   background: #252628;
   box-shadow: 1px 4px 22px rgba(0, 0, 0, 0.25);
   border-radius: 22px;
@@ -12,21 +8,12 @@
   position: relative;
   box-sizing: border-box;
 
-  width: 131px;
-  height: 139px;
-  padding-top: 28px;
-  text-align: center;
-
   box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
 
 .PurpleButton {
-width: clamp(280px, 50vw, 506px);
-height: 93px;
-
-background: #665BE3;
-box-shadow: inset 2px 2px 14px rgba(0, 0, 0, 0.25);
-border-radius: 22px;
-
+  background: #665be3;
+  box-shadow: inset 2px 2px 14px rgba(0, 0, 0, 0.25);
+  border-radius: 22px;
 }
