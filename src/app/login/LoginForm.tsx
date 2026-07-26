@@ -15,35 +15,36 @@ export default function LoginForm() {
     email: emailSchema,
     password: passwordSchema,
   });
-  const { register, handleSubmit, errors, formError, handleFetch } =
+  const { register, handleSubmit, errors, formError, handleFetch, onSubmit } =
     useFormHandler({
+      apiPath: "/api/User/login",
       schema: userSchema,
       pushPath: "/profile",
       userInputError: "Неверные почта или пароль",
     });
-  const onSubmit = async (data: any) => {
-    handleFetch(data, async (data) => {
-      const res = await apiFetch("/api/User/login", {
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        credentials: "include",
-      });
-      console.log(res);
+  // const onSubmit = async (data: any) => {
+  //   handleFetch(data, async (data) => {
+  //     const res = await apiFetch("/api/User/login", {
+  //       body: JSON.stringify(data),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       method: "POST",
+  //       credentials: "include",
+  //     });
+  //     console.log(res);
 
-      if (res.ok) {
-        const token = await res.text();
-        await setCookie("auth", token, {
-          secure: true,
-          httpOnly: true,
-          sameSite: "lax",
-        });
-      }
-      return res;
-    });
-  };
+  //     if (res.ok) {
+  //       // const token = await res.text();
+  //       // await setCookie("auth", token, {
+  //       //   secure: true,
+  //       //   httpOnly: true,
+  //       //   sameSite: "lax",
+  //       // });
+  //     }
+  //     return res;
+  //   });
+  // };
   return (
     <div className="h-screen center bg-black px-4">
       <div className={styles.whiteBox}>

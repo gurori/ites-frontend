@@ -1,7 +1,7 @@
 .userInfoCard {
   @apply grid relative ml-10 mt-8;
   width: 1095px;
-  height: 173px;
+  /* height: 173px; */
   padding: 32px 77px;
 
   background: #d9d9d9;

@@ -1,167 +1,195 @@
-"use client"
+"use client";
 
 import s from "./UI.module.css";
 import JobTitle from "@/components/ui/JobTitle";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckIcon, MoveRightIcon, XIcon } from "lucide-react";
-import type { CompetitionApplicationProp, OrderApplicationProp, TeamApplicationProp } from "@/lib/types/IApplication";
+import type {
+  CompetitionApplicationProp,
+  OrderApplicationProp,
+  TeamApplicationProp,
+} from "@/lib/types/IApplication";
 import apiFetch from "@/lib/apiFetch";
 import { useState } from "react";
 import { getHtmlTags } from "@/lib/utils";
 
 export function UserForCompetitionInfo({
   application,
-  token
-}: Readonly<CompetitionApplicationProp & {token: string}>) {
-  const [show, setShow] = useState(true)
+  token,
+}: Readonly<CompetitionApplicationProp & { token: string }>) {
+  const [show, setShow] = useState(true);
   const user = application.fromMember;
   async function handleApplication(accept: boolean) {
-    await apiFetch(`/api/Competitions/application/${application.id}/${accept}`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    });
-    setShow(false)
+    await apiFetch(
+      `/api/Competitions/application/${application.id}/${accept}`,
+      {
+        credentials: "include",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setShow(false);
   }
-  return show && (
-    <div className={s.userInfoCard}>
-      <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
-          className={s.imgShadow}
-          fill
-          alt="avatar"
+  return (
+    show && (
+      <div className={s.userInfoCard}>
+        <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
+            className={s.imgShadow}
+            fill
+            alt="avatar"
+          />
+        </div>
+        <p>
+          {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
+          Вам заявку на{" "}
+          <div
+            className="break-words [&>*]:text-lg [&>*]:font-normal"
+            dangerouslySetInnerHTML={{
+              __html: getHtmlTags(application.forCompetition.contentInHtml, 2),
+            }}
+          ></div>
+        </p>
+        <JobTitle
+          className="place-self-start my-2"
+          title={user.jobTitle || user.role}
         />
-      </div>
-      <p>
-        {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а) Вам
-        заявку на <div className="text-white break-words [&>*]:text-lg [&>*]:font-normal" dangerouslySetInnerHTML={{__html: getHtmlTags(application.forCompetition.contentInHtml, 2)}}></div>
-      </p>
-      <JobTitle className="place-self-start" title={user.jobTitle || user.role} />
-      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
-        <Link
-          href={`/profile/${user.role}/${user.id}`}
-          className={s.toProfileLink}
-        >
-          Перейти к профилю <MoveRightIcon />
-        </Link>
-        <div className="flex gap-6">
-          <button className={s.green} onClick={() => handleApplication(true)}>
-            Принять <CheckIcon />
-          </button>
-          <button className={s.red} onClick={() => handleApplication(false)}>
-            Отказать <XIcon />
-          </button>
+        <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
+          <Link
+            href={`/profile/${user.role}/${user.id}`}
+            className={s.toProfileLink}
+          >
+            Перейти к профилю <MoveRightIcon />
+          </Link>
+          <div className="flex gap-6">
+            <button className={s.green} onClick={() => handleApplication(true)}>
+              Принять <CheckIcon />
+            </button>
+            <button className={s.red} onClick={() => handleApplication(false)}>
+              Отказать <XIcon />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
 
 export function UserForOrderInfo({
   application,
-  token
-}: Readonly<OrderApplicationProp & {token: string}>) {
-  const [show, setShow] = useState(true)
+  token,
+}: Readonly<OrderApplicationProp & { token: string }>) {
+  const [show, setShow] = useState(true);
   const user = application.fromMember;
   async function handleApplication(accept: boolean) {
     await apiFetch(`/api/orders/application/${application.id}/${accept}`, {
       credentials: "include",
       method: "PUT",
       headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
-    setShow(false)
+    setShow(false);
   }
-  return show && (
-    <div className={s.userInfoCard}>
-      <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
-          className={s.imgShadow}
-          fill
-          alt="avatar"
+  return (
+    show && (
+      <div className={s.userInfoCard}>
+        <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
+            className={s.imgShadow}
+            fill
+            alt="avatar"
+          />
+        </div>
+        <p>
+          {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
+          Вам заявку на {application.forOrder.title}
+        </p>
+        <JobTitle
+          className="place-self-start my-2"
+          title={user.jobTitle || user.role}
         />
-      </div>
-      <p>
-        {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а) Вам
-        заявку на {application.forOrder.title}
-      </p>
-      <JobTitle className="place-self-start" title={user.jobTitle || user.role} />
-      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
-        <Link
-          href={`/profile/${user.role}/${user.id}`}
-          className={s.toProfileLink}
-        >
-          Перейти к профилю <MoveRightIcon />
-        </Link>
-        <div className="flex gap-6">
-          <button className={s.green} onClick={() => handleApplication(true)}>
-            Принять <CheckIcon />
-          </button>
-          <button className={s.red} onClick={() => handleApplication(false)}>
-            Отказать <XIcon />
-          </button>
+        <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
+          <Link
+            href={`/profile/${user.role}/${user.id}`}
+            className={s.toProfileLink}
+          >
+            Перейти к профилю <MoveRightIcon />
+          </Link>
+          <div className="flex gap-6">
+            <button className={s.green} onClick={() => handleApplication(true)}>
+              Принять <CheckIcon />
+            </button>
+            <button className={s.red} onClick={() => handleApplication(false)}>
+              Отказать <XIcon />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
 
 export function UserForTeamInfo({
   application,
-  token
-}: Readonly<TeamApplicationProp & {token: string}>) {
-  const [show, setShow] = useState(true)
+  token,
+}: Readonly<TeamApplicationProp & { token: string }>) {
+  const [show, setShow] = useState(true);
   const user = application.fromMember;
   async function handleApplication(accept: boolean) {
     await apiFetch(`/api/teams/application/${application.id}/${accept}`, {
       credentials: "include",
       method: "PUT",
       headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
-    setShow(false)
+    setShow(false);
   }
-  return show && (
-    <div className={s.userInfoCard}>
-      <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
-          className={s.imgShadow}
-          fill
-          alt="avatar"
+  return (
+    show && (
+      <div className={s.userInfoCard}>
+        <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
+            className={s.imgShadow}
+            fill
+            alt="avatar"
+          />
+        </div>
+        <p>
+          {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
+          Вам заявку на вступление в команду
+        </p>
+        <JobTitle
+          className="place-self-start my-2"
+          title={user.jobTitle || user.role}
         />
-      </div>
-      <p>
-        {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а) Вам
-        заявку на вступление в команду
-      </p>
-      <JobTitle className="place-self-start" title={user.jobTitle || user.role} />
-      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
-        <Link
-          href={`/profile/${user.role}/${user.id}`}
-          className={s.toProfileLink}
-        >
-          Перейти к профилю <MoveRightIcon />
-        </Link>
-        <div className="flex gap-6">
-          <button className={s.green} onClick={() => handleApplication(true)}>
-            Принять <CheckIcon />
-          </button>
-          <button className={s.red} onClick={() => handleApplication(false)}>
-            Отказать <XIcon />
-          </button>
+        <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
+          <Link
+            href={`/profile/${user.role}/${user.id}`}
+            className={s.toProfileLink}
+          >
+            Перейти к профилю <MoveRightIcon />
+          </Link>
+          <div className="flex gap-6">
+            <button className={s.green} onClick={() => handleApplication(true)}>
+              Принять <CheckIcon />
+            </button>
+            <button className={s.red} onClick={() => handleApplication(false)}>
+              Отказать <XIcon />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
