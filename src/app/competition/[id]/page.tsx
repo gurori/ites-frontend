@@ -10,7 +10,9 @@ export default async function CompetitionInfoPage({
   params: { id: string };
 }) {
   const competition: ICompetition = await apiFetch(
-    `/api/competitions/get/${params.id}`
+    `/api/competitions/get/${params.id}`, {
+      cache: "no-store",
+    }
   ).then(async (res) => {
     if (res.status === 404) notFound();
     return await res.json();

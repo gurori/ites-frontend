@@ -8,7 +8,9 @@ export const revalidate = 10;
 export default async function CompetitionsPage() {
   async function getCompetitions() {
     const competitions: ICompetition[] = await apiFetch(
-      "/api/competitions/get"
+      "/api/competitions/get", {
+        cache: "no-store",
+      }
     ).then(async (res) => await res.json());
     return competitions;
   }
