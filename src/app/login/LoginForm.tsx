@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import styles from "./Login.module.css";
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import Image from "next/image";
-import apiFetch from "@/lib/apiFetch";
-import { setCookie } from "../actions";
 
 export default function LoginForm() {
   const userSchema = z.object({
@@ -22,29 +20,6 @@ export default function LoginForm() {
       pushPath: "/profile",
       userInputError: "Неверные почта или пароль",
     });
-  // const onSubmit = async (data: any) => {
-  //   handleFetch(data, async (data) => {
-  //     const res = await apiFetch("/api/User/login", {
-  //       body: JSON.stringify(data),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       method: "POST",
-  //       credentials: "include",
-  //     });
-  //     console.log(res);
-
-  //     if (res.ok) {
-  //       // const token = await res.text();
-  //       // await setCookie("auth", token, {
-  //       //   secure: true,
-  //       //   httpOnly: true,
-  //       //   sameSite: "lax",
-  //       // });
-  //     }
-  //     return res;
-  //   });
-  // };
   return (
     <div className="h-screen center bg-black px-4">
       <div className={styles.whiteBox}>

@@ -26,7 +26,6 @@ export default function OrderInfo({
         },
       }
     ).then(async (res) => {
-      console.log(res)
       if (res.ok) {
         toast("Ваша заявка успешно отправлена!");
         push("/main/orders");

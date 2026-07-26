@@ -66,8 +66,6 @@ export default function Editor({
     });
     reader.readAsDataURL(file);
   };
-  console.log(cn("editor", editor.isActive("bold") ? "is-active" : ""));
-  console.log(editor.isActive("bold"));
 
   // <div className={cn(s.card, "p-4 md:p-10")}>
   return (

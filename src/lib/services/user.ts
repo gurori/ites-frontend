@@ -62,11 +62,9 @@ export const getClient = async () => {
       Authorization: `Bearer ${token.value}`,
     },
   }).then(async (res) => {
-    console.log(res)
     if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
     return await res.json();
   });
-  console.log(user)
   return user;
 };
 

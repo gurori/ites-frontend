@@ -19,7 +19,6 @@ export default function TeamList({
       },
     });
     if (!res.ok) {
-      console.log(res);
     } else setList(list.filter((x) => x.id !== id));
   };
   const [list, setList] = useState(teams);

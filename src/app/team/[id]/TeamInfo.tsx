@@ -30,7 +30,6 @@ export default function TeamInfo({
         Authorization: `Bearer ${token}`,
       },
     }).then(async (res) => {
-      console.log(res);
       if (res.ok) {
         toast("Ваша заявка успешно отправлена!", {
           description: `Подождите, пока админ команды "${team.name}" примет вашу заявку`,

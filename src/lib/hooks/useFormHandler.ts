@@ -71,13 +71,9 @@ export const useFormHandler = ({
   const handleFetch = async (
     data: TypeFormData,
     getResponse: (data: TypeFormData) => Response | Promise<Response>
-  ) => {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAa");
-    
+  ) => {    
     try {
-      const response = await getResponse(data);
-      console.log(response);
-      
+      const response = await getResponse(data);      
 
       if (response.status === 401) push("/login");
       else if (response.ok) {
