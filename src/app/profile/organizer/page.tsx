@@ -36,7 +36,7 @@ export default async function OrganizerProfilePage() {
   return (
     <div className="container mt-5 lg:pl-8">
       <ProfileSidePanel user={user} />
-      <div className="grid md:flex gap-6 py-8">
+      <div className="grid md:flex gap-6 py-8 items-start">
         <BlackButton href="/main/competitions">
           <p className="text-white text-2xl">
             <b>Главная</b>
@@ -45,7 +45,7 @@ export default async function OrganizerProfilePage() {
         <BlackButton href="/competition/new" className="border-purple">
           <p className="text-white text-2xl">Создать конкурс</p>
         </BlackButton>
-        <Link href={"/moderate"}>
+        <Link href="/moderate">
           <PurpleButton>
             <b>
               <p className="text-white text-2xl">Модерация</p>
