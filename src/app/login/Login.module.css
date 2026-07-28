@@ -1,5 +1,5 @@
 .whiteBox {
-  @apply w-full md:w-[503px] grid place-items-center pb-12 pt-24 justify-center relative;
+  @apply w-full md:w-[503px] translate-y-6 grid place-items-center pb-12 pt-24 justify-center relative;
   height: 453px;
 
   background: #fafafa;
