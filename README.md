@@ -1,83 +1,151 @@
-# 🌌 Команда MLG ⚡
-## 👷‍♂️ Состав команды
+# ITes Frontend
 
-Разработчик  | Назаров Слава
-------------- | -------------
-Дизайнер  | Неустроева Лия
-Менеджер  | Охлопкова Алёна
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 
-👨‍💻 Наш веб-сайт “ITes” 👨‍💻 <br>
-<b>ITes</b> — это веб-сервис, помогающий организовывать работу сообщества МПИТ. Наш сервис позволяет прокачивать свои навыки в сфере IT,  находить единомышленников и создавать команды для участия в хакатонах. 
+> Frontend of **ITes** — a platform for organizing IT competitions, hackathons, freelance orders, and team building.
 
-## 📚 Описание работы прототипа
-Наш прототип включает следующие функции:
-* Вход и регистрация в качестве участника, организатора и заказчика
-* Просмотр и редактирование профиля
-* Создание и просмотр конкурсов, заказов и команды
-* Обработка заявок от участников в личном кабинете
+ITes is a web platform that connects **participants**, **organizers**, and **customers** in one ecosystem. Users can participate in competitions, find teammates, publish freelance orders, build a portfolio, and manage applications through a personal dashboard.
 
-## 📋 Функциональные возможности
-У школьников, студентов, начинающих специалистов IT, экспертам по IT технологиям и IT компаниям 
-с помощью веб-сайта “ITes”, который имеет:
-* Возможность подавать заявки в различные конкурсы
-* Удобный интерфейс и интуитивно понятный дизайн
-* Возможность работать на заказ
-* Образование портфолио
-* Создание и нахождение команды
-* Обработку заявок в личном кабинете
+Originally created during a hackathon, the project has since been significantly expanded and improved.
 
- ## 🛠 Стек-технологии
+## Features
 
-### Frontend:
-* ⚛ Next js
-* 🐱‍💻 Typescript 
-* 🌬 Tailwind css
-* 📋 React hook form
-* 💤 Zod
-* 🌀 Lucide
-* 🎨 Shad cn ui
+### Authentication
 
-### Backend:
-* 🐘 PostgreSQL
-* 💽 C#
-* 💾 Asp.net core, Entity Framework core
-* 🐳 Docker, docker-compose
+* Registration and login
+* Role-based accounts:
 
-## 📦 Инструкция по установке Next.js и Tailwind CSS
+  * Participant
+  * Organizer
+  * Client
 
-<b>Next.js</b> — это фреймворк [React](https://react.dev/), который позволяет создавать производительные приложения с серверным рендерингом, статическим сайтостроением и другими передовыми функциями. <br>
-<b>Tailwind CSS</b> - это CSS-фреймворк, предоставляющий набор готовых классов для стилизации веб-интерфейсов. <br>
-В этой инструкции будет описано, как установить Next.js и Tailwind CSS на вашем компьютере.
+### Participant
 
-### Шаг 1: Установка NodeJS
-Чтобы всё заработало, необходимо установить Node.js [с официального сайта](https://nodejs.org/en/download/prebuilt-installer/current).
+* Browse competitions, orders, and teams
+* Apply to competitions
+* Apply to freelance orders
+* Apply to join teams
+* Create teams
+* Choose a role in a team:
 
-### Шаг 2: Установка Next.js с TypeScript и Tailwind CSS
-Откройте терминал и введите следующую команду:
+  * Developer
+  * Designer
+  * Manager
+  * Marketer
+* Build a portfolio based on submitted applications
 
+### Organizer
+
+* Create IT competitions and events
+* Edit competition descriptions using a Markdown editor
+* Manage participant applications
+* Approve or reject applications through the dashboard
+
+### Client
+
+* Publish freelance orders
+* Review incoming applications
+* Accept or reject candidates
+
+### User Profile
+
+* Edit profile information
+* Upload an avatar
+* Manage personal information
+
+## Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* React Hook Form
+* Zod
+* shadcn/ui
+* Lucide Icons
+
+### Backend
+
+The backend is developed as a separate project.
+
+Main technologies:
+
+* ASP.NET Core
+* Entity Framework Core
+* PostgreSQL
+* Docker, Docker Compose
+* JWT Authentication
+
+Repository:
+
+* [**ites-backend**](https://github.com/gurori/ites-backend)
+
+## Project Structure
+
+```text
+public/
+
+src/
+├── app/
+├── components/
+└── lib/
+    ├── hooks/
+    ├── services/
+    ├── types/
+    ├── apiFetch.ts
+    ├── constants.ts
+    ├── format.ts
+    ├── utils.ts
+    └── zod-schemas.ts
 ```
-npx create-next-app@latest
-```
-После ввода необходимо выбрать конфигурацию (можно везде выбрать `Yes`):
-* What is your project named? <название-проекта>
-* Would you like to use TypeScript? No / Yes
-* Would you like to use ESLint? No / Yes
-* Would you like to use Tailwind CSS? No / Yes
-* Would you like your code inside a `src/` directory? No / Yes
-* Would you like to use App Router? (recommended) No / Yes
-* Would you like to use Turbopack for `next dev`?  No / Yes
-* Would you like to customize the import alias (`@/*` by default)? No / Yes
-* What import alias would you like configured? @/*
 
-Далее необходимо ввести название проекта и выбрать JavaScript. После чего в командной строке нужно ввести поочерёдно следующие команды:
-```
-cd <название-проекта>
+## Running Locally
+
+### Requirements
+
+* [Node.js](https://nodejs.org/en/download)
+* [npm](https://docs.npmjs.com/cli/v11/configuring-npm/install)
+
+### Installation
+
+```bash
+git clone https://github.com/gurori/ites-frontend.git
+
+cd ites-frontend
+
+npm install
+
 npm run dev
 ```
-### Шаг 3: Запуск проекта
-Вводим данную команду и переходим по ссылке http://localhost:3000:
+
+The application will be available at:
+
+```text
+http://localhost:3000
 ```
-npm run dev
-```
-### Заключение
-Это была краткая инструкция по установке Next.js и Tailwind CSS. Чтобы узнать больше о Next.js и Tailwind CSS, вы можете посетить [официальный сайт Next.js](https://nextjs.org/) и [официальный сайт Tailwind CSS](https://tailwindcss.com/).
+
+## Live Demo
+
+The frontend is deployed on Vercel:
+
+https://ites.vercel.app
+
+## Project Status
+
+The project is under active development. New features, UI improvements, and backend functionality continue to be added.
+
+## About
+
+This project demonstrates experience with:
+
+* building large-scale React/Next.js applications
+* authentication and authorization
+* role-based interfaces
+* complex forms and validation
+* Markdown editor integration
+* responsive UI development
+* interaction with ASP.NET Core REST APIs
+* deploying production-ready Next.js applications using Vercel
