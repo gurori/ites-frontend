@@ -1,7 +1,8 @@
 # ITes Frontend
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 > Frontend of **ITes** — a platform for organizing IT competitions, hackathons, freelance orders, and team building.
 
@@ -149,3 +150,7 @@ This project demonstrates experience with:
 * responsive UI development
 * interaction with ASP.NET Core REST APIs
 * deploying production-ready Next.js applications using Vercel
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
