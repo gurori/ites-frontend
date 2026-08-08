@@ -21,33 +21,33 @@ export const nameSchema = z
   .max(50, "Введите не более 50 символов")
   .regex(
     /^[a-zA-Zа-яА-Я\s-]+$/,
-    "ФИО должно содержать только буквы, пробелы и дефисы"
+    "ФИО должно содержать только буквы, пробелы и дефисы",
   );
 
 export const textSchema = z.string().min(3, "Введите не менее 3 символов");
 
 export const mdTextSchema = textSchema.max(
   300,
-  "Введите не более 300 символов"
+  "Введите не более 300 символов",
 );
 
 export const smTextSchema = textSchema.max(64, "Введите не более 64 символов");
 
 export const lgTextSchema = textSchema.max(
   2048,
-  "Введите не более 2048 символов"
+  "Введите не более 2048 символов",
 );
 
 export const xlTextSchema = textSchema.max(
   10_000_000,
-  "Введите не более 10 000 000 символов"
+  "Введите не более 10 000 000 символов",
 );
 
 export const filesSchema = z
   .any()
   .refine(
     (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-    "Размер файла не должен превышать 4MB"
+    "Размер файла не должен превышать 4MB",
   );
 
 export const fileSchema = z
@@ -55,17 +55,17 @@ export const fileSchema = z
   .refine((file) => file, "Небходимо выбрать хотя бы 1 файл")
   .refine(
     (file) => file?.size <= MAX_FILE_SIZE,
-    "Размер файла не должен превышать 4MB"
+    "Размер файла не должен превышать 4MB",
   );
 
 export const imagesSchema = filesSchema.refine(
   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-  "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
+  "Поддерживаются только .png, .jpg, .jpeg расширения файлов",
 );
 
 export const imageSchema = fileSchema.refine(
   (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-  "Поддерживаются только .png, .jpg, .jpeg расширения файлов"
+  "Поддерживаются только .png, .jpg, .jpeg расширения файлов",
 );
 
 export const roleSchema = z.string({ message: "Необходимо выбрать 1 роль" });

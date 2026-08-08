@@ -27,13 +27,13 @@ export function getRoleRus(role: RoleEng): Role {
 }
 
 export function getHtmlTags(htmlString: string, count: number) {
-    const regex = /<([a-z][^>]*)>([\s\S]*?)<\/\1>/gi; // Use [\s\S] to match any character including new lines
-    const matches = [];
-    let match;
+  const regex = /<([a-z][^>]*)>([\s\S]*?)<\/\1>/gi;
+  const matches = [];
+  let match;
 
-    while ((match = regex.exec(htmlString)) !== null && matches.length < count) {
-        matches.push(match[0]); // Store the matched tag with content
-    }
-    
-    return matches.join(''); // Return the concatenated tags with content
+  while ((match = regex.exec(htmlString)) !== null && matches.length < count) {
+    matches.push(match[0]);
+  }
+
+  return matches.join("");
 }
