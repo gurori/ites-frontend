@@ -10,7 +10,7 @@ import {
 
 export default function useImageCropper(
   aspectRatio: number,
-  minDimension: number
+  minDimension: number,
 ) {
   const imgRef = useRef<HTMLImageElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,27 +21,38 @@ export default function useImageCropper(
 
   const handleSelectedImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (!file) return;
 
     const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      const imageElement = new Image();
-      const imageUrl = reader.result?.toString() || "";
-      imageElement.src = imageUrl;
 
-      imageElement.addEventListener("load", (e) => {
-        if (error) setError(null);
-        const { naturalWidth, naturalHeight } =
-          e.currentTarget as HTMLImageElement;
-        if (naturalWidth < minDimension || naturalHeight < minDimension) {
+    reader.onload = () => {
+      const imageUrl = reader.result?.toString();
+
+      if (!imageUrl) return;
+
+      const image = new Image();
+
+      image.onload = () => {
+        setError(null);
+
+        if (
+          image.naturalWidth < minDimension ||
+          image.naturalHeight < minDimension
+        ) {
           setError(
-            `Изображение должно быть минимум ${minDimension} x ${minDimension} пикселей`
+            `Изображение должно быть минимум ${minDimension} x ${minDimension} пикселей`,
           );
-          return setImageUrl("");
+          setImageUrl("");
+          return;
         }
-      });
-      setImageUrl(imageUrl);
-    });
+
+        setImageUrl(imageUrl);
+      };
+
+      image.src = imageUrl;
+    };
+
     reader.readAsDataURL(file);
   };
 
@@ -56,7 +67,7 @@ export default function useImageCropper(
       },
       aspectRatio,
       width,
-      height
+      height,
     );
     const centeredCrop = centerCrop(crop, width, height);
     setCrop(centeredCrop);
@@ -65,7 +76,7 @@ export default function useImageCropper(
   const setCanvasPreview = (
     image: HTMLImageElement,
     canvas: HTMLCanvasElement,
-    crop: PixelCrop
+    crop: PixelCrop,
   ) => {
     const ctx = canvas.getContext("2d");
     if (!ctx) {
@@ -96,26 +107,30 @@ export default function useImageCropper(
       0,
       0,
       image.naturalWidth,
-      image.naturalHeight
+      image.naturalHeight,
     );
 
     ctx.restore();
   };
 
-  const handleCropChange = (crop: PixelCrop, percentageCrop: PercentCrop) =>
+  const handleCropChange = (_: PixelCrop, percentageCrop: PercentCrop) =>
     setCrop(percentageCrop);
 
   const handleCrop = () => {
-    if (imgRef.current && previewCanvasRef.current) {
-      setCanvasPreview(
-        imgRef.current,
-        previewCanvasRef.current,
-        convertToPixelCrop(crop!, imgRef.current.width, imgRef.current.height)
-      );
-      const dataUrl = previewCanvasRef.current.toDataURL();
-      setImageUrl(dataUrl);
-      return dataUrl;
+    if (!imgRef.current || !previewCanvasRef.current || !crop) {
+      return;
     }
+
+    setCanvasPreview(
+      imgRef.current,
+      previewCanvasRef.current,
+      convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height),
+    );
+
+    const dataUrl = previewCanvasRef.current.toDataURL();
+    setImageUrl(dataUrl);
+
+    return dataUrl;
   };
 
   return {
