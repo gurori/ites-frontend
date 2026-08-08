@@ -1,8 +1,11 @@
 # ITes Frontend
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss)
+![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-ITes-blue)](https://ites.vercel.app/)
 
 > Frontend of **ITes** — a platform for organizing IT competitions, hackathons, freelance orders, and team building.
 
