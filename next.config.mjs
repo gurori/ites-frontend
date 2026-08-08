@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        remotePatterns: [
-          {
-            protocol: process.env.NEXT_PUBLIC_API_PROTOCOL,
-            hostname: process.env.NEXT_PUBLIC_API_HOST,
-            port: process.env.NEXT_PUBLIC_API_PORT,
-            pathname: '/api/**',
-          },
-        ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: process.env.NEXT_PUBLIC_API_PROTOCOL ?? "http",
+        hostname: process.env.NEXT_PUBLIC_API_HOST ?? "localhost",
+        port: process.env.NEXT_PUBLIC_API_PORT ?? "8080",
+        pathname: "/api/**",
       },
+    ],
+  },
 };
 
 export default nextConfig;
