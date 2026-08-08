@@ -153,4 +153,8 @@ This project demonstrates experience with:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+All rights reserved.
+
+The source code is publicly available for viewing and educational purposes only.
+No permission is granted to use, copy, modify, distribute, or deploy this software
+without explicit written permission from the copyright holder.
