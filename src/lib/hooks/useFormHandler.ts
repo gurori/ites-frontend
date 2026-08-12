@@ -1,104 +1,126 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { useFormStates } from "./useFormStates";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormProps } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type IServerErrorMessage } from "../types/IServerErrorMessage";
 import { type HttpMethod } from "../types/HttpMethod";
 import apiFetch from "../apiFetch";
+import { useCallback, useEffect } from "react";
 
-type UseFormHandlerProps = {
-  schema: z.ZodObject<any> | z.ZodEffects<z.ZodObject<any>>;
-  apiPath?: string;
-  token?: string;
-  pushPath?: string;
-  userInputError?: string;
-  method?: Extract<HttpMethod, "POST" | "PUT">;
-  defaultValues?: { [x: string]: any };
-  isFile?: boolean;
-  fileName?: string;
-  resetSuccess?: boolean;
+type UserRedirect = {
+  type: "push" | "replace";
+  href: string;
+  prefetch?: Parameters<ReturnType<typeof useRouter>["prefetch"]>;
 };
 
-export const useFormHandler = ({
+type UseFormHandlerProps<TSchema extends z.ZodTypeAny> = {
+  schema: TSchema;
+  apiPath: string;
+  token?: string;
+  userRedirect?: UserRedirect;
+  userInputError?: string;
+  method?: Extract<HttpMethod, "POST" | "PUT">;
+  defaultValues?: UseFormProps<z.infer<TSchema>>["defaultValues"];
+  fileName?: string;
+};
+
+export const useFormHandler = <TSchema extends z.ZodTypeAny>({
   schema,
   apiPath,
-  pushPath,
   token,
-  fileName,
+  userRedirect,
   defaultValues,
-  userInputError = "Ошибка. Пожалуйста повторите пойзже.",
+  fileName,
+  userInputError = "Ошибка. Пожалуйста, повторите позже.",
   method = "POST",
-  isFile = false,
-  resetSuccess = false,
-}: UseFormHandlerProps) => {
-  const { formError, formSuccess, setFormStates } = useFormStates();
-  const { push, replace } = useRouter();
+}: UseFormHandlerProps<TSchema>) => {
+  const { formError, formSuccess, setError, setSuccess } = useFormStates();
+  const router = useRouter();
 
-  type TypeFormData = z.infer<typeof schema>;
-  type OnSubmit = (data: TypeFormData) => void;
+  const prefetchUrl = userRedirect?.prefetch?.[0];
+  const prefetchOptions = userRedirect?.prefetch?.[1];
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<TypeFormData>({
+  useEffect(() => {
+    if (prefetchUrl) {
+      router.prefetch(prefetchUrl, prefetchOptions);
+    }
+  }, [prefetchUrl, prefetchOptions, router]);
+
+  type FormData = z.infer<TSchema>;
+
+  const form = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues,
+    defaultValues,
   });
-  const onSubmit: OnSubmit = async (data) => {
-    if (apiPath)
-      handleFetch(data, async (data) => {
-        const formData = new FormData();
-        if (isFile) {
-          formData.append("file", data.file[0], fileName);
+
+  const handleFetch = useCallback(
+    async (getResponse: () => Promise<Response>) => {
+      try {
+        const response = await getResponse();
+
+        if (response.status === 401) {
+          router.replace("/login");
+          return;
         }
-        const auth = `Bearer ${token}`;
+
+        if (response.ok) {
+          setSuccess();
+          if (userRedirect) {
+            router[userRedirect.type](userRedirect.href);
+          }
+          return;
+        }
+
+        if (
+          response.headers.get("content-type")?.includes("application/json")
+        ) {
+          const error: IServerErrorMessage = await response.json();
+          setError(error.detail || userInputError);
+        } else {
+          setError(userInputError);
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        setError("Ошибка. Пожалуйста, повторите позже.");
+      }
+    },
+    [router, userRedirect, userInputError, setError, setSuccess],
+  );
+
+  const onSubmit = useCallback(
+    async (data: FormData) => {
+      await handleFetch(async () => {
+        const isFile = Boolean(fileName);
+        const formData = new FormData();
+        const headers = new Headers();
+
+        if (isFile) {
+          formData.append("file", (data as { file: File[] }).file[0], fileName);
+        } else {
+          headers.set("Content-Type", "application/json");
+        }
+
         const response = await apiFetch(apiPath, {
-          credentials: "include",
           method: method,
-          headers: isFile
-            ? { Authorization: auth }
-            : { Authorization: auth, "Content-Type": "application/json" },
+          headers,
+          token,
           body: isFile ? formData : JSON.stringify(data),
         });
 
         return response;
       });
-  };
-
-  const handleFetch = async (
-    data: TypeFormData,
-    getResponse: (data: TypeFormData) => Response | Promise<Response>
-  ) => {    
-    try {
-      const response = await getResponse(data);      
-
-      if (response.status === 401) push("/login");
-      else if (response.ok) {
-        setFormStates(null, true); //HERE
-        if (pushPath !== undefined) replace(pushPath);
-        if (resetSuccess) setTimeout(() => setFormStates(false), 400);
-      } else {
-        setFormStates(false);
-        const error: IServerErrorMessage = await response.json();
-        setFormStates(error.detail || userInputError);
-      }
-    } catch (error) {
-      setFormStates("Ошибка. Пожалуйста повторите пойзже.", false);
-    }
-  };
+    },
+    [apiPath, method, token, fileName, handleFetch],
+  );
 
   return {
-    register,
-    handleSubmit,
     onSubmit,
     handleFetch,
-    errors,
-    isValid,
     formError,
     formSuccess,
-    control,
+    ...form,
   };
 };
