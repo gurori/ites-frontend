@@ -1,22 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-export const useFormStates = () => {
-  type FormError = string | null;
-  const [formError, setAuthError] = useState<FormError>(null);
-  const [formSuccess, setAuthSuccess] = useState(false);
+export type FormStates = { error: string | null; success: boolean };
 
-  function setFormStates(errorState: FormError, successState?: boolean): void;
-  function setFormStates(successState: boolean): void;
+const DEFAULT_FORM_STATES: FormStates = { error: null, success: false };
 
-  function setFormStates(value1: FormError | boolean, value2?: boolean): void {
-    if (value1 === null || typeof value1 === "string") {
-      setAuthError(value1);
-    }
-    if (typeof value2 === "boolean") setAuthSuccess(value2);
-    else if (typeof value1 === "boolean") setAuthSuccess(value1);
-  }
+export const useFormStates = (
+  initialValue: FormStates = DEFAULT_FORM_STATES,
+) => {
+  const [formStates, setFormStates] = useState<FormStates>(initialValue);
 
-  return { formError, formSuccess, setFormStates };
+  const setError = useCallback((error: string) => {
+    setFormStates({ error, success: false });
+  }, []);
+
+  const setSuccess = useCallback((success = true) => {
+    setFormStates({ error: null, success });
+  }, []);
+
+  const resetFormStates = useCallback(() => {
+    setFormStates(initialValue);
+  }, [initialValue]);
+
+  return {
+    formError: formStates.error,
+    formSuccess: formStates.success,
+    setError,
+    setSuccess,
+    resetFormStates,
+    setFormStates,
+  };
 };
