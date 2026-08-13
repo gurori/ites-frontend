@@ -1,5 +1,5 @@
-import { type JobTitle } from "./types/JobTitle";
-import { type Role } from "./types/Role";
+import type { JobTitle } from "./types/JobTitle";
+import type { RoleEng, Role } from "./types/Role";
 
 export const jobTitles: JobTitle[] = [
   "Менеджер",
@@ -9,5 +9,7 @@ export const jobTitles: JobTitle[] = [
 ];
 
 export const roles: Role[] = ["Участник", "Заказчик", "Организатор"];
+
+export const rolesEng: RoleEng[] = ["member", "client", "organizer"];
 
 export const mainTabsNames = ["Конкурсы", "Задания", "Заказы", "Новости"];
