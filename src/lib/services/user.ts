@@ -1,110 +1,72 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import apiFetch from "../apiFetch";
+import { rolesEng } from "../constants";
 
 import type { IClient, IMember, IOrganizer, IUser } from "../types/IUser";
 import type { RoleEng } from "../types/Role";
-import type { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { fetchServerApi } from "./fetchServerApi";
 
-export const getUserData = async () => {
-  const token = await Promise.resolve(cookies().get("auth"));
-  if (!token) redirect("/login");
-  const user: IUser = await apiFetch("/api/User/profile", {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
-  }).then(async (res) => {
-    if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
-    return await res.json();
-  });
-  return user;
-};
-
-export const getMember = async (id?: string) => {
-  const token = await getToken();
-  if (!token) redirect("/login");
-  const user: IMember = await apiFetch(`/api/User/member${id ? `/${id}`:""}`, {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
-  }).then(async (res) => {
-    if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
-    return await res.json();
-  });
-  return user;
-};
-export const getOrganizer = async () => {
-  const token = await getToken()
-  if (!token) redirect("/login");
-  const user: IOrganizer = await apiFetch("/api/User/organizer", {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
-  }).then(async (res) => {
-    if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
-    return await res.json();
-  });
-  return user;
-};
-export const getClient = async () => {
-  const token = await getToken()
-  if (!token) redirect("/login");
-  const user: IClient = await apiFetch("/api/User/client", {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
-  }).then(async (res) => {
-    if ([401, 404, 204, 403].includes(res.status)) redirect("/login");
-    return await res.json();
-  });
-  return user;
-};
-
-export const getManyUsers = async (ids: string[]) => {
-  const token = cookies().get("auth");
-  if (!token) redirect("/login");
-  const users: IUser[] | undefined = await apiFetch(`/api/User/profile/many?ids=${ids?.join("&ids=")}`, {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
-  }).then(async (res) => {
-    if (res.ok) return await res.json();
-    return undefined;
-  });
-  return users;
-};
-
-export const getRole = async (token: RequestCookie) => {
-  const role = await apiFetch("/api/user/role", {
-    credentials: "include",
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-  }).then(async (res) => {
-    if ([401, 404, 204].includes(res.status)) redirect("/login");
-    return (await res.text()) as RoleEng;
-  });
-  return role;
-};
-
-export const getToken = async (
+export const getToken = (
   name = "auth",
-  isRedirect = true,
-  redirectUrl = "/login"
+  redirectUrl: string | undefined = "/login",
 ) => {
-  if(!cookies().has(name) && isRedirect)
-    redirect(redirectUrl)
+  const cookieStorage = cookies();
+  const token = cookieStorage.get(name)?.value;
 
-  const token = cookies().get(name);
+  if (!token) {
+    if (redirectUrl) {
+      redirect(redirectUrl);
+    }
+    return null;
+  }
+
   return token;
+};
+
+export const getUserData = () => fetchServerApi<IUser>("/api/user/profile");
+
+export const getMember = (id?: string) =>
+  fetchServerApi<IMember>(`/api/user/member${id ? `/${id}` : ""}`);
+
+export const getOrganizer = () =>
+  fetchServerApi<IOrganizer>("/api/user/organizer");
+
+export const getClient = () => fetchServerApi<IClient>("/api/user/client");
+
+export const getManyUsers = async (ids: string[]): Promise<IUser[]> => {
+  if (!ids || ids.length === 0) {
+    return [];
+  }
+
+  const token = getToken() ?? undefined;
+  const params = new URLSearchParams();
+  ids.forEach((id) => params.append("ids", id));
+
+  const response = await apiFetch(
+    `/api/user/profile/many?=${params.toString()}`,
+    {
+      token,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  if (response.ok) {
+    return (await response.json()) as IUser[];
+  }
+
+  return [];
+};
+
+export const getRole = async () => {
+  const cookieStorage = cookies();
+  const role = cookieStorage.get("role")?.value as RoleEng | undefined;
+
+  if (role && rolesEng.includes(role)) {
+    return role;
+  }
+
+  redirect("/login");
 };
