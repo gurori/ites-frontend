@@ -1,15 +1,30 @@
 /** @type {import('next').NextConfig} */
+
+const backendProtocol = process.env.NEXT_PUBLIC_API_PROTOCOL || "https";
+const backendHost = process.env.NEXT_PUBLIC_API_HOST || "gurori.ru";
+const backendPort = process.env.NEXT_PUBLIC_API_PORT || "";
+
+const backendUrl = `${backendProtocol}://${backendHost}${backendPort ? `:${backendPort}` : ""}`;
+
 const nextConfig = {
   output: "standalone",
   images: {
     remotePatterns: [
       {
-        protocol: process.env.NEXT_PUBLIC_API_PROTOCOL ?? "http",
-        hostname: process.env.NEXT_PUBLIC_API_HOST ?? "localhost",
-        port: process.env.NEXT_PUBLIC_API_PORT ?? "8080",
+        protocol: backendProtocol === "https" ? "https" : "http",
+        hostname: backendHost,
+        ...(backendPort ? { port: backendPort } : {}),
         pathname: "/api/**",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/external/:path*",
+        destination: `${backendUrl}/api/:path*`,
+      },
+    ];
   },
 };
 
