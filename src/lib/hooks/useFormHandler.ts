@@ -17,7 +17,7 @@ export type UserRedirect = {
 };
 
 export type UseFormHandlerProps<TFormData extends FieldValues> = {
-  schema: z.ZodTypeAny;
+  schema: z.ZodType<TFormData>;
   apiPath?: string;
   token?: string;
   userRedirect?: UserRedirect;
