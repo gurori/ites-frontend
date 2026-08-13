@@ -7,6 +7,11 @@ import type { IClient, IMember, IOrganizer, IUser } from "../types/IUser";
 import type { RoleEng } from "../types/Role";
 import { fetchServerApi } from "./fetchServerApi";
 
+export const setToken = (value: string, name = "auth") => {
+  const cookieStorage = cookies();
+  cookieStorage.set(name, value)
+}
+
 export const getToken = (
   name = "auth",
   redirectUrl: string | undefined = "/login",
@@ -69,4 +74,9 @@ export const getRole = async () => {
   }
 
   redirect("/login");
+};
+
+export const setRole = (value: RoleEng, name = "role") => {
+  const cookieStorage = cookies();
+  cookieStorage.set(name, value);
 };
