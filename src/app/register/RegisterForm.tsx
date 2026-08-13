@@ -7,33 +7,39 @@ import ErrorMessage from "@/components/ui/ErrorMessage";
 import { useState } from "react";
 import IdentificationForm from "./(identification)/IdentificationForm";
 
+const userSchema = z.object({
+  firstName: nameSchema,
+  email: emailSchema,
+  password: passwordSchema,
+});
+
+export type UserRegisterData = z.infer<typeof userSchema>;
+
 export default function RegisterForm() {
-  const userSchema = z.object({
-    firstName: nameSchema,
-    email: emailSchema,
-    password: passwordSchema,
-  });
-  type TypeFormData = z.infer<typeof userSchema>;
-
-  const [formData, setFormData] = useState<TypeFormData>();
+  const [formData, setFormData] = useState<UserRegisterData | null>(null);
   const [activeStage, setActiveStage] = useState<"register" | "identification">(
-    "register"
+    "register",
   );
 
-  const { register, handleSubmit, errors, formError, isValid } = useFormHandler(
-    {
-      schema: userSchema,
-      userInputError: "Ошибка при регистрации. Пожалуста, повторите попытку",
-    }
-  );
+  const {
+    register,
+    handleSubmit,
+    formError,
+    formState: { errors },
+  } = useFormHandler<UserRegisterData>({
+    schema: userSchema,
+  });
 
-  const onSubmit = (data: any) => {
-    if (isValid) {
-      setFormData(data);
-      setActiveStage("identification");
-    }
+  const onSubmit = (data: UserRegisterData) => {
+    setFormData(data);
+    setActiveStage("identification");
   };
-  return activeStage === "register" ? (
+
+  if (activeStage === "identification" && formData) {
+    return <IdentificationForm formData={formData} />;
+  }
+
+  return (
     <div className="h-screen bg-purple center">
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -78,7 +84,5 @@ export default function RegisterForm() {
         </button>
       </form>
     </div>
-  ) : (
-    <IdentificationForm formData={formData} />
   );
 }

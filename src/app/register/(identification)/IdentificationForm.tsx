@@ -7,51 +7,65 @@ import { useController } from "react-hook-form";
 import { z } from "zod";
 import SelectRole from "./SelectRole";
 import { useEffect, useState } from "react";
-import { Role } from "@/lib/types/Role";
+import type { Role } from "@/lib/types/Role";
 import { getRoleEng } from "@/lib/utils";
 import apiFetch from "@/lib/apiFetch";
 import FormError from "@/components/ui/FormError";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import SecretKeyForm from "./SecretKeyForm";
+import { type UserRegisterData } from "../RegisterForm";
+
+const identificationSchema = z.object({ role: roleSchema });
+
+type IdentificationData = z.infer<typeof identificationSchema>;
+
+export type CompleteRegistrationData = UserRegisterData & IdentificationData;
 
 export default function IdentificationForm({
   formData,
-}: Readonly<{ formData: any }>) {
-  const [activeRole, setActiveRole] = useState<Role | null>(null);
+}: Readonly<{ formData: UserRegisterData }>) {
   const [isOrganizer, setIsOrganizer] = useState(false);
-  const [userData, setUserData] = useState<any>(null)
-  const { push } = useRouter();
+  const [userData, setUserData] = useState<CompleteRegistrationData | null>(
+    null,
+  );
+  const { replace } = useRouter();
 
-  const identificationSchema = z.object({ role: roleSchema });
-  const { control, errors, formError, formSuccess, handleSubmit, handleFetch } =
-    useFormHandler({
-      schema: identificationSchema,
-      pushPath: "/login",
-    });
+  const {
+    control,
+    formError,
+    formSuccess,
+    formState: { errors },
+    handleSubmit,
+    handleFetch,
+  } = useFormHandler<IdentificationData>({
+    schema: identificationSchema,
+    userRedirect: {
+      href: "/login",
+      type: "replace",
+    },
+  });
+
   const { field } = useController({
     control,
     name: "role",
     defaultValue: "Member",
   });
-  const onSubmit = (data: any) => {    
-    if (data.role == "organizer") {
-      setUserData({ ...data, ...formData })
-      setIsOrganizer(true)
-    }
-    else
-    handleFetch(
-      data,
-      async (data) =>
-        await apiFetch("/api/user/register", {
+
+  const onSubmit = (data: IdentificationData) => {
+    if (data.role === "organizer") {
+      setUserData({ ...data, ...formData });
+      setIsOrganizer(true);
+    } else
+      handleFetch(async () =>
+        apiFetch("/api/auth/register", {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ ...data, ...formData }),
-        })
-    );
+        }),
+      );
   };
 
   useEffect(() => {
@@ -61,10 +75,14 @@ export default function IdentificationForm({
       });
     else if (formError) {
       toast(formError);
-      push("/login");
     }
-  }, [formSuccess, formError]);
-  return !isOrganizer ? (
+  }, [formSuccess, formError, toast, replace]);
+
+  if (isOrganizer && userData) {
+    return <SecretKeyForm formData={userData} handleFetch={handleFetch} />;
+  }
+
+  return (
     <div className="bg-black-800 h-screen center">
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -72,21 +90,23 @@ export default function IdentificationForm({
       >
         <label className="text-white">Продолжить как...</label>
         <div className="grid gap-4 md:flex md:gap-8">
-          {roles.map((role) => (
-            <SelectRole
-              key={role}
-              role={role}
-              active={activeRole === role}
-              onClick={() => {
-                setActiveRole(role);
-                field.onChange(getRoleEng(role));
-              }}
-            />
-          ))}
+          {roles.map((role) => {
+            const roleEng = getRoleEng(role);
+            return (
+              <SelectRole
+                key={role}
+                role={role}
+                active={field.value === roleEng}
+                onClick={() => {
+                  field.onChange(roleEng);
+                }}
+              />
+            );
+          })}
         </div>
         <button className="small px-16 bg-purple text-white">Далее</button>
         <FormError error={errors.role} />
       </form>
     </div>
-  ) : (<SecretKeyForm formData={userData} handleFetch={handleFetch} />);
+  );
 }
