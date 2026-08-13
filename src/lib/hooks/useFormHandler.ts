@@ -10,13 +10,13 @@ import { type HttpMethod } from "../types/HttpMethod";
 import apiFetch from "../apiFetch";
 import { useCallback, useEffect } from "react";
 
-type UserRedirect = {
+export type UserRedirect = {
   type: "push" | "replace";
   href: string;
   prefetch?: Parameters<ReturnType<typeof useRouter>["prefetch"]>;
 };
 
-type UseFormHandlerProps<TSchema extends z.ZodTypeAny> = {
+export type UseFormHandlerProps<TSchema extends z.ZodTypeAny> = {
   schema: TSchema;
   apiPath: string;
   token?: string;
