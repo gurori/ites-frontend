@@ -49,7 +49,7 @@ export const getManyUsers = async (ids: string[]): Promise<IUser[]> => {
   ids.forEach((id) => params.append("ids", id));
 
   const response = await apiFetch(
-    `/api/user/profile/many?=${params.toString()}`,
+    `/api/user/profile/many?${params.toString()}`,
     {
       token,
       headers: {
