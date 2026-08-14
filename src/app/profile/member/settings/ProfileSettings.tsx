@@ -4,9 +4,14 @@ import UpdateProfileProperty from "../../(settings)/UpdateProfileProperty";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import { z } from "zod";
-import { nameSchema, optionalString, roleSchema, mdTextSchema } from "@/lib/zod-schemas";
+import {
+  nameSchema,
+  optionalString,
+  roleSchema,
+  mdTextSchema,
+} from "@/lib/zod-schemas";
 import FormError from "@/components/ui/FormError";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SelectJobTitle from "./SelectRole";
 import { useController } from "react-hook-form";
 import { jobTitles } from "@/lib/constants";
@@ -15,57 +20,67 @@ import AvatarForm from "../../(settings)/AvatarForm";
 import { toast } from "sonner";
 import SettingsLayout from "../../(settings)/SettingsLayout";
 
-export default function ProfileSettings({ token }: { token: string }) {
-  const { push } = useRouter();
+const updateUserSchema = z.object({
+  lastName: nameSchema,
+  firstName: nameSchema,
+  middleName: optionalString(nameSchema),
+  description: optionalString(mdTextSchema),
+  jobTitle: roleSchema,
+});
+
+export default function ProfileSettings({
+  token,
+}: Readonly<{ token: string }>) {
+  const { replace } = useRouter();
   const params = useSearchParams();
-  const currentJobTitle = params.get("job")!;
-  const userId = params.get("user")
-  if(!userId)
-    push("/profile");
-  const [activeJobTitle, setActiveJobTitle] = useState(currentJobTitle);
-  const updateUserSchema = z.object({
-    lastName: nameSchema,
-    firstName: nameSchema,
-    middleName: optionalString(nameSchema),
-    description: optionalString(mdTextSchema),
-    jobTitle: roleSchema,
-  });
+
+  const currentJobTitle = params.get("job") ?? "";
+  const userId = params.get("user");
+
+  useEffect(() => {
+    if (!userId) replace("/profile/member");
+  }, [userId, replace]);
+
   const {
-    errors,
     formError,
     formSuccess,
+    formState: { errors },
     handleSubmit,
     register,
     onSubmit,
     control,
   } = useFormHandler({
-    apiPath: "/api/User/update",
-    token: token,
-    method: "PUT",
     schema: updateUserSchema,
-    resetSuccess: true,
+    apiPath: "/api/user/update",
+    token,
+    method: "PUT",
     defaultValues: {
-      lastName: params.get("last")!,
-      firstName: params.get("first")!,
-      middleName: params.get("middle")!,
-      description: params.get("description")!,
+      lastName: params.get("last") ?? "",
+      firstName: params.get("first") ?? "",
+      middleName: params.get("middle") ?? "",
+      description: params.get("description") ?? "",
       jobTitle: currentJobTitle,
     },
   });
+
   const { field } = useController({
     control,
     name: "jobTitle",
     defaultValue: currentJobTitle,
   });
-  useEffect(() => {
-    if (formSuccess) 
-      toast("Данные успешно сохранены!", {
-        description: "Обновите страницу профиля, чтобы увидеть измения.",
-      });
-  }, [formSuccess]);
-  return (
-<SettingsLayout>    
 
+  useEffect(() => {
+    if (formSuccess) {
+      toast.success("Данные успешно сохранены!", {
+        description: "Обновите страницу профиля, чтобы увидеть изменения.",
+      });
+    }
+  }, [formSuccess]);
+
+  if (!userId) return null;
+
+  return (
+    <SettingsLayout>
       <form onSubmit={handleSubmit(onSubmit)}>
         <UpdateProfileProperty
           text="Введите ФИО"
@@ -90,6 +105,7 @@ export default function ProfileSettings({ token }: { token: string }) {
           />
           <FormError error={errors.middleName} />
         </UpdateProfileProperty>
+
         <UpdateProfileProperty text="О себе" className="grid">
           <textarea
             {...register("description")}
@@ -98,26 +114,26 @@ export default function ProfileSettings({ token }: { token: string }) {
           />
           <FormError error={errors.description} />
         </UpdateProfileProperty>
+
         <UpdateProfileProperty text="Выберите роль">
           <div className="flex gap-6 relative pb-4 flex-wrap">
             {jobTitles.map((title) => (
               <SelectJobTitle
                 key={title}
-                active={activeJobTitle === title}
-                onClick={() => {
-                  setActiveJobTitle(title);
-                  field.onChange(title);
-                }}
+                active={field.value === title}
+                onClick={() => field.onChange(title)}
                 title={title}
               />
             ))}
           </div>
           <FormError error={errors.jobTitle} />
         </UpdateProfileProperty>
+
         <SubmitButton />
         {formError && <p className="text-red-500 pt-4">{formError}</p>}
       </form>
-      <AvatarForm userId={userId as string} token={token} />
-      </SettingsLayout>
+
+      <AvatarForm userId={userId} token={token} />
+    </SettingsLayout>
   );
 }
