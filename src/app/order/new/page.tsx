@@ -3,9 +3,10 @@ import { redirect } from "next/navigation";
 import OrderForm from "./OrderForm";
 
 export default async function CreateOrderPage() {
-  const token = await getToken();
-  const role = await getRole(token!);
+  const token = getToken()!;
+  const role = getRole()!;
+
   if (role !== "client") redirect(`/profile/${role}`);
 
-  return <OrderForm token={token!.value} />;
+  return <OrderForm token={token} />;
 }

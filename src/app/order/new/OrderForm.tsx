@@ -5,37 +5,42 @@ import BackButton from "@/components/ui/buttons/BackButton";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import FormError from "@/components/ui/FormError";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
-import { dateSchema, lgTextSchema, priceSchema, smTextSchema } from "@/lib/zod-schemas";
+import {
+  dateSchema,
+  lgTextSchema,
+  priceSchema,
+  smTextSchema,
+} from "@/lib/zod-schemas";
 import { SendHorizonalIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useController } from "react-hook-form";
 import { z } from "zod";
 
-export default function OrderForm({
-  token,
-}: Readonly<{ token: string }>) {
+const orderSchema = z.object({
+  title: smTextSchema,
+  description: lgTextSchema,
+  price: priceSchema,
+  deadLine: dateSchema,
+});
+
+export default function OrderForm({ token }: Readonly<{ token: string }>) {
   const { back } = useRouter();
-  const orderSchema = z.object({
-    title: smTextSchema,
-    description: lgTextSchema,
-    price: priceSchema,
-    deadLine: dateSchema,
-  });
   const {
     control,
-    errors,
     formError,
-    formSuccess,
+    formState: { errors },
     handleSubmit,
     onSubmit,
     register,
   } = useFormHandler({
     schema: orderSchema,
     apiPath: "/api/orders",
-    token: token,
-    pushPath: "/profile/client",
+    token,
+    userRedirect: { href: "/profile/client", type: "push" },
   });
+
   const deadLineField = useController({ control, name: "deadLine" }).field;
+  
   return (
     <div className="black-card my-8">
       <div className="flex gap-6 items-center">
