@@ -1,6 +1,6 @@
 import apiFetch from "@/lib/apiFetch";
 import { notFound } from "next/navigation";
-import { getToken } from "@/lib/services/user";
+import { getRole, getToken } from "@/lib/services/user";
 import type { IOrder } from "@/lib/types/IOrder";
 import OrderInfo from "./OrderInfo";
 
@@ -9,14 +9,20 @@ export default async function CompetitionInfoPage({
 }: {
   params: { id: string };
 }) {
-  const order: IOrder = await apiFetch(
-    `/api/orders/${params.id}`
-  ).then(async (res) => {
-    if (res.status === 404) notFound();
-    return await res.json();
-  });
-  const token = await getToken();
-  return (
-    <OrderInfo order={order} token={token!.value} />
-  );
+  const response = await apiFetch(`/api/orders/${params.id}`);
+
+  if (response.status === 404) {
+    notFound();
+  }
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch order: ${response.status}`);
+  }
+
+  const order: IOrder = await response.json();
+
+  const token = getToken()!;
+  const role = getRole();
+
+  return <OrderInfo order={order} token={token} role={role} />;
 }
