@@ -32,7 +32,7 @@ export default function HomePage() {
         </div>
         <div className="absolute bottom-0 lg:relative lg:flex-1 -z-10">
           <Image
-            src="/images/mascot.png"
+            src="/images/mascot.webp"
             alt="mascot"
             className="hidden md:block xl:ml-16 w-3/5 lg:w-full float-end"
             width={684}
@@ -64,7 +64,7 @@ export default function HomePage() {
             </TextCard>
           </div>
           <div className="flex-1 order-1">
-            <Image src="/images/laptop.png" alt="laptop image" width={684} height={600} />
+            <Image src="/images/laptop.webp" alt="laptop image" width={684} height={600} />
           </div>
         </div>
         <div className="md:flex items-center">
@@ -79,7 +79,7 @@ export default function HomePage() {
           <div className="flex-1">
             <Image
               className="md:w-2/3 md:float-end"
-              src="/images/columns.png"
+              src="/images/columns.webp"
               alt="columns image"
               width={456}
               height={488}
@@ -96,7 +96,7 @@ export default function HomePage() {
             </TextCard>
           </div>
           <div className="flex-1 order-1">
-            <Image src="/images/guys.png" alt="guys image" width={684} height={658} />
+            <Image src="/images/guys.webp" alt="guys image" width={684} height={658} />
           </div>
         </div>
       </div>

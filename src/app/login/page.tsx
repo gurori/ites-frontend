@@ -7,7 +7,7 @@ export default function LoginPage() {
     <div className="h-screen center bg-black px-4">
       <div className={styles.whiteBox}>
         <Image
-          src="/icons/user.png"
+          src="/icons/user.svg"
           className="absolute top-0 -translate-y-1/2"
           alt="user icon"
           width={160}
