@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import AvatarForm from "../../(settings)/AvatarForm";
 import { toast } from "sonner";
-import SettingsLayout from "../../(settings)/SettingsLayout";
 
 const updateUserSchema = z.object({
   lastName: nameSchema,
@@ -59,7 +58,7 @@ export default function ProfileSettings({ token }: { token: string }) {
   if (!userId) return null;
 
   return (
-    <SettingsLayout>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <UpdateProfileProperty
           text="Введите ФИО"
@@ -95,7 +94,7 @@ export default function ProfileSettings({ token }: { token: string }) {
         <SubmitButton />
         {formError && <p className="text-red-500 pt-4">{formError}</p>}
       </form>
-      <AvatarForm userId={userId} token={token} />
-    </SettingsLayout>
+      <AvatarForm userId={userId} token={token} />{" "}
+    </>
   );
 }

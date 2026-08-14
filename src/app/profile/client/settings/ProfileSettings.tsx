@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import AvatarForm from "../../(settings)/AvatarForm";
 import { toast } from "sonner";
-import SettingsLayout from "../../(settings)/SettingsLayout";
 import type { RoleEng } from "@/lib/types/Role";
 
 const updateUserSchema = z.object({
@@ -65,7 +64,7 @@ export default function ProfileSettings({
   if (!userId) return null;
 
   return (
-    <SettingsLayout>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <UpdateProfileProperty
           text="Введите ФИО"
@@ -107,6 +106,6 @@ export default function ProfileSettings({
       </form>
 
       <AvatarForm userId={userId} token={token} />
-    </SettingsLayout>
+    </>
   );
 }
