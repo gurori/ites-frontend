@@ -7,13 +7,13 @@ export default async function TeamsApplicationTab({
     applications,
     index,
   }: Readonly<Partial<TeamsApplicationsProp> & { index: number }>) {
-    const token = await getToken();
+    const token = getToken()!;
     return (
       <>
         {applications && applications.length !== 0 ? (
           <div className="flex flex-wrap gap-8">
             {applications.map((a) => (
-              <UserForTeamInfo application={a} token={token!.value} key={a.id} />
+              <UserForTeamInfo application={a} token={token} key={a.id} />
             ))}
           </div>
         ) : (
