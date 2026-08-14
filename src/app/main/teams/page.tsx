@@ -6,19 +6,20 @@ import Team from "./Team";
 export const revalidate = 10;
 
 export default async function MainTeamsPage() {
-  async function getTeams() {
-    const teams: ITeam[] = await apiFetch("/api/teams").then(
-      async (res) => await res.json()
-    );
-    return teams;
+  const response = await apiFetch("/api/teams");
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch teams: ${response.status}`);
   }
-  const teams = await getTeams();
+
+  const teams: ITeam[] = await response.json();
+
   return (
     <>
       <MainTabsButtons active="Команды" />
       <div className="pt-8 md:pt-16 grid gap-16">
-        {teams.map((t) => (
-          <Team team={t} key={t.id} />
+        {teams.map((team) => (
+          <Team team={team} key={team.id} />
         ))}
       </div>
     </>
