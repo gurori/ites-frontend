@@ -6,21 +6,20 @@ import Competition from "./Competition";
 export const revalidate = 10;
 
 export default async function CompetitionsPage() {
-  async function getCompetitions() {
-    const competitions: ICompetition[] = await apiFetch(
-      "/api/competitions/get", {
-        cache: "no-store",
-      }
-    ).then(async (res) => await res.json());
-    return competitions;
+  const response = await apiFetch("/api/competitions/get");
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch competitions: ${response.status}`);
   }
-  const competitions = await getCompetitions();
+
+  const competitions: ICompetition[] = await response.json();
+
   return (
     <>
       <MainTabsButtons active="Конкурсы" />
       <div className="pt-8 md:pt-16 grid gap-16">
-        {competitions.map((c) => (
-          <Competition competition={c} key={c.id} />
+        {competitions.map((competition) => (
+          <Competition competition={competition} key={competition.id} />
         ))}
       </div>
     </>
