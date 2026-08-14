@@ -6,63 +6,83 @@ import { z } from "zod";
 import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
-import Image from "next/image";
+import apiFetch from "@/lib/apiFetch";
+import type { IUserLoginResponse } from "@/lib/types/IUserLoginPesponse";
+import { useRouter } from "next/navigation";
+
+const userSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+});
+
+type UserLoginData = z.infer<typeof userSchema>;
 
 export default function LoginForm() {
-  const userSchema = z.object({
-    email: emailSchema,
-    password: passwordSchema,
+  const { replace } = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formError,
+    formState: { errors },
+    handleFetch,
+  } = useFormHandler<UserLoginData>({
+    schema: userSchema,
+    userInputError: "Неверные почта или пароль.",
   });
-  const { register, handleSubmit, errors, formError, handleFetch, onSubmit } =
-    useFormHandler({
-      apiPath: "/api/User/login",
-      schema: userSchema,
-      pushPath: "/profile",
-      userInputError: "Неверные почта или пароль",
+
+  const onSubmit = async (data: UserLoginData) => {
+    await handleFetch(async () => {
+      const response = await apiFetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const { role }: IUserLoginResponse = await response.json();
+
+        replace(`/profile/${role}`);
+      }
+
+      return response;
     });
+  };
+
   return (
-    <div className="h-screen center bg-black px-4">
-      <div className={styles.whiteBox}>
-        <Image
-          src="/icons/user.png"
-          className="absolute top-0 -translate-y-1/2"
-          alt="user icon"
-          width={160}
-          height={160}
-        />
-        <div className="text-center -mt-2 mb-2">
-          {formError && <ErrorMessage>{formError}</ErrorMessage>}
-        </div>
-        <form
-          className="grid place-items-center gap-2"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="grid gap-1">
-            <input
-              {...register("email")}
-              type="email"
-              className="white drop-shadow"
-              placeholder="Почта"
-            />
-            <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
-            <input
-              {...register("password")}
-              type="password"
-              className="white drop-shadow"
-              placeholder="Пароль"
-            />
-            <ErrorMessage>
-              {errors.password && errors.password.message}
-            </ErrorMessage>
-          </div>
-          <button type="submit" className={styles.button}>
-            Войти
-          </button>
-        </form>
-        <Link href="/register/" className="text-[#4B4443] mt-6">
-          Ещё не зарегистрированы?
-        </Link>
+    <>
+      <div className="text-center -mt-2 mb-2">
+        {formError && <ErrorMessage>{formError}</ErrorMessage>}
       </div>
-    </div>
+      <form
+        className="grid place-items-center gap-2"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="grid gap-1">
+          <input
+            {...register("email")}
+            type="email"
+            className="white drop-shadow"
+            placeholder="Почта"
+          />
+          <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          <input
+            {...register("password")}
+            type="password"
+            className="white drop-shadow"
+            placeholder="Пароль"
+          />
+          <ErrorMessage>{errors.password?.message}</ErrorMessage>
+        </div>
+        <button type="submit" className={styles.button}>
+          Войти
+        </button>
+      </form>
+      <Link href="/register/" className="text-[#4B4443] mt-6">
+        Ещё не зарегистрированы?
+      </Link>
+    </>
   );
 }
