@@ -13,6 +13,7 @@ import type {
 import apiFetch from "@/lib/apiFetch";
 import { useState } from "react";
 import { getHtmlTags } from "@/lib/utils";
+import { toast } from "sonner";
 
 export function UserForCompetitionInfo({
   application,
@@ -20,63 +21,75 @@ export function UserForCompetitionInfo({
 }: Readonly<CompetitionApplicationProp & { token: string }>) {
   const [show, setShow] = useState(true);
   const user = application.fromMember;
+
   async function handleApplication(accept: boolean) {
-    await apiFetch(
-      `/api/Competitions/application/${application.id}/${accept}`,
-      {
-        credentials: "include",
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await apiFetch(
+        `/api/competitions/application/${application.id}/${accept}`,
+        {
+          method: "PUT",
+          token,
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
+      );
+
+      if (!response.ok) {
+        toast.error("Не удалось обновить статус заявки.");
+        return;
       }
-    );
-    setShow(false);
+
+      toast.success(accept ? "Заявка принята!" : "Заявка отклонена.");
+      setShow(false);
+    } catch (error) {
+      console.error("Error handling competition application:", error);
+      toast.error("Ошибка сети. Проверьте подключение.");
+    }
   }
+
+  if (!show) return null;
+
   return (
-    show && (
-      <div className={s.userInfoCard}>
-        <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
-            className={s.imgShadow}
-            fill
-            alt="avatar"
-          />
-        </div>
-        <p>
-          {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
-          Вам заявку на{" "}
-          <div
-            className="break-words [&>*]:text-lg [&>*]:font-normal"
-            dangerouslySetInnerHTML={{
-              __html: getHtmlTags(application.forCompetition.contentInHtml, 2),
-            }}
-          ></div>
-        </p>
-        <JobTitle
-          className="place-self-start my-2"
-          title={user.jobTitle || user.role}
+    <div className={s.userInfoCard}>
+      <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
+        <Image
+          src={`/api/external/files/users/${user.id}/avatar.jpg`}
+          fill
+          alt="avatar"
         />
-        <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
-          <Link
-            href={`/profile/${user.role}/${user.id}`}
-            className={s.toProfileLink}
-          >
-            Перейти к профилю <MoveRightIcon />
-          </Link>
-          <div className="flex gap-6">
-            <button className={s.green} onClick={() => handleApplication(true)}>
-              Принять <CheckIcon />
-            </button>
-            <button className={s.red} onClick={() => handleApplication(false)}>
-              Отказать <XIcon />
-            </button>
-          </div>
+      </div>
+      <div className="mb-2">
+        {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
+        Вам заявку на{" "}
+        <div
+          className="break-words [&>*]:text-lg [&>*]:font-normal inline-block"
+          dangerouslySetInnerHTML={{
+            __html: getHtmlTags(application.forCompetition.contentInHtml, 2),
+          }}
+        />
+      </div>
+      <JobTitle
+        className="place-self-start my-2"
+        title={user.jobTitle || user.role}
+      />
+      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
+        <Link
+          href={`/profile/${user.role}/${user.id}`}
+          className={s.toProfileLink}
+        >
+          Перейти к профилю <MoveRightIcon />
+        </Link>
+        <div className="flex gap-6">
+          <button className={s.green} onClick={() => handleApplication(true)}>
+            Принять <CheckIcon />
+          </button>
+          <button className={s.red} onClick={() => handleApplication(false)}>
+            Отказать <XIcon />
+          </button>
         </div>
       </div>
-    )
+    </div>
   );
 }
 
@@ -86,54 +99,70 @@ export function UserForOrderInfo({
 }: Readonly<OrderApplicationProp & { token: string }>) {
   const [show, setShow] = useState(true);
   const user = application.fromMember;
+
   async function handleApplication(accept: boolean) {
-    await apiFetch(`/api/orders/application/${application.id}/${accept}`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setShow(false);
+    try {
+      const response = await apiFetch(
+        `/api/orders/application/${application.id}/${accept}`,
+        {
+          method: "PUT",
+          token,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        toast.error("Не удалось обновить статус заявки.");
+        return;
+      }
+
+      toast.success(accept ? "Заявка принята!" : "Заявка отклонена.");
+      setShow(false);
+    } catch (error) {
+      console.error("Error handling order application:", error);
+      toast.error("Ошибка сети. Проверьте подключение.");
+    }
   }
+
+  if (!show) return null;
+
   return (
-    show && (
-      <div className={s.userInfoCard}>
-        <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
-            className={s.imgShadow}
-            fill
-            alt="avatar"
-          />
-        </div>
-        <p>
-          {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
-          Вам заявку на {application.forOrder.title}
-        </p>
-        <JobTitle
-          className="place-self-start my-2"
-          title={user.jobTitle || user.role}
+    <div className={s.userInfoCard}>
+      <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
+        <Image
+          src={`/api/external/files/users/${user.id}/avatar.jpg`}
+          className={s.imgShadow}
+          fill
+          alt="avatar"
         />
-        <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
-          <Link
-            href={`/profile/${user.role}/${user.id}`}
-            className={s.toProfileLink}
-          >
-            Перейти к профилю <MoveRightIcon />
-          </Link>
-          <div className="flex gap-6">
-            <button className={s.green} onClick={() => handleApplication(true)}>
-              Принять <CheckIcon />
-            </button>
-            <button className={s.red} onClick={() => handleApplication(false)}>
-              Отказать <XIcon />
-            </button>
-          </div>
+      </div>
+      <p>
+        {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
+        Вам заявку на {application.forOrder.title}
+      </p>
+      <JobTitle
+        className="place-self-start my-2"
+        title={user.jobTitle || user.role}
+      />
+      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
+        <Link
+          href={`/profile/${user.role}/${user.id}`}
+          className={s.toProfileLink}
+        >
+          Перейти к профилю <MoveRightIcon />
+        </Link>
+        <div className="flex gap-6">
+          <button className={s.green} onClick={() => handleApplication(true)}>
+            Принять <CheckIcon />
+          </button>
+          <button className={s.red} onClick={() => handleApplication(false)}>
+            Отказать <XIcon />
+          </button>
         </div>
       </div>
-    )
+    </div>
   );
 }
 
@@ -143,53 +172,69 @@ export function UserForTeamInfo({
 }: Readonly<TeamApplicationProp & { token: string }>) {
   const [show, setShow] = useState(true);
   const user = application.fromMember;
+
   async function handleApplication(accept: boolean) {
-    await apiFetch(`/api/teams/application/${application.id}/${accept}`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setShow(false);
+    try {
+      const response = await apiFetch(
+        `/api/teams/application/${application.id}/${accept}`,
+        {
+          method: "PUT",
+          token,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        toast.error("Не удалось обновить статус заявки.");
+        return;
+      }
+
+      toast.success(accept ? "Заявка принята!" : "Заявка отклонена.");
+      setShow(false);
+    } catch (error) {
+      console.error("Error handling team application:", error);
+      toast.error("Ошибка сети. Проверьте подключение.");
+    }
   }
+
+  if (!show) return null;
+
   return (
-    show && (
-      <div className={s.userInfoCard}>
-        <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/api/files/users/${user.id}/avatar.jpg`}
-            className={s.imgShadow}
-            fill
-            alt="avatar"
-          />
-        </div>
-        <p>
-          {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
-          Вам заявку на вступление в команду
-        </p>
-        <JobTitle
-          className="place-self-start my-2"
-          title={user.jobTitle || user.role}
+    <div className={s.userInfoCard}>
+      <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
+        <Image
+          src={`/api/external/files/users/${user.id}/avatar.jpg`}
+          className={s.imgShadow}
+          fill
+          alt="avatar"
         />
-        <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
-          <Link
-            href={`/profile/${user.role}/${user.id}`}
-            className={s.toProfileLink}
-          >
-            Перейти к профилю <MoveRightIcon />
-          </Link>
-          <div className="flex gap-6">
-            <button className={s.green} onClick={() => handleApplication(true)}>
-              Принять <CheckIcon />
-            </button>
-            <button className={s.red} onClick={() => handleApplication(false)}>
-              Отказать <XIcon />
-            </button>
-          </div>
+      </div>
+      <p>
+        {`${user.lastName} ${user.firstName} ${user.middleName}`} отправил(-а)
+        Вам заявку на вступление в команду
+      </p>
+      <JobTitle
+        className="place-self-start my-2"
+        title={user.jobTitle || user.role}
+      />
+      <div className="grid gap-2 lg:flex lg:justify-between lg:self-end">
+        <Link
+          href={`/profile/${user.role}/${user.id}`}
+          className={s.toProfileLink}
+        >
+          Перейти к профилю <MoveRightIcon />
+        </Link>
+        <div className="flex gap-6">
+          <button className={s.green} onClick={() => handleApplication(true)}>
+            Принять <CheckIcon />
+          </button>
+          <button className={s.red} onClick={() => handleApplication(false)}>
+            Отказать <XIcon />
+          </button>
         </div>
       </div>
-    )
+    </div>
   );
 }
