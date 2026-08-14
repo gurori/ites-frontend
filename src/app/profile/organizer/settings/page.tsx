@@ -1,10 +1,8 @@
-import { cookies } from "next/headers";
 import ProfileSettings from "./ProfileSettings";
-import { redirect } from "next/navigation";
+import { getToken } from "@/lib/services/user";
 
 export default function SettingsPage() {
-  const token = cookies().get("auth");
-  if (!token) redirect("/login");
+  const token = getToken()!
   
-  return <ProfileSettings token={token.value} />;
+  return <ProfileSettings token={token!} />;
 }
