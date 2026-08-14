@@ -4,49 +4,66 @@ import UpdateProfileProperty from "../../(settings)/UpdateProfileProperty";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import { z } from "zod";
-import {
-  nameSchema,
-  optionalString,
-  mdTextSchema,
-} from "@/lib/zod-schemas";
+import { nameSchema, optionalString, mdTextSchema } from "@/lib/zod-schemas";
 import FormError from "@/components/ui/FormError";
 import { useEffect } from "react";
 import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import AvatarForm from "../../(settings)/AvatarForm";
 import { toast } from "sonner";
 import SettingsLayout from "../../(settings)/SettingsLayout";
+import type { RoleEng } from "@/lib/types/Role";
 
-export default function ProfileSettings({ token }: { token: string }) {
-  const { push } = useRouter();
+const updateUserSchema = z.object({
+  lastName: nameSchema,
+  firstName: nameSchema,
+  middleName: optionalString(nameSchema),
+  description: optionalString(mdTextSchema),
+});
+
+export default function ProfileSettings({
+  token,
+  role,
+}: Readonly<{ token: string; role: RoleEng }>) {
+  const { replace } = useRouter();
   const params = useSearchParams();
   const userId = params.get("user");
-  if (!userId) push("/profile");
-  const updateUserSchema = z.object({
-    lastName: nameSchema,
-    firstName: nameSchema,
-    middleName: optionalString(nameSchema),
-    description: optionalString(mdTextSchema),
-  });
-  const { errors, formError, formSuccess, handleSubmit, register, onSubmit } =
-    useFormHandler({
-      apiPath: "/api/User/update",
-      token: token,
-      method: "PUT",
-      schema: updateUserSchema,
-      resetSuccess: true,
-      defaultValues: {
-        lastName: params.get("last")!,
-        firstName: params.get("first")!,
-        middleName: params.get("middle")!,
-        description: params.get("description")!,
-      },
-    });
+
   useEffect(() => {
-    if (formSuccess)
-      toast("Данные успешно сохранены!", {
-        description: "Обновите страницу профиля, чтобы увидеть измения.",
+    if (!userId) {
+      replace(`/profile/${role}`);
+    }
+  }, [userId, replace, role]);
+
+  const {
+    formError,
+    formSuccess,
+    formState: { errors },
+    handleSubmit,
+    register,
+    onSubmit,
+  } = useFormHandler({
+    schema: updateUserSchema,
+    apiPath: "/api/user/update",
+    token,
+    method: "PUT",
+    defaultValues: {
+      lastName: params.get("last") || "",
+      firstName: params.get("first") || "",
+      middleName: params.get("middle") || "",
+      description: params.get("description") || "",
+    },
+  });
+
+  useEffect(() => {
+    if (formSuccess) {
+      toast.success("Данные успешно сохранены!", {
+        description: "Обновите страницу профиля, чтобы увидеть изменения.",
       });
+    }
   }, [formSuccess]);
+
+  if (!userId) return null;
+
   return (
     <SettingsLayout>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,12 +77,14 @@ export default function ProfileSettings({ token }: { token: string }) {
             placeholder="Фамилия"
           />
           <FormError error={errors.lastName} />
+
           <input
             {...register("firstName")}
             className="small-black"
             placeholder="Имя"
           />
           <FormError error={errors.firstName} />
+
           <input
             {...register("middleName")}
             className="small-black"
@@ -73,6 +92,7 @@ export default function ProfileSettings({ token }: { token: string }) {
           />
           <FormError error={errors.middleName} />
         </UpdateProfileProperty>
+
         <UpdateProfileProperty text="О себе" className="grid">
           <textarea
             {...register("description")}
@@ -81,10 +101,12 @@ export default function ProfileSettings({ token }: { token: string }) {
           />
           <FormError error={errors.description} />
         </UpdateProfileProperty>
+
         <SubmitButton />
         {formError && <p className="text-red-500 pt-4">{formError}</p>}
       </form>
-      <AvatarForm userId={userId as string} token={token} />
+
+      <AvatarForm userId={userId} token={token} />
     </SettingsLayout>
   );
 }

@@ -10,5 +10,5 @@ export default function SettingsPage() {
     redirect(`/profile/${role}`)
   }
   
-  return <ProfileSettings token={token} />;
+  return <ProfileSettings token={token} role={role} />;
 }
