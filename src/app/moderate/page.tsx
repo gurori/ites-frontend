@@ -7,19 +7,23 @@ import TeamList from "./TeamList";
 import OrderList from "./OrderList";
 
 export default async function ModeratePage() {
-  const token = await getToken();
-  if (!token) redirect("/login");
-  const res = await apiFetch("/api/moders", {
-    credentials: "include",
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
+  const token = getToken()!;
+
+  const response = await apiFetch("/api/moders", {
+    token,
   });
-  if ([403, 401].includes(res.status)) redirect("/");
-  const data: { teams: ITeam[]; orders: IOrder[] } = await res.json();
-  const { orders, teams } = data;
+
+  if ([403, 401].includes(response.status)) {
+    redirect("/login");
+  }
+
+  if (!response.ok) {
+    console.error(`Failed to fetch data: ${response.status}`);
+    redirect("/profile/organizer")
+  }
+
+  const data: { teams: ITeam[]; orders: IOrder[] } = await response.json();
+
   return (
     <main className="min-h-screen bg-black">
       <div className="container pb-16 space-y-16">
@@ -27,12 +31,13 @@ export default async function ModeratePage() {
           <h2 className="text-white">Команды</h2>
           <hr />
         </div>
-        <TeamList teams={teams} token={token.value} />
-        <div className="">
+        <TeamList teams={data.teams} token={token} />
+
+        <div>
           <h2 className="text-white">Заказы</h2>
           <hr />
         </div>
-        <OrderList orders={orders} token={token.value} />
+        <OrderList orders={data.orders} token={token} />
       </div>
     </main>
   );
