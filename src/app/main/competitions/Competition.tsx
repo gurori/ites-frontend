@@ -11,7 +11,7 @@ export default function Competition({
     <div
       className={cn(
         styles.competition,
-        "grid gap-8 md:flex md:gap-32 justify-between"
+        "grid gap-8 md:flex md:gap-32 justify-between",
       )}
     >
       <div
@@ -19,13 +19,7 @@ export default function Competition({
         dangerouslySetInnerHTML={{
           __html: getHtmlTags(competition.contentInHtml, 3),
         }}
-      >
-        {/* <p className={styles.title}>{competition.title}</p>
-        <p className="text-white line-clamp-4 md:line-clamp-3">{competition.description}</p>
-        <p className={styles.date}>
-          Дата проведения: {dateFormat(competition.startDate)}
-        </p> */}
-      </div>
+      ></div>
       <div className="grid place-content-between">
         <p> </p> {/*there will be a bookmark icon */}
         <Link
