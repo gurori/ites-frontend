@@ -7,40 +7,66 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import MemberInfo from "./MmeberInfo";
 import { LogInIcon, UserRoundPlusIcon } from "lucide-react";
+import type { RoleEng } from "@/lib/types/Role";
 
 export default function TeamInfo({
   team,
   token,
-}: Readonly<TeamProp & { token: string }>) {
+  role,
+}: Readonly<TeamProp & { token?: string; role?: RoleEng }>) {
+  const { push, replace } = useRouter();
+  const params = useSearchParams();
+
   const admin = team.members.find((u) => u.id === team.adminId);
-  const { push } = useRouter();
-  const mode = useSearchParams().get("mode");
+  const mode = params.get("mode");
+
   const handleInvite = async () => {
+    const currentOrigin = window.location.origin;
     await navigator.clipboard.writeText(
-      `Привет! 👋\n\nНажми на ссылку ниже, чтобы присоединиться к нашей команде 💻 "${team.name}" и попробовать свои силы 🚀\n\nhttps://ites.vercel.app/team/${team.id}?mode=invite`
+      `${currentOrigin}/team/${team.id}?mode=invite`,
     );
-    toast("Приглашение скопировано в буфер обмена!");
+    toast.success("Ссылка скопирована в буфер обмена.");
   };
+
   const addApplication = async () => {
-    await apiFetch(`/api/teams/application/${team.id}`, {
+    if (!token || !role) {
+      replace("/login");
+      return;
+    }
+
+    const response = await apiFetch(`/api/teams/application/${team.id}`, {
       method: "PUT",
-      credentials: "include",
+      token,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
-    }).then(async (res) => {
-      if (res.ok) {
-        toast("Ваша заявка успешно отправлена!", {
-          description: `Подождите, пока админ команды "${team.name}" примет вашу заявку`,
-        });
-        push("/main/teams");
-      } else if (res.status === 403) {
-        toast("Нужно быть участником, чтобы подавать заявки");
-        push("/profile");
-      } else push("/login");
     });
+
+    if (response.ok) {
+      toast.success("Ваша заявка успешно отправлена!", {
+        description: `Подождите, пока админ команды "${team.name}" примет вашу заявку.`,
+      });
+      push(`/profile/${role}`);
+      return;
+    }
+
+    if (response.status === 401) {
+      replace("/login");
+      toast.error(
+        "Войдите в систему в качестве участника, чтобы подавать заявки.",
+      );
+      return;
+    }
+
+    if (response.status === 403) {
+      toast.error("Нужно быть участником, чтобы подавать заявки.");
+      push(`/profile/${role}`);
+      return;
+    }
+
+    toast.error("Произошла ошибка при отправке заявки.");
   };
+
   return (
     <div className={s.card}>
       <h4 className={s.name}>{team.name}</h4>
