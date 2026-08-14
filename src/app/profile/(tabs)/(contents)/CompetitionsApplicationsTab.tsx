@@ -7,7 +7,7 @@ export default async function CompetitionsApplicationsTab({
   applications,
   index,
 }: Readonly<Partial<CompetitionsApplicationsProp> & { index: number }>) {
-  const token = await getToken();
+  const token = getToken()!;
   return (
     <>
       {applications && applications.length !== 0 ? (
@@ -15,7 +15,7 @@ export default async function CompetitionsApplicationsTab({
           {applications.map((a) => (
             <UserForCompetitionInfo
               application={a}
-              token={token!.value}
+              token={token}
               key={a.id}
             />
           ))}
