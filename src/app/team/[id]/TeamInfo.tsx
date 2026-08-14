@@ -5,7 +5,7 @@ import type { TeamProp } from "@/lib/types/ITeam";
 import s from "./TeamInfo.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import MemberInfo from "./MmeberInfo";
+import MemberInfo from "./MemberInfo";
 import { LogInIcon, UserRoundPlusIcon } from "lucide-react";
 import type { RoleEng } from "@/lib/types/Role";
 
@@ -13,7 +13,7 @@ export default function TeamInfo({
   team,
   token,
   role,
-}: Readonly<TeamProp & { token?: string; role?: RoleEng }>) {
+}: Readonly<TeamProp & { token: string | null; role: RoleEng | null }>) {
   const { push, replace } = useRouter();
   const params = useSearchParams();
 
