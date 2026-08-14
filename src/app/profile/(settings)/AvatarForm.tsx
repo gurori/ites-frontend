@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import UpdateProfileProperty from "./UpdateProfileProperty";
 import { CropIcon, Pencil, Upload } from "lucide-react";
@@ -16,25 +18,37 @@ import ReactCrop from "react-image-crop";
 import useImageCropper from "@/lib/hooks/useImageCropper";
 import SubmitButton from "@/components/ui/buttons/SubmitButton";
 import { useController } from "react-hook-form";
-import apiFetch from "@/lib/apiFetch";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const ASPECT_RATIO = 1;
 const MIN_DIMENSION = 150;
+const AVATAR_FILENAME = "avatar.jpg";
+
+const avatarSchema = z.object({ file: imageSchema });
 
 export default function AvatarForm({
   userId,
   token,
 }: Readonly<{ userId: string; token: string }>) {
-  const avatarSchema = z.object({ file: imageSchema });
-  const { errors, formError, control, formSuccess, handleSubmit, handleFetch } =
-    useFormHandler({
-      apiPath: `/api/Files/users/${userId}`,
-      schema: avatarSchema,
-      resetSuccess: true,
-    });
+  const [timestamp, setTimestamp] = useState(Date.now());
+
+  const {
+    formError,
+    formState: { errors },
+    control,
+    formSuccess,
+    handleSubmit,
+    onSubmit,
+  } = useFormHandler({
+    schema: avatarSchema,
+    apiPath: `/api/files/users/${userId}`,
+    token,
+    fileName: AVATAR_FILENAME,
+  });
+
   const { field } = useController({ control, name: "file" });
+
   const {
     imageUrl,
     crop,
@@ -47,27 +61,11 @@ export default function AvatarForm({
     previewCanvasRef,
   } = useImageCropper(ASPECT_RATIO, MIN_DIMENSION);
 
-  const onSubmit = async (data: any) => {
-    handleFetch(data, async (data) => {
-      const formData = new FormData();
-      formData.append("file", data.file, "avatar.jpg");
-      const res = await apiFetch(`/api/Files/users/${userId}`, {
-        credentials: "include",
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-      return res;
-    });
-  };
-
   useEffect(() => {
-    if (formSuccess)
-      toast("Данные успешно сохранены!", {
-        description: "Обновите страницу профиля, чтобы увидеть измения.",
-      });
+    if (formSuccess) {
+      setTimestamp(Date.now());
+      toast.success("Данные успешно сохранены!");
+    }
   }, [formSuccess]);
 
   return (
@@ -78,7 +76,7 @@ export default function AvatarForm({
           height={200}
           src={
             imageUrl ||
-            `${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${userId}/avatar.jpg`
+            `/api/files/users/${userId}/${AVATAR_FILENAME}?v=${timestamp}`
           }
           alt="avatar"
           className="rounded-full size-[200px]"
@@ -131,11 +129,13 @@ export default function AvatarForm({
                     onClick={async () => {
                       const newImageUrl = handleCrop();
                       if (newImageUrl) {
-                        const blob = await fetch(newImageUrl).then(
-                          async (res) => await res.blob()
+                        const blob = await fetch(newImageUrl).then((res) =>
+                          res.blob(),
                         );
                         field.onChange(
-                          new File([blob], "avatar.jpg", { type: blob.type })
+                          new File([blob], AVATAR_FILENAME, {
+                            type: blob.type,
+                          }),
                         );
                       }
                     }}
