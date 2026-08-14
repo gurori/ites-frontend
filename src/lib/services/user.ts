@@ -9,12 +9,12 @@ import { fetchServerApi } from "./fetchServerApi";
 
 export const setToken = (value: string, name = "auth") => {
   const cookieStorage = cookies();
-  cookieStorage.set(name, value)
-}
+  cookieStorage.set(name, value);
+};
 
 export const getToken = (
   name = "auth",
-  redirectUrl: string | undefined = "/login",
+  redirectUrl: string | null = "/login",
 ) => {
   const cookieStorage = cookies();
   const token = cookieStorage.get(name)?.value;
@@ -65,7 +65,7 @@ export const getManyUsers = async (ids: string[]): Promise<IUser[]> => {
   return [];
 };
 
-export const getRole = () => {
+export const getRole = (redirectUrl: string | null = "/login") => {
   const cookieStorage = cookies();
   const role = cookieStorage.get("role")?.value as RoleEng | undefined;
 
@@ -73,7 +73,9 @@ export const getRole = () => {
     return role;
   }
 
-  redirect("/login");
+  if (redirectUrl) redirect(redirectUrl);
+
+  return null;
 };
 
 export const setRole = (value: RoleEng, name = "role") => {
