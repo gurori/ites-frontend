@@ -8,10 +8,10 @@ export default function LoginPage() {
       <div className={styles.whiteBox}>
         <Image
           src="/icons/user.svg"
-          className="absolute top-0 -translate-y-1/2"
+          className="absolute top-0 -translate-y-1/2 drop-shadow-xl"
           alt="user icon"
-          width={160}
-          height={160}
+          width={141}
+          height={141}
         />
         <LoginForm />
       </div>

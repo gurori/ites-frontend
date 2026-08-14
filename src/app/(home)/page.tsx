@@ -78,8 +78,8 @@ export default function HomePage() {
           </div>
           <div className="flex-1">
             <Image
-              className="md:w-2/3 md:float-end"
-              src="/images/columns.webp"
+              className="md:w-2/3 md:float-end drop-shadow-lg"
+              src="/images/columns.svg"
               alt="columns image"
               width={456}
               height={488}
