@@ -65,7 +65,7 @@ export const getManyUsers = async (ids: string[]): Promise<IUser[]> => {
   return [];
 };
 
-export const getRole = async () => {
+export const getRole = () => {
   const cookieStorage = cookies();
   const role = cookieStorage.get("role")?.value as RoleEng | undefined;
 
