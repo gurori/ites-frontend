@@ -1,8 +1,6 @@
 "use client";
 
-import InfoCard from "@/components/info-card/InfoCard";
 import apiFetch from "@/lib/apiFetch";
-//import { dateFormat } from "@/lib/format";
 import type { CompetitionProp } from "@/lib/types/ICompetition";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -11,42 +9,52 @@ export default function CompetitionInfo({
   competition,
   token,
 }: Readonly<CompetitionProp & { token: string }>) {
-  // const start = dateFormat(competition.startDate);
-  // const end = dateFormat(competition.endDate);
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
+
   const addApplication = async () => {
-    await apiFetch(`/api/Competitions/application/${competition.id}`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(async (res) => {
-      if (res.ok) {
-        toast("Ваша заявка успешно отправлена!");
+    try {
+      const response = await apiFetch(
+        `/api/Competitions/application/${competition.id}`,
+        {
+          method: "PUT",
+          token,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.ok) {
+        toast.success("Ваша заявка успешно отправлена!");
         push("/main/competitions");
-      } else if (res.status === 403) {
-        toast("Нужно быть участником, чтобы подавать заявки");
-        push("/profile");
-      } else push("/login");
-    });
+        return;
+      }
+
+      if (response.status === 403) {
+        toast.error("Нужно быть участником, чтобы подавать заявки.");
+        replace("/profile");
+        return;
+      }
+
+      if (response.status === 401) {
+        replace("/login");
+        return;
+      }
+
+      toast.error("Произошла ошибка при отправке заявки.");
+    } catch (error) {
+      console.error(`Error addApplication on CompetitionInfo: `, error);
+      toast.error("Ошибка сети. Проверьте подключение к интернету.");
+    }
   };
+
   return (
-    <InfoCard type="competition">
-      {/* <h6>{competition.title}</h6>
-      <p className="pt-2">
-        <b>
-          С {start} по {end}
-        </b>
-      </p>
-      <p className="py-10">{competition.description}</p> */}
-      <div
-        dangerouslySetInnerHTML={{ __html: competition.contentInHtml }}
-      ></div>
+    <>
+      <div dangerouslySetInnerHTML={{ __html: competition.contentInHtml }} />
+
       <button className="flash purple mt-8" onClick={addApplication}>
         Отправить заявку
       </button>
-    </InfoCard>
+    </>
   );
 }
