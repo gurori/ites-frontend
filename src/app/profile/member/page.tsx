@@ -3,24 +3,19 @@ import { ITab } from "@/lib/types/ITab";
 import type { IMember } from "@/lib/types/IUser";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
-import Achievements from "../(tabs)/(contents)/Achievements";
-import Favorites from "../(tabs)/(contents)/Favorites";
-import Completed from "../(tabs)/(contents)/Completed";
-import MyWorks from "../(tabs)/(contents)/MyWorks";
 import ApplicationsTab from "../(tabs)/(contents)/ApplicationsTab";
 import { getMember } from "@/lib/services/user";
 import BlackButton from "../(ui)/BlackButton";
 import CompetitionsTab from "../(tabs)/(contents)/CompetitionsTab";
 import OrdersTab from "../(tabs)/(contents)/OrdersTab";
-import { type Url } from "next/dist/shared/lib/router/router";
 import TeamsApplicationTab from "../(tabs)/(contents)/TeamsApplicationTab";
-
-export const revalidate = 10;
 
 export default async function MemberProfilePage() {
   const user: IMember = await getMember();
+
   if (user.role !== "member") redirect(`/profile/${user.role}`);
-  const teamUrl: Url = {
+
+  const teamUrl = {
     pathname: `/team/${user.teamId || "new"}`,
     query: user.teamId
       ? {
