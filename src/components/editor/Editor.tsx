@@ -17,29 +17,19 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState, type ChangeEvent } from "react";
-import type {
-  ControllerRenderProps,
-  UseFormHandleSubmit,
-} from "react-hook-form";
+import type { ControllerRenderProps, SubmitHandler } from "react-hook-form";
+import { useFormHandler } from "@/lib/hooks/useFormHandler";
+
+export type EditorData = { contentInHtml: string };
 
 export default function Editor({
   field,
   handleSubmit,
   onSubmit,
 }: Readonly<{
-  field: ControllerRenderProps<
-    {
-      [x: string]: any;
-    },
-    "contentInHtml"
-  >;
-  handleSubmit: UseFormHandleSubmit<
-    {
-      [x: string]: any;
-    },
-    undefined
-  >;
-  onSubmit: (data: any) => void;
+  field: ControllerRenderProps<EditorData, "contentInHtml">;
+  handleSubmit: ReturnType<typeof useFormHandler<EditorData>>["handleSubmit"];
+  onSubmit: SubmitHandler<EditorData>;
 }>) {
   const editor = useEditor({
     extensions: [StarterKit, IamgeExtension.Image],
@@ -67,7 +57,6 @@ export default function Editor({
     reader.readAsDataURL(file);
   };
 
-  // <div className={cn(s.card, "p-4 md:p-10")}>
   return (
     <>
       <div className="flex flex-wrap gap-2">
@@ -108,7 +97,7 @@ export default function Editor({
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={cn(
             "editor",
-            editor.isActive("paragraph") ? "is-active" : ""
+            editor.isActive("paragraph") ? "is-active" : "",
           )}
         >
           Текст
@@ -119,7 +108,7 @@ export default function Editor({
           }
           className={cn(
             "editor",
-            editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 1 }) ? "is-active" : "",
           )}
         >
           H1
@@ -130,7 +119,7 @@ export default function Editor({
           }
           className={cn(
             "editor",
-            editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 2 }) ? "is-active" : "",
           )}
         >
           H2
@@ -141,7 +130,7 @@ export default function Editor({
           }
           className={cn(
             "editor",
-            editor.isActive("heading", { level: 3 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 3 }) ? "is-active" : "",
           )}
         >
           H3
@@ -152,7 +141,7 @@ export default function Editor({
           }
           className={cn(
             "editor",
-            editor.isActive("heading", { level: 4 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 4 }) ? "is-active" : "",
           )}
         >
           H4
@@ -163,7 +152,7 @@ export default function Editor({
           }
           className={cn(
             "editor",
-            editor.isActive("heading", { level: 5 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 5 }) ? "is-active" : "",
           )}
         >
           H5
@@ -174,7 +163,7 @@ export default function Editor({
           }
           className={cn(
             "editor",
-            editor.isActive("heading", { level: 6 }) ? "is-active" : ""
+            editor.isActive("heading", { level: 6 }) ? "is-active" : "",
           )}
         >
           H6
@@ -237,7 +226,6 @@ export default function Editor({
       </div>
       <hr className="my-6" />
       <EditorContent editor={editor} />
-      {/* <div dangerouslySetInnerHTML={{ __html: editor.getHTML() }}></div> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <button
           type="submit"
