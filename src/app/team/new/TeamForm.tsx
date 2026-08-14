@@ -9,27 +9,28 @@ import { SendHorizonalIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
+const teamSchema = z.object({
+  name: smTextSchema,
+  description: lgTextSchema,
+});
+
 export default function TeamForm({
   token,
 }: Readonly<{ token: string }>) {
   const { back } = useRouter();
-  const teamSchema = z.object({
-    name: smTextSchema,
-    description: lgTextSchema,
-  });
   const {
-    errors,
     formError,
-    formSuccess,
+    formState: {errors},
     handleSubmit,
     onSubmit,
     register,
   } = useFormHandler({
     schema: teamSchema,
     apiPath: "/api/teams",
-    token: token,
-    pushPath: "/profile/member",
+    token,
+    userRedirect: { href: "/profile/member", type: "replace"}
   });
+
   return (
     <div className="black-card my-8">
       <div className="flex gap-6 items-center">
