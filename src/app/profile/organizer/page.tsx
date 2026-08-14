@@ -11,8 +11,6 @@ import CompetitionsApplicationsTab from "../(tabs)/(contents)/CompetitionsApplic
 import PurpleButton from "../(ui)/PurpleButton";
 import Link from "next/link";
 
-export const revalidate = 10;
-
 export default async function OrganizerProfilePage() {
   const user: IOrganizer = await getOrganizer();
   if (user.role !== "organizer") redirect(`/profile/${user.role}`);
