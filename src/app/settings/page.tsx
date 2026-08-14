@@ -4,7 +4,7 @@ import { getToken } from "@/lib/services/user";
 import DeleteAccauntButton from "./DeleteAccauntButton";
 
 export default async function SettingsPage() {
-  const token = await getToken();
+  const token = getToken()!;
   return (
     <SettingsLayout title="Настройки" className="h-screen center">
       <UpdateProfileProperty
@@ -15,7 +15,7 @@ export default async function SettingsPage() {
           После того, как вы удалите свой аккаунт, пути назад не будет.
           Пожалуйста, будьте уверены.
         </p>
-        <DeleteAccauntButton token={token!.value} />
+        <DeleteAccauntButton token={token} />
       </UpdateProfileProperty>
     </SettingsLayout>
   );
