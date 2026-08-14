@@ -70,13 +70,13 @@ export default function IdentificationForm({
 
   useEffect(() => {
     if (formSuccess)
-      toast("Регистрация прошла успешно!", {
+      toast.success("Регистрация прошла успешно!", {
         description: "Войдите в систему, чтобы продолжить.",
       });
     else if (formError) {
-      toast(formError);
+      toast.error(formError);
     }
-  }, [formSuccess, formError, toast, replace]);
+  }, [formSuccess, formError, replace]);
 
   if (isOrganizer && userData) {
     return <SecretKeyForm formData={userData} handleFetch={handleFetch} />;
