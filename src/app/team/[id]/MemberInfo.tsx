@@ -11,10 +11,15 @@ export default function MemberInfo({ user }: Readonly<UserProp>) {
           alt="avatar"
           fill
           className="rounded-full"
-          src={`${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${user.id}/avatar.jpg`}
+          src={`/api/Files/users/${user.id}/avatar.jpg`}
         />
       </div>
-      <Link href={`/profile/${user.role}/${user.id}`} className="text-white text-2xl">{user.firstName}</Link>
+      <Link
+        href={`/profile/${user.role}/${user.id}`}
+        className="text-white text-2xl"
+      >
+        {user.firstName}
+      </Link>
       <JobTitle title={user.jobTitle || user.role} />
     </div>
   );
