@@ -1,39 +1,38 @@
-import ProfileSidePanel from "@/components/sidePanel/ProfileSidePanel";
 import { ITab } from "@/lib/types/ITab";
 import type { IMember } from "@/lib/types/IUser";
 import { redirect } from "next/navigation";
 import { getMember } from "@/lib/services/user";
-import MyWorks from "../../(tabs)/(contents)/MyWorks";
-import Completed from "../../(tabs)/(contents)/Completed";
 import ApplicationsTab from "../../(tabs)/(contents)/ApplicationsTab";
-import Favorites from "../../(tabs)/(contents)/Favorites";
-import Achievements from "../../(tabs)/(contents)/Achievements";
 import Tabs from "../../(tabs)/Tabs";
 import CompetitionsTab from "../../(tabs)/(contents)/CompetitionsTab";
 import BlackButton from "../../(ui)/BlackButton";
-import { Url } from "next/dist/shared/lib/router/router";
 import OrdersTab from "../../(tabs)/(contents)/OrdersTab";
 import Image from "next/image";
-import Link from "next/link";
 import JobTitle from "@/components/ui/JobTitle";
 
 export const revalidate = 10;
 
-export default async function MemberProfilePage({
-  params,
-}: {
+interface PageProps {
   params: { id: string };
-}) {
-  const user: IMember = await getMember(params.id);
-  if (user.role !== "member") redirect(`/profile/${user.role}`);
-  const teamUrl: Url = {
+}
+
+export default async function MemberProfilePage({ params }: PageProps) {
+  const { id } = params;
+  const user: IMember = await getMember(id);
+
+  if (user.role !== "member") {
+    redirect(`/profile/${user.role}`);
+  }
+
+  const teamUrl = {
     pathname: `/team/${user.teamId || "new"}`,
-    query: user.teamId
-      ? {
-          mode: "invite",
-        }
-      : null,
+    ...(user.teamId ? { query: { mode: "invite" } } : {}),
   };
+
+  const fullName = [user.lastName, user.firstName, user.middleName]
+    .filter(Boolean)
+    .join(" ");
+
   const tabs: ITab[] = [
     {
       name: "Конкурсы",
@@ -55,11 +54,12 @@ export default async function MemberProfilePage({
       ),
     },
   ];
+
   return (
     <div className="container mt-5">
       <div className="md:flex gap-8 my-8 grid">
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_URL}/api/Files/users/${user.id}/avatar.jpg`}
+          src={`/api/external/files/users/${user.id}/avatar.jpg`}
           alt="avatar"
           width={160}
           height={160}
@@ -71,11 +71,13 @@ export default async function MemberProfilePage({
             className="place-self-center md:place-self-start"
           />
           <p className="flex items-center text-white gap-4 text-2xl place-self-center md:place-self-start">
-            {`${user.lastName} ${user.firstName} ${user.middleName}`}
+            {fullName}
           </p>
-          <p className="text-[#a7a7a7] place-self-center md:place-self-start">
-            {user.description}
-          </p>
+          {user.description && (
+            <p className="text-[#a7a7a7] place-self-center md:place-self-start">
+              {user.description}
+            </p>
+          )}
         </div>
       </div>
       <div className="flex gap-6 pb-8">
