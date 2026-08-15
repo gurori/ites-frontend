@@ -7,7 +7,6 @@ const backendPort = process.env.NEXT_PUBLIC_API_PORT || "";
 const backendUrl = `${backendProtocol}://${backendHost}${backendPort ? `:${backendPort}` : ""}`;
 
 const nextConfig = {
-  output: "standalone",
   images: {
     remotePatterns: [
       {
