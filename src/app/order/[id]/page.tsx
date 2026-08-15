@@ -21,7 +21,7 @@ export default async function CompetitionInfoPage({
 
   const order: IOrder = await response.json();
 
-  const token = getToken()!;
+  const token = getToken("auth", null);
   const role = getRole();
 
   return <OrderInfo order={order} token={token} role={role} />;

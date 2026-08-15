@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import InfoCard from "@/components/info-card/InfoCard";
 import apiFetch from "@/lib/apiFetch";
 import { dateFormat, priceFormat } from "@/lib/format";
@@ -12,13 +13,27 @@ export default function OrderInfo({
   order,
   token,
   role,
-}: Readonly<OrderProp & { token: string; role: RoleEng }>) {
+}: Readonly<OrderProp & { token: string | null; role: RoleEng | null }>) {
   const { push, replace } = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const deadLine = dateFormat(order.deadLine);
   const price = priceFormat(order.price);
 
   const addApplication = async () => {
+    if (!token) {
+      replace("/login");
+      return;
+    }
+
+    if (role !== "member") {
+      toast.error("Нужно быть участником, чтобы подавать заявки.");
+      replace(`/profile/${role}`);
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
       const response = await apiFetch(`/api/orders/application/${order.id}`, {
         method: "PUT",
@@ -49,6 +64,8 @@ export default function OrderInfo({
     } catch (error) {
       console.error("Error addApplication on OrderInfo:", error);
       toast.error("Ошибка сети. Проверьте подключение к интернету.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -61,9 +78,22 @@ export default function OrderInfo({
         <b>Цена: {price}</b>
       </p>
       <p className="py-10">{order.description}</p>
-      <button className="flash yellow" onClick={addApplication}>
-        Отправить заявку
-      </button>
+
+      {
+        !token ? (
+          <button className="flash yellow" onClick={() => push("/login")}>
+            Войти, чтобы откликнуться
+          </button>
+        ) : role === "member" ? (
+          <button
+            className="flash yellow disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={addApplication}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Отправка..." : "Отправить заявку"}
+          </button>
+        ) : null
+      }
     </InfoCard>
   );
 }

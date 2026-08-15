@@ -1,8 +1,8 @@
 import apiFetch from "@/lib/apiFetch";
-import { ICompetition } from "@/lib/types/ICompetition";
+import type { ICompetition } from "@/lib/types/ICompetition";
 import { notFound } from "next/navigation";
 import CompetitionInfo from "./CompetitionInfo";
-import { getToken } from "@/lib/services/user";
+import { getRole, getToken } from "@/lib/services/user";
 import InfoCard from "@/components/info-card/InfoCard";
 
 export default async function CompetitionInfoPage({
@@ -10,21 +10,24 @@ export default async function CompetitionInfoPage({
 }: {
   params: { id: string };
 }) {
-  const competition: ICompetition = await apiFetch(
-    `/api/competitions/get/${params.id}`,
-    {
-      cache: "no-store",
-    },
-  ).then(async (res) => {
-    if (res.status === 404) notFound();
-    return await res.json();
-  });
+  const response = await apiFetch(`/api/competitions/get/${params.id}`);
 
-  const token = getToken()!;
+  if (response.status === 404) {
+    notFound();
+  }
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch competition: ${response.status}`);
+  }
+
+  const competition: ICompetition = await response.json();
+
+  const token = getToken("auth", null);
+  const role = getRole(null)
 
   return (
     <InfoCard type="competition">
-      <CompetitionInfo competition={competition} token={token} />
+      <CompetitionInfo competition={competition} token={token} role={role} />
     </InfoCard>
   );
 }

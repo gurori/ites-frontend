@@ -1,23 +1,40 @@
 "use client";
 
+import { useState } from "react";
 import apiFetch from "@/lib/apiFetch";
 import type { CompetitionProp } from "@/lib/types/ICompetition";
+import type { RoleEng } from "@/lib/types/Role";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function CompetitionInfo({
   competition,
   token,
-}: Readonly<CompetitionProp & { token: string }>) {
+  role,
+}: Readonly<CompetitionProp & { token: string | null; role: RoleEng | null }>) {
   const { push, replace } = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const addApplication = async () => {
+    if (!token) {
+      replace("/login");
+      return;
+    }
+
+    if (role !== "member") {
+      toast.error("Нужно быть участником, чтобы подавать заявки.");
+      replace(`/profile/${role || ""}`);
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
       const response = await apiFetch(
         `/api/Competitions/application/${competition.id}`,
         {
           method: "PUT",
-          token,
+          token, 
           headers: {
             "Content-Type": "application/json",
           },
@@ -32,7 +49,7 @@ export default function CompetitionInfo({
 
       if (response.status === 403) {
         toast.error("Нужно быть участником, чтобы подавать заявки.");
-        replace("/profile");
+        replace(`/profile/${role}`);
         return;
       }
 
@@ -45,6 +62,8 @@ export default function CompetitionInfo({
     } catch (error) {
       console.error(`Error addApplication on CompetitionInfo: `, error);
       toast.error("Ошибка сети. Проверьте подключение к интернету.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -52,9 +71,21 @@ export default function CompetitionInfo({
     <>
       <div dangerouslySetInnerHTML={{ __html: competition.contentInHtml }} />
 
-      <button className="flash purple mt-8" onClick={addApplication}>
-        Отправить заявку
-      </button>
+      {
+        !token ? (
+          <button className="flash purple mt-8" onClick={() => push("/login")}>
+            Войти, чтобы откликнуться
+          </button>
+        ) : role === "member" ? (
+          <button
+            className="flash purple mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={addApplication}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Отправка..." : "Отправить заявку"}
+          </button>
+        ) : null
+      }
     </>
   );
 }
