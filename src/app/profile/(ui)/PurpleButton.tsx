@@ -19,7 +19,7 @@ export default function PurpleButton({
         <ChevronRightIcon className="text-white" />
         <Image
           alt="star"
-          src={"/stars/small.svg"}
+          src={"/stars/small-half.svg"}
           height={200}
           width={130}
           className="absolute right-14 bottom-0 -z-10"
