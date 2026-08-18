@@ -7,14 +7,20 @@ import { cn } from "@/lib/utils";
 export default function SettingsLayout({
   children,
   className,
+  backUrl,
   title = "Редактировать профиль",
-}: Readonly<{ children: ReactNode; title?: string; className?: string }>) {
+}: Readonly<{
+  children: ReactNode;
+  title?: string;
+  className?: string;
+  backUrl: string;
+}>) {
   return (
     <div className={cn("bg-black-800 absolute w-full", className)}>
       <div className="py-8">
         <main className={styles.container}>
           <div className="flex gap-6 items-center -ml-6">
-            <Link href="/profile">
+            <Link href={backUrl}>
               <BackButton />
             </Link>
             <p className="text-white">{title}</p>

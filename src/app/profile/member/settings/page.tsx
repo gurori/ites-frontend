@@ -6,7 +6,7 @@ export default function SettingsPage() {
   const token = getToken()!
   
   return (
-    <SettingsLayout>
+    <SettingsLayout backUrl="/profile/member">
       <ProfileSettings token={token} />
     </SettingsLayout>
   );

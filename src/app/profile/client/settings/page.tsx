@@ -12,7 +12,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <SettingsLayout>
+    <SettingsLayout backUrl="/profile/client">
       <ProfileSettings token={token} role={role} />
     </SettingsLayout>
   );
