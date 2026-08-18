@@ -4,7 +4,7 @@ import Logout from "./Logout";
 import s from "./Logout.module.css";
 
 export default async function LogoutPage() {
-  if (!cookies().has("auth")) redirect("/");
+  if (!cookies().has("auth")) redirect("/login");
 
   return (
     <div className="h-screen bg-black center">
