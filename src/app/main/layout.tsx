@@ -23,7 +23,7 @@ export default function ProfileLayout({
         <section className={styles.main}>
           <div className="relative h-full">
             <Image
-              src="/images/mascot-lies.png"
+              src="/images/mascot-lies.webp"
               alt="mascot"
               fill
               className="rounded-[16px] md:rounded-none"
