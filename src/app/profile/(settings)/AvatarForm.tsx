@@ -113,11 +113,10 @@ export default function AvatarForm({
                   minWidth={MIN_DIMENSION}
                   onChange={handleCropChange}
                 >
-                  <Image
+                  <img
                     src={imageUrl}
                     ref={imgRef}
                     className="w-full"
-                    fill
                     alt="upload"
                     onLoad={handleImageLoad}
                   />

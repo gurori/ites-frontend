@@ -127,7 +127,7 @@ export default function useImageCropper(
       convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height),
     );
 
-    const dataUrl = previewCanvasRef.current.toDataURL();
+    const dataUrl = previewCanvasRef.current.toDataURL("image/jpeg", 1.0);
     setImageUrl(dataUrl);
 
     return dataUrl;
