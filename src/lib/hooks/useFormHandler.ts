@@ -98,13 +98,15 @@ export const useFormHandler = <TFormData extends FieldValues>({
         const isFile = Boolean(fileName);
         const headers = new Headers();
         let body: BodyInit;
-        
-        if (isFile) {
-          const files = data.files as File[] | undefined;
-          const formData = new FormData();
 
-          if (files && files.length > 0) {
-            formData.append("file", files[0], fileName);
+        if (isFile) {
+          const formData = new FormData();
+          const rawFile = data.file;
+
+          if (Array.isArray(rawFile) && rawFile.length > 0) {
+            formData.append("file", rawFile[0], fileName);
+          } else if (rawFile instanceof File) {
+            formData.append("file", rawFile, fileName);
           }
 
           body = formData;
