@@ -96,12 +96,12 @@ export const useFormHandler = <TFormData extends FieldValues>({
 
       await handleFetch(async () => {
         const isFile = Boolean(fileName);
-        const formData = new FormData();
         const headers = new Headers();
         let body: BodyInit;
-
+        
         if (isFile) {
-          const files = data.file as File[] | undefined;
+          const files = data.files as File[] | undefined;
+          const formData = new FormData();
 
           if (files && files.length > 0) {
             formData.append("file", files[0], fileName);
