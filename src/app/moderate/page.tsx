@@ -9,7 +9,7 @@ import OrderList from "./OrderList";
 export default async function ModeratePage() {
   const token = getToken()!;
 
-  const response = await apiFetch("/api/moders", {
+  const response = await apiFetch("/api/moderation", {
     token,
   });
 

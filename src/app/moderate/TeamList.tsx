@@ -14,7 +14,7 @@ export default function TeamList({
 
   const handleAccept = async (id: ITeam["id"], accept: boolean) => {
     try {
-      const res = await apiFetch(`/api/moders/team/${id}/${accept}`, {
+      const res = await apiFetch(`/api/moderation/team/${id}/${accept}`, {
         method: "POST",
         token,
         credentials: "include",

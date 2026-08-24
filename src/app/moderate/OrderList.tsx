@@ -14,7 +14,7 @@ export default function OrderList({
 
   const handleAccept = async (id: IOrder["id"], accept: boolean) => {
     try {
-      const res = await apiFetch(`/api/moders/order/${id}/${accept}`, {
+      const res = await apiFetch(`/api/moderation/order/${id}/${accept}`, {
         method: "POST",
         token, 
         headers: {
