@@ -1,6 +1,6 @@
 import ProfileSidePanel from "@/components/sidePanel/ProfileSidePanel";
 import { getOrganizer } from "@/lib/services/user";
-import type { ITab } from "@/lib/types/ITab";
+import type { Tab } from "@/lib/types/Tab";
 import type { Organizer } from "@/lib/types/User";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
@@ -15,7 +15,7 @@ export default async function OrganizerProfilePage() {
   const user: Organizer = await getOrganizer();
   if (user.role !== "organizer") redirect(`/profile/${user.role}`);
 
-  const tabs: ITab[] = [
+  const tabs: Tab[] = [
     {
       name: "Конурсы",
       content: <CompetitionsTab index={0} competitions={user.competitions} />,

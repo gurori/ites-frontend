@@ -1,4 +1,4 @@
-import { ITab } from "@/lib/types/ITab";
+import { Tab } from "@/lib/types/Tab";
 import type { Member } from "@/lib/types/User";
 import { redirect } from "next/navigation";
 import { getMember } from "@/lib/services/user";
@@ -33,7 +33,7 @@ export default async function MemberProfilePage({ params }: PageProps) {
     .filter(Boolean)
     .join(" ");
 
-  const tabs: ITab[] = [
+  const tabs: Tab[] = [
     {
       name: "Конкурсы",
       content: <CompetitionsTab index={0} competitions={user.competitions} />,

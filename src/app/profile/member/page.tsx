@@ -1,5 +1,5 @@
 import ProfileSidePanel from "@/components/sidePanel/ProfileSidePanel";
-import { ITab } from "@/lib/types/ITab";
+import { Tab } from "@/lib/types/Tab";
 import type { Member } from "@/lib/types/User";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
@@ -23,7 +23,7 @@ export default async function MemberProfilePage() {
         }
       : null,
   };
-  const tabs: ITab[] = [
+  const tabs: Tab[] = [
     {
       name: "Конкурсы",
       content: <CompetitionsTab index={0} competitions={user.competitions} />,

@@ -1,11 +1,11 @@
 "use client";
 
-import { type ITab } from "@/lib/types/ITab";
+import type { Tab as TabType } from "@/lib/types/Tab";
 import { useEffect, useRef, useState } from "react";
 import Tab from "./Tab";
 import styles from "./Tabs.module.css";
 
-export default function Tabs({ tabs }: { tabs: ITab[] }) {
+export default function Tabs({ tabs }: { tabs: TabType[] }) {
   const [activeTab, setActiveTab] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);

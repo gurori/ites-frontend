@@ -1,6 +1,6 @@
 import ProfileSidePanel from "@/components/sidePanel/ProfileSidePanel";
 import { getClient } from "@/lib/services/user";
-import type { ITab } from "@/lib/types/ITab";
+import type { Tab } from "@/lib/types/Tab";
 import type { Client } from "@/lib/types/User";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
@@ -12,7 +12,7 @@ import OrdersApplicationsTab from "../(tabs)/(contents)/OrdersApplicationsTab";
 export default async function ClientProfilePage() {
   const user: Client = await getClient();
   if (user.role !== "client") redirect(`/profile/${user.role}`);
-  const tabs: ITab[] = [
+  const tabs: Tab[] = [
     {
       name: "Мои заказы",
       content: <OrdersTab index={0} orders={user.orders} />,
