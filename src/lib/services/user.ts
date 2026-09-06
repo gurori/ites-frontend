@@ -39,32 +39,6 @@ export const getOrganizer = () =>
 
 export const getClient = () => fetchServerApi<IClient>("/api/user/client");
 
-export const getManyUsers = async (ids: string[]): Promise<IUser[]> => {
-  if (!ids || ids.length === 0) {
-    return [];
-  }
-
-  const token = getToken() ?? undefined;
-  const params = new URLSearchParams();
-  ids.forEach((id) => params.append("ids", id));
-
-  const response = await apiFetch(
-    `/api/user/profile/many?${params.toString()}`,
-    {
-      token,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-  );
-
-  if (response.ok) {
-    return (await response.json()) as IUser[];
-  }
-
-  return [];
-};
-
 export const getRole = (redirectUrl: string | null = "/login") => {
   const cookieStorage = cookies();
   const role = cookieStorage.get("role")?.value as RoleEng | undefined;
