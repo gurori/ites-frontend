@@ -1,7 +1,7 @@
 import apiFetch from "@/lib/apiFetch";
 import { notFound } from "next/navigation";
 import { getRole, getToken } from "@/lib/services/user";
-import type { IOrder } from "@/lib/types/IOrder";
+import type { Order } from "@/lib/types/Order";
 import OrderInfo from "./OrderInfo";
 
 export default async function OrderInfoPage({
@@ -19,7 +19,7 @@ export default async function OrderInfoPage({
     throw new Error(`Failed to fetch order: ${response.status}`);
   }
 
-  const order: IOrder = await response.json();
+  const order: Order = await response.json();
 
   const token = getToken("auth", null);
   const role = getRole();

@@ -4,7 +4,7 @@ import { useState } from "react";
 import InfoCard from "@/components/info-card/InfoCard";
 import apiFetch from "@/lib/apiFetch";
 import { dateFormat, priceFormat } from "@/lib/format";
-import type { OrderProp } from "@/lib/types/IOrder";
+import type { OrderProp } from "@/lib/types/Order";
 import type { RoleEng } from "@/lib/types/Role";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -79,21 +79,19 @@ export default function OrderInfo({
       </p>
       <p className="py-10">{order.description}</p>
 
-      {
-        !token ? (
-          <button className="flash yellow" onClick={() => push("/login")}>
-            Войти, чтобы откликнуться
-          </button>
-        ) : role === "member" ? (
-          <button
-            className="flash yellow disabled:opacity-50 disabled:cursor-not-allowed"
-            onClick={addApplication}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Отправка..." : "Отправить заявку"}
-          </button>
-        ) : null
-      }
+      {!token ? (
+        <button className="flash yellow" onClick={() => push("/login")}>
+          Войти, чтобы откликнуться
+        </button>
+      ) : role === "member" ? (
+        <button
+          className="flash yellow disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={addApplication}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Отправка..." : "Отправить заявку"}
+        </button>
+      ) : null}
     </InfoCard>
   );
 }

@@ -1,6 +1,6 @@
 import apiFetch from "@/lib/apiFetch";
 import { getToken } from "@/lib/services/user";
-import type { IOrder } from "@/lib/types/IOrder";
+import type { Order } from "@/lib/types/Order";
 import type { ITeam } from "@/lib/types/ITeam";
 import { redirect } from "next/navigation";
 import TeamList from "./TeamList";
@@ -19,10 +19,10 @@ export default async function ModeratePage() {
 
   if (!response.ok) {
     console.error(`Failed to fetch data: ${response.status}`);
-    redirect("/profile/organizer")
+    redirect("/profile/organizer");
   }
 
-  const data: { teams: ITeam[]; orders: IOrder[] } = await response.json();
+  const data: { teams: ITeam[]; orders: Order[] } = await response.json();
 
   return (
     <main className="min-h-screen bg-black">

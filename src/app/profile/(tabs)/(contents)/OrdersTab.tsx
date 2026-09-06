@@ -1,6 +1,6 @@
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import styles from "./Styles.module.css";
-import type { OrdersProp } from "@/lib/types/IOrder";
+import type { OrdersProp } from "@/lib/types/Order";
 import Link from "next/link";
 
 export default async function OrdersTab({

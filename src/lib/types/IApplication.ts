@@ -1,5 +1,5 @@
 import type { Competition } from "./Competition";
-import type { IOrder } from "./IOrder";
+import type { Order } from "./Order";
 import { ITeam } from "./ITeam";
 import type { IUser } from "./IUser";
 
@@ -12,7 +12,7 @@ export interface ICompetitionApplication {
 export interface IOrderApplication {
   id: string;
   fromMember: IUser;
-  forOrder: Omit<IOrder, "memberId" | "clientId">;
+  forOrder: Omit<Order, "memberId" | "clientId">;
 }
 
 export interface ITeamApplication {

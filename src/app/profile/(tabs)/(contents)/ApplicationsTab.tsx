@@ -1,5 +1,5 @@
 import type { CompetitionsProps } from "@/lib/types/Competition";
-import type { OrdersProp } from "@/lib/types/IOrder";
+import type { OrdersProp } from "@/lib/types/Order";
 import type { TeamsProp } from "@/lib/types/ITeam";
 
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";

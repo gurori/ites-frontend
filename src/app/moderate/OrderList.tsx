@@ -1,6 +1,6 @@
 "use client";
 
-import type { IOrder, OrdersProp } from "@/lib/types/IOrder";
+import type { Order, OrdersProp } from "@/lib/types/Order";
 import { useState } from "react";
 import s from "@/app/profile/(tabs)/(contents)/ui/UI.module.css";
 import apiFetch from "@/lib/apiFetch";
@@ -12,11 +12,11 @@ export default function OrderList({
 }: OrdersProp & { token: string }) {
   const [list, setList] = useState(orders);
 
-  const handleAccept = async (id: IOrder["id"], accept: boolean) => {
+  const handleAccept = async (id: Order["id"], accept: boolean) => {
     try {
       const res = await apiFetch(`/api/moderation/orders/${id}`, {
         method: "PATCH",
-        token, 
+        token,
         headers: {
           "Content-Type": "application/json",
         },

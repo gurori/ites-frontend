@@ -1,4 +1,4 @@
-import type { IOrder } from "@/lib/types/IOrder";
+import type { Order } from "@/lib/types/Order";
 import MainTabsButtons from "../MainTabsButtons";
 import apiFetch from "@/lib/apiFetch";
 import Order from "./Order";
@@ -12,7 +12,7 @@ export default async function OrdersPage() {
     throw new Error(`Failed to fetch orders: ${response.status}`);
   }
 
-  const orders: IOrder[] = await response.json();
+  const orders: Order[] = await response.json();
 
   return (
     <>

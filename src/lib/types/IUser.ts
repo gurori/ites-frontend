@@ -4,7 +4,7 @@ import type {
   ITeamApplication,
 } from "./IApplication";
 import type { Competition } from "./Competition";
-import type { IOrder } from "./IOrder";
+import type { Order } from "./Order";
 import type { ITeam } from "./ITeam";
 import type { JobTitle } from "./JobTitle";
 import type { RoleEng } from "./Role";
@@ -23,8 +23,8 @@ export interface IUser {
 export interface IMember extends IUser {
   competitions: Competition[];
   applicationsForCompetitions: Competition[];
-  orders: IOrder[];
-  applicationsForOrders: IOrder[];
+  orders: Order[];
+  applicationsForOrders: Order[];
   applicationsForTeams: ITeam[];
   teamId?: string;
   applications: ITeamApplication[];
@@ -36,7 +36,7 @@ export interface IOrganizer extends IUser {
 }
 
 export interface IClient extends IUser {
-  orders: IOrder[];
+  orders: Order[];
   applications: IOrderApplication[];
 }
 
