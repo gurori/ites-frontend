@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import apiFetch from "../apiFetch";
 import { rolesEng } from "../constants";
 
 import type { IClient, IMember, IOrganizer, IUser } from "../types/IUser";
