@@ -4,7 +4,7 @@ import { getRole, getToken } from "@/lib/services/user";
 import type { IOrder } from "@/lib/types/IOrder";
 import OrderInfo from "./OrderInfo";
 
-export default async function CompetitionInfoPage({
+export default async function OrderInfoPage({
   params,
 }: {
   params: { id: string };
