@@ -1,10 +1,10 @@
-import type { IUser } from "./IUser";
+import type { User } from "./User";
 
 export interface Team {
   id: string;
   name: string;
   description: string;
-  members: IUser[];
+  members: User[];
   membersIds?: string[];
   adminId: string;
 }

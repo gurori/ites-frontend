@@ -9,7 +9,7 @@ import type { Team } from "./Team";
 import type { JobTitle } from "./JobTitle";
 import type { RoleEng } from "./Role";
 
-export interface IUser {
+export interface User {
   id: string;
   firstName: string;
   middleName?: string;
@@ -20,7 +20,7 @@ export interface IUser {
   role: RoleEng;
 }
 
-export interface IMember extends IUser {
+export interface Member extends User {
   competitions: Competition[];
   applicationsForCompetitions: Competition[];
   orders: Order[];
@@ -30,20 +30,20 @@ export interface IMember extends IUser {
   applications: ITeamApplication[];
 }
 
-export interface IOrganizer extends IUser {
+export interface Organizer extends User {
   competitions: Competition[];
   applications: ICompetitionApplication[];
 }
 
-export interface IClient extends IUser {
+export interface Client extends User {
   orders: Order[];
   applications: IOrderApplication[];
 }
 
-export type UserProp = {
-  user: IUser;
+export type UserProps = {
+  user: User;
 };
 
-export type UsersProp = {
-  users: IUser[];
+export type UsersProps = {
+  users: User[];
 };

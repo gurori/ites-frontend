@@ -6,13 +6,13 @@ import JobTitle from "../ui/JobTitle";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import type { UserProp } from "@/lib/types/IUser";
+import type { UserProps } from "@/lib/types/User";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 export default function ProfileSidePanel({
   user,
   onlyInfo = false,
-}: Readonly<UserProp & { onlyInfo?: boolean }>) {
+}: Readonly<UserProps & { onlyInfo?: boolean }>) {
   const hrefParams = {
     pathname: `/profile/${user.role}/settings`,
     query: {

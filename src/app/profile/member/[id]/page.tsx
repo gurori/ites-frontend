@@ -1,5 +1,5 @@
 import { ITab } from "@/lib/types/ITab";
-import type { IMember } from "@/lib/types/IUser";
+import type { Member } from "@/lib/types/User";
 import { redirect } from "next/navigation";
 import { getMember } from "@/lib/services/user";
 import ApplicationsTab from "../../(tabs)/(contents)/ApplicationsTab";
@@ -18,7 +18,7 @@ interface PageProps {
 
 export default async function MemberProfilePage({ params }: PageProps) {
   const { id } = params;
-  const user: IMember = await getMember(id);
+  const user: Member = await getMember(id);
 
   if (user.role !== "member") {
     redirect(`/profile/${user.role}`);

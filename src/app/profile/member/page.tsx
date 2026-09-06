@@ -1,6 +1,6 @@
 import ProfileSidePanel from "@/components/sidePanel/ProfileSidePanel";
 import { ITab } from "@/lib/types/ITab";
-import type { IMember } from "@/lib/types/IUser";
+import type { Member } from "@/lib/types/User";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
 import ApplicationsTab from "../(tabs)/(contents)/ApplicationsTab";
@@ -11,7 +11,7 @@ import OrdersTab from "../(tabs)/(contents)/OrdersTab";
 import TeamsApplicationTab from "../(tabs)/(contents)/TeamsApplicationTab";
 
 export default async function MemberProfilePage() {
-  const user: IMember = await getMember();
+  const user: Member = await getMember();
 
   if (user.role !== "member") redirect(`/profile/${user.role}`);
 

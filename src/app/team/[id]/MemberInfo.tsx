@@ -1,9 +1,9 @@
-import type { UserProp } from "@/lib/types/IUser";
+import type { UserProps } from "@/lib/types/User";
 import Image from "next/image";
 import JobTitle from "@/components/ui/JobTitle";
 import Link from "next/link";
 
-export default function MemberInfo({ user }: Readonly<UserProp>) {
+export default function MemberInfo({ user }: Readonly<UserProps>) {
   return (
     <div className="grid gap-3 justify-items-center">
       <div className="size-[130px] rounded-full relative">

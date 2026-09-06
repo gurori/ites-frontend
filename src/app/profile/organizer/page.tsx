@@ -1,7 +1,7 @@
 import ProfileSidePanel from "@/components/sidePanel/ProfileSidePanel";
 import { getOrganizer } from "@/lib/services/user";
 import type { ITab } from "@/lib/types/ITab";
-import type { IOrganizer } from "@/lib/types/IUser";
+import type { Organizer } from "@/lib/types/User";
 import { redirect } from "next/navigation";
 import Tabs from "../(tabs)/Tabs";
 import Favorites from "../(tabs)/(contents)/Favorites";
@@ -12,7 +12,7 @@ import PurpleButton from "../(ui)/PurpleButton";
 import Link from "next/link";
 
 export default async function OrganizerProfilePage() {
-  const user: IOrganizer = await getOrganizer();
+  const user: Organizer = await getOrganizer();
   if (user.role !== "organizer") redirect(`/profile/${user.role}`);
 
   const tabs: ITab[] = [

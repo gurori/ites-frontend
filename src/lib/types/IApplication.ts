@@ -1,23 +1,23 @@
 import type { Competition } from "./Competition";
 import type { Order } from "./Order";
 import { Team } from "./Team";
-import type { IUser } from "./IUser";
+import type { User } from "./User";
 
 export interface ICompetitionApplication {
   id: string;
-  fromMember: IUser;
+  fromMember: User;
   forCompetition: Omit<Competition, "organizersIds" | "membersIds">;
 }
 
 export interface IOrderApplication {
   id: string;
-  fromMember: IUser;
+  fromMember: User;
   forOrder: Omit<Order, "memberId" | "clientId">;
 }
 
 export interface ITeamApplication {
   id: string;
-  fromMember: IUser;
+  fromMember: User;
 }
 
 export type CompetitionApplicationProp = {

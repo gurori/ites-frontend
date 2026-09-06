@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { rolesEng } from "../constants";
 
-import type { IClient, IMember, IOrganizer, IUser } from "../types/IUser";
+import type { Client, Member, Organizer, User } from "../types/User";
 import type { RoleEng } from "../types/Role";
 import { fetchServerApi } from "./fetchServerApi";
 
@@ -29,13 +29,13 @@ export const getToken = (
 };
 
 export const getMember = (id?: string) =>
-  fetchServerApi<IMember>(`/api/users/member/${id ? `${id}` : "me"}`);
+  fetchServerApi<Member>(`/api/users/member/${id ? `${id}` : "me"}`);
 
 export const getOrganizer = (id?: string) =>
-  fetchServerApi<IOrganizer>(`/api/users/organizer/${id ? `${id}` : "me"}`);
+  fetchServerApi<Organizer>(`/api/users/organizer/${id ? `${id}` : "me"}`);
 
 export const getClient = (id?: string) =>
-  fetchServerApi<IClient>(`/api/users/client/${id ? `${id}` : "me"}`);
+  fetchServerApi<Client>(`/api/users/client/${id ? `${id}` : "me"}`);
 
 export const getRole = (redirectUrl: string | null = "/login") => {
   const cookieStorage = cookies();
