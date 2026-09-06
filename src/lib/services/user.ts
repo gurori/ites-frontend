@@ -28,8 +28,6 @@ export const getToken = (
   return token;
 };
 
-export const getUserData = () => fetchServerApi<IUser>("/api/user/profile");
-
 export const getMember = (id?: string) =>
   fetchServerApi<IMember>(`/api/user/member${id ? `/${id}` : ""}`);
 
