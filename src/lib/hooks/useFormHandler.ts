@@ -22,7 +22,7 @@ export type UseFormHandlerProps<TFormData extends FieldValues> = {
   token?: string;
   userRedirect?: UserRedirect;
   userInputError?: string;
-  method?: Extract<HttpMethod, "POST" | "PUT">;
+  method?: Extract<HttpMethod, "POST" | "PUT" | "PATCH">;
   defaultValues?: UseFormProps<TFormData>["defaultValues"];
   fileName?: string;
 };
