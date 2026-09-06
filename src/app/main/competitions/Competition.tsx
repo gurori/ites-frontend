@@ -1,4 +1,4 @@
-import type { CompetitionProp } from "@/lib/types/ICompetition";
+import type { CompetitionProps } from "@/lib/types/ICompetition";
 import styles from "./Competitions.module.css";
 import { cn, getHtmlTags } from "@/lib/utils";
 import { MoveRightIcon } from "lucide-react";
@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Competition({
   competition,
-}: Readonly<CompetitionProp>) {
+}: Readonly<CompetitionProps>) {
   return (
     <div
       className={cn(

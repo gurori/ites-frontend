@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import apiFetch from "@/lib/apiFetch";
-import type { CompetitionProp } from "@/lib/types/ICompetition";
+import type { CompetitionProps } from "@/lib/types/ICompetition";
 import type { RoleEng } from "@/lib/types/Role";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -11,7 +11,9 @@ export default function CompetitionInfo({
   competition,
   token,
   role,
-}: Readonly<CompetitionProp & { token: string | null; role: RoleEng | null }>) {
+}: Readonly<
+  CompetitionProps & { token: string | null; role: RoleEng | null }
+>) {
   const { push, replace } = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,7 +36,7 @@ export default function CompetitionInfo({
         `/api/competitions/${competition.id}/entries`,
         {
           method: "POST",
-          token, 
+          token,
           headers: {
             "Content-Type": "application/json",
           },
@@ -71,21 +73,19 @@ export default function CompetitionInfo({
     <>
       <div dangerouslySetInnerHTML={{ __html: competition.contentInHtml }} />
 
-      {
-        !token ? (
-          <button className="flash purple mt-8" onClick={() => push("/login")}>
-            Войти, чтобы откликнуться
-          </button>
-        ) : role === "member" ? (
-          <button
-            className="flash purple mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
-            onClick={addApplication}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Отправка..." : "Отправить заявку"}
-          </button>
-        ) : null
-      }
+      {!token ? (
+        <button className="flash purple mt-8" onClick={() => push("/login")}>
+          Войти, чтобы откликнуться
+        </button>
+      ) : role === "member" ? (
+        <button
+          className="flash purple mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={addApplication}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Отправка..." : "Отправить заявку"}
+        </button>
+      ) : null}
     </>
   );
 }

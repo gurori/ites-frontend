@@ -1,6 +1,6 @@
 "use client";
 
-import type { CompetitionsProp } from "@/lib/types/ICompetition";
+import type { CompetitionsProps } from "@/lib/types/ICompetition";
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import styles from "./Styles.module.css";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { getHtmlTags } from "@/lib/utils";
 export default function CompetitionsTab({
   competitions,
   index,
-}: Readonly<Partial<CompetitionsProp> & { index: number }>) {
+}: Readonly<Partial<CompetitionsProps> & { index: number }>) {
   return (
     <>
       {competitions && competitions.length !== 0 ? (
@@ -24,7 +24,7 @@ export default function CompetitionsTab({
                       .replace("h1", "p")
                       .replace(
                         "<p>",
-                        '<p class="text-center text-white pt-2 line-clamp-2 break-words">'
+                        '<p class="text-center text-white pt-2 line-clamp-2 break-words">',
                       ),
                   }}
                 ></span>

@@ -3,10 +3,10 @@ export interface Competition {
   contentInHtml: string;
 }
 
-export type CompetitionProp = {
+export type CompetitionProps = {
   competition: Competition;
 };
 
-export type CompetitionsProp = {
+export type CompetitionsProps = {
   competitions: Competition[];
 };
