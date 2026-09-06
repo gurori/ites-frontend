@@ -5,7 +5,7 @@ import { useFormStates } from "./useFormStates";
 import { z } from "zod";
 import { type FieldValues, type UseFormProps, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type IServerErrorMessage } from "../types/IServerErrorMessage";
+import { type ServerErrorMessage } from "../types/ServerErrorMessage";
 import { type HttpMethod } from "../types/HttpMethod";
 import apiFetch from "../apiFetch";
 import { useCallback, useEffect } from "react";
@@ -74,7 +74,7 @@ export const useFormHandler = <TFormData extends FieldValues>({
           ?.includes("application/json");
 
         if (isJson) {
-          const error: IServerErrorMessage = await response.json();
+          const error: ServerErrorMessage = await response.json();
           setError(error.detail || userInputError);
         } else {
           setError(userInputError);
