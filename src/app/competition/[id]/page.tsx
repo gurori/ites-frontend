@@ -1,5 +1,5 @@
 import apiFetch from "@/lib/apiFetch";
-import type { ICompetition } from "@/lib/types/ICompetition";
+import type { Competition } from "@/lib/types/ICompetition";
 import { notFound } from "next/navigation";
 import CompetitionInfo from "./CompetitionInfo";
 import { getRole, getToken } from "@/lib/services/user";
@@ -20,10 +20,10 @@ export default async function CompetitionInfoPage({
     throw new Error(`Failed to fetch competition: ${response.status}`);
   }
 
-  const competition: ICompetition = await response.json();
+  const competition: Competition = await response.json();
 
   const token = getToken("auth", null);
-  const role = getRole(null)
+  const role = getRole(null);
 
   return (
     <InfoCard type="competition">

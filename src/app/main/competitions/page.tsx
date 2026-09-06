@@ -1,6 +1,6 @@
 import apiFetch from "@/lib/apiFetch";
 import MainTabsButtons from "../MainTabsButtons";
-import type { ICompetition } from "@/lib/types/ICompetition";
+import type { Competition } from "@/lib/types/ICompetition";
 import Competition from "./Competition";
 
 export const revalidate = 10;
@@ -12,7 +12,7 @@ export default async function CompetitionsPage() {
     throw new Error(`Failed to fetch competitions: ${response.status}`);
   }
 
-  const competitions: ICompetition[] = await response.json();
+  const competitions: Competition[] = await response.json();
 
   return (
     <>

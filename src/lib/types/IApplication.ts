@@ -1,45 +1,45 @@
-import type { ICompetition } from "./ICompetition";
+import type { Competition } from "./ICompetition";
 import type { IOrder } from "./IOrder";
 import { ITeam } from "./ITeam";
 import type { IUser } from "./IUser";
 
 export interface ICompetitionApplication {
-    id: string;
-    fromMember: IUser;
-    forCompetition: Omit<ICompetition, "organizersIds" | "membersIds">;
+  id: string;
+  fromMember: IUser;
+  forCompetition: Omit<Competition, "organizersIds" | "membersIds">;
 }
 
 export interface IOrderApplication {
-    id: string;
-    fromMember: IUser;
-    forOrder: Omit<IOrder, "memberId" | "clientId">;
+  id: string;
+  fromMember: IUser;
+  forOrder: Omit<IOrder, "memberId" | "clientId">;
 }
 
 export interface ITeamApplication {
-    id: string;
-    fromMember: IUser;
+  id: string;
+  fromMember: IUser;
 }
 
 export type CompetitionApplicationProp = {
-    application: ICompetitionApplication
-}
+  application: ICompetitionApplication;
+};
 
 export type CompetitionsApplicationsProp = {
-    applications: ICompetitionApplication[]
-}
+  applications: ICompetitionApplication[];
+};
 
 export type OrderApplicationProp = {
-    application: IOrderApplication
-}
+  application: IOrderApplication;
+};
 
 export type OrdersApplicationsProp = {
-    applications: IOrderApplication[]
-}
+  applications: IOrderApplication[];
+};
 
 export type TeamApplicationProp = {
-    application: ITeamApplication
-}
+  application: ITeamApplication;
+};
 
 export type TeamsApplicationsProp = {
-    applications: ITeamApplication[]
-}
+  applications: ITeamApplication[];
+};
