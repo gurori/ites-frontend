@@ -1,5 +1,5 @@
 import apiFetch from "@/lib/apiFetch";
-import type { Competition } from "@/lib/types/ICompetition";
+import type { Competition } from "@/lib/types/Competition";
 import { notFound } from "next/navigation";
 import CompetitionInfo from "./CompetitionInfo";
 import { getRole, getToken } from "@/lib/services/user";

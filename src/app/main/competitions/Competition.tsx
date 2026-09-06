@@ -1,4 +1,4 @@
-import type { CompetitionProps } from "@/lib/types/ICompetition";
+import type { CompetitionProps } from "@/lib/types/Competition";
 import styles from "./Competitions.module.css";
 import { cn, getHtmlTags } from "@/lib/utils";
 import { MoveRightIcon } from "lucide-react";

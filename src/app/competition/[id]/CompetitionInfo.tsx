@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import apiFetch from "@/lib/apiFetch";
-import type { CompetitionProps } from "@/lib/types/ICompetition";
+import type { CompetitionProps } from "@/lib/types/Competition";
 import type { RoleEng } from "@/lib/types/Role";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

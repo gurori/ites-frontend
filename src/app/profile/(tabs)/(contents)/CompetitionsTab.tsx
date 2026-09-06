@@ -1,6 +1,6 @@
 "use client";
 
-import type { CompetitionsProps } from "@/lib/types/ICompetition";
+import type { CompetitionsProps } from "@/lib/types/Competition";
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import styles from "./Styles.module.css";
 import Link from "next/link";

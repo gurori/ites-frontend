@@ -3,7 +3,7 @@ import type {
   IOrderApplication,
   ITeamApplication,
 } from "./IApplication";
-import type { Competition } from "./ICompetition";
+import type { Competition } from "./Competition";
 import type { IOrder } from "./IOrder";
 import type { ITeam } from "./ITeam";
 import type { JobTitle } from "./JobTitle";

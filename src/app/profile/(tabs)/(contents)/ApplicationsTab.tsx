@@ -1,4 +1,4 @@
-import type { CompetitionsProps } from "@/lib/types/ICompetition";
+import type { CompetitionsProps } from "@/lib/types/Competition";
 import type { OrdersProp } from "@/lib/types/IOrder";
 import type { TeamsProp } from "@/lib/types/ITeam";
 

@@ -1,4 +1,4 @@
-import type { Competition } from "./ICompetition";
+import type { Competition } from "./Competition";
 import type { IOrder } from "./IOrder";
 import { ITeam } from "./ITeam";
 import type { IUser } from "./IUser";

@@ -1,6 +1,6 @@
 import apiFetch from "@/lib/apiFetch";
 import MainTabsButtons from "../MainTabsButtons";
-import type { Competition } from "@/lib/types/ICompetition";
+import type { Competition } from "@/lib/types/Competition";
 import Competition from "./Competition";
 
 export const revalidate = 10;
