@@ -11,7 +11,7 @@ export default function MemberInfo({ user }: Readonly<UserProp>) {
           alt="avatar"
           fill
           className="rounded-full"
-          src={`/api/Files/users/${user.id}/avatar.jpg`}
+          src={`/api/external/files/users/${user.id}/avatar`}
         />
       </div>
       <Link

@@ -31,9 +31,9 @@ export default function CompetitionInfo({
 
     try {
       const response = await apiFetch(
-        `/api/Competitions/application/${competition.id}`,
+        `/api/competitions/${competition.id}/entries`,
         {
-          method: "PUT",
+          method: "POST",
           token, 
           headers: {
             "Content-Type": "application/json",

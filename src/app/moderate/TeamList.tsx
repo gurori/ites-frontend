@@ -14,13 +14,13 @@ export default function TeamList({
 
   const handleAccept = async (id: ITeam["id"], accept: boolean) => {
     try {
-      const res = await apiFetch(`/api/moderation/team/${id}/${accept}`, {
-        method: "POST",
+      const res = await apiFetch(`/api/moderation/teams/${id}`, {
+        method: "PATCH",
         token,
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ accept }),
       });
 
       if (!res.ok) {

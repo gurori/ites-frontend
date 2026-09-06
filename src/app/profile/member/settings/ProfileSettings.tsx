@@ -50,9 +50,9 @@ export default function ProfileSettings({
     control,
   } = useFormHandler({
     schema: updateUserSchema,
-    apiPath: "/api/user/update",
+    apiPath: "/api/users/me",
     token,
-    method: "PUT",
+    method: "PATCH",
     defaultValues: {
       lastName: params.get("last") ?? "",
       firstName: params.get("first") ?? "",

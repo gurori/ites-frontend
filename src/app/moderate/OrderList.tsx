@@ -14,12 +14,13 @@ export default function OrderList({
 
   const handleAccept = async (id: IOrder["id"], accept: boolean) => {
     try {
-      const res = await apiFetch(`/api/moderation/order/${id}/${accept}`, {
-        method: "POST",
+      const res = await apiFetch(`/api/moderation/orders/${id}`, {
+        method: "PATCH",
         token, 
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ accept }),
       });
 
       if (!res.ok) {

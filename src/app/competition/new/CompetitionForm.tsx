@@ -28,7 +28,7 @@ export default function CompetitionForm({
     onSubmit,
   } = useFormHandler({
     schema: competitionSchema,
-    apiPath: "/api/competitions/create",
+    apiPath: "/api/competitions",
     token,
     userRedirect: { href: "/profile/organizer", type: "replace" },
   });

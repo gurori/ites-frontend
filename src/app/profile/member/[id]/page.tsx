@@ -59,7 +59,7 @@ export default async function MemberProfilePage({ params }: PageProps) {
     <div className="container mt-5">
       <div className="md:flex gap-8 my-8 grid">
         <Image
-          src={`/api/external/files/users/${user.id}/avatar.jpg`}
+          src={`/api/external/files/users/${user.id}/avatar`}
           alt="avatar"
           width={160}
           height={160}

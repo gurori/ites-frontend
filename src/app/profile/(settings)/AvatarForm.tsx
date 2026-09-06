@@ -42,7 +42,7 @@ export default function AvatarForm({
     onSubmit,
   } = useFormHandler({
     schema: avatarSchema,
-    apiPath: `/api/files/users/${userId}`,
+    apiPath: `/api/files/avatar`,
     token,
     fileName: AVATAR_FILENAME,
   });
@@ -76,7 +76,7 @@ export default function AvatarForm({
           height={200}
           src={
             imageUrl ||
-            `/api/files/users/${userId}/${AVATAR_FILENAME}?v=${timestamp}`
+            `/api/external/files/users/${userId}/avatar?v=${timestamp}`
           }
           alt="avatar"
           className="rounded-full size-[200px]"

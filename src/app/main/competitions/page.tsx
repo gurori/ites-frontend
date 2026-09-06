@@ -6,7 +6,7 @@ import Competition from "./Competition";
 export const revalidate = 10;
 
 export default async function CompetitionsPage() {
-  const response = await apiFetch("/api/competitions/get");
+  const response = await apiFetch("/api/competitions");
 
   if (!response.ok) {
     throw new Error(`Failed to fetch competitions: ${response.status}`);

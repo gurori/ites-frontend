@@ -53,8 +53,8 @@ export default function TeamInfo({
     setIsSubmitting(true);
 
     try {
-      const response = await apiFetch(`/api/teams/application/${team.id}`, {
-        method: "PUT",
+      const response = await apiFetch(`/api/teams/${team.id}/join-requests`, {
+        method: "POST",
         token,
         headers: {
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ export default function SecretKeyForm({
     setError("");
 
     try {
-      const res = await apiFetch(`/api/user/organizer/confirm`, {
+      const res = await apiFetch(`/api/users/organizer/confirm`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

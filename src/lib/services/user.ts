@@ -29,12 +29,13 @@ export const getToken = (
 };
 
 export const getMember = (id?: string) =>
-  fetchServerApi<IMember>(`/api/user/member${id ? `/${id}` : ""}`);
+  fetchServerApi<IMember>(`/api/users/member/${id ? `${id}` : "me"}`);
 
-export const getOrganizer = () =>
-  fetchServerApi<IOrganizer>("/api/user/organizer");
+export const getOrganizer = (id?: string) =>
+  fetchServerApi<IOrganizer>(`/api/users/organizer/${id ? `${id}` : "me"}`);
 
-export const getClient = () => fetchServerApi<IClient>("/api/user/client");
+export const getClient = (id?: string) =>
+  fetchServerApi<IClient>(`/api/users/client/${id ? `${id}` : "me"}`);
 
 export const getRole = (redirectUrl: string | null = "/login") => {
   const cookieStorage = cookies();

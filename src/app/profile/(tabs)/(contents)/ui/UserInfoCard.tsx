@@ -25,13 +25,14 @@ export function UserForCompetitionInfo({
   async function handleApplication(accept: boolean) {
     try {
       const response = await apiFetch(
-        `/api/competitions/application/${application.id}/${accept}`,
+        `/api/competitions/entries/${application.id}/handle`,
         {
-          method: "PUT",
+          method: "PATCH",
           token,
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ accept }),
         },
       );
 
@@ -54,7 +55,7 @@ export function UserForCompetitionInfo({
     <div className={s.userInfoCard}>
       <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
         <Image
-          src={`/api/external/files/users/${user.id}/avatar.jpg`}
+          src={`/api/external/files/users/${user.id}/avatar`}
           fill
           alt="avatar"
         />
@@ -103,13 +104,14 @@ export function UserForOrderInfo({
   async function handleApplication(accept: boolean) {
     try {
       const response = await apiFetch(
-        `/api/orders/application/${application.id}/${accept}`,
+        `/api/orders/bids/${application.id}/handle`,
         {
-          method: "PUT",
+          method: "PATCH",
           token,
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ accept }),
         },
       );
 
@@ -132,7 +134,7 @@ export function UserForOrderInfo({
     <div className={s.userInfoCard}>
       <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
         <Image
-          src={`/api/external/files/users/${user.id}/avatar.jpg`}
+          src={`/api/external/files/users/${user.id}/avatar`}
           className={s.imgShadow}
           fill
           alt="avatar"
@@ -176,13 +178,14 @@ export function UserForTeamInfo({
   async function handleApplication(accept: boolean) {
     try {
       const response = await apiFetch(
-        `/api/teams/application/${application.id}/${accept}`,
+        `/api/teams/join-requests/${application.id}/handle`,
         {
-          method: "PUT",
+          method: "PATCH",
           token,
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ accept }),
         },
       );
 
@@ -205,7 +208,7 @@ export function UserForTeamInfo({
     <div className={s.userInfoCard}>
       <div className="size-[100px] absolute -translate-x-1/3 -translate-y-1/3">
         <Image
-          src={`/api/external/files/users/${user.id}/avatar.jpg`}
+          src={`/api/external/files/users/${user.id}/avatar`}
           className={s.imgShadow}
           fill
           alt="avatar"

@@ -44,7 +44,7 @@ export default function ProfileSidePanel({
           <hr />
           <div className="grid gap-3 justify-items-center pt-6">
             <Image
-              src={`/api/files/users/${user.id}/avatar.jpg`}
+              src={`/api/external/files/users/${user.id}/avatar.jpg`}
               alt="avatar"
               width={130}
               height={130}

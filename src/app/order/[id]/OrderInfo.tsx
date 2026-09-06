@@ -35,8 +35,8 @@ export default function OrderInfo({
     setIsSubmitting(true);
 
     try {
-      const response = await apiFetch(`/api/orders/application/${order.id}`, {
-        method: "PUT",
+      const response = await apiFetch(`/api/orders/${order.id}/bids`, {
+        method: "POST",
         token,
         headers: {
           "Content-Type": "application/json",
