@@ -7,7 +7,7 @@ import { emailSchema, passwordSchema } from "@/lib/zod-schemas";
 import { useFormHandler } from "@/lib/hooks/useFormHandler";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import apiFetch from "@/lib/apiFetch";
-import type { IUserLoginResponse } from "@/lib/types/IUserLoginPesponse";
+import type { UserLoginResponse } from "@/lib/types/UserLoginPesponse";
 import { useRouter } from "next/navigation";
 
 const userSchema = z.object({
@@ -42,7 +42,7 @@ export default function LoginForm() {
       });
 
       if (response.ok) {
-        const { role }: IUserLoginResponse = await response.json();
+        const { role }: UserLoginResponse = await response.json();
 
         replace(`/profile/${role}`);
       }

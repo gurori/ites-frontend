@@ -1,5 +1,5 @@
 import type { RoleEng } from "./Role";
 
-export interface IUserLoginResponse {
+export interface UserLoginResponse {
   role: RoleEng;
 }
