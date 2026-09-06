@@ -4,7 +4,7 @@ import { useState } from "react";
 import InfoCard from "@/components/info-card/InfoCard";
 import apiFetch from "@/lib/apiFetch";
 import { dateFormat, priceFormat } from "@/lib/format";
-import type { OrderProp } from "@/lib/types/Order";
+import type { OrderProps } from "@/lib/types/Order";
 import type { RoleEng } from "@/lib/types/Role";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -13,7 +13,7 @@ export default function OrderInfo({
   order,
   token,
   role,
-}: Readonly<OrderProp & { token: string | null; role: RoleEng | null }>) {
+}: Readonly<OrderProps & { token: string | null; role: RoleEng | null }>) {
   const { push, replace } = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 

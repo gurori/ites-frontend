@@ -1,12 +1,12 @@
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import styles from "./Styles.module.css";
-import type { OrdersProp } from "@/lib/types/Order";
+import type { OrdersProps } from "@/lib/types/Order";
 import Link from "next/link";
 
 export default async function OrdersTab({
   orders,
   index,
-}: Readonly<Partial<OrdersProp> & { index: number }>) {
+}: Readonly<Partial<OrdersProps> & { index: number }>) {
   return (
     <>
       {orders && orders.length !== 0 ? (

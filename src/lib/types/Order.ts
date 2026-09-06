@@ -8,10 +8,10 @@ export interface Order {
   clientId: string;
 }
 
-export type OrderProp = {
+export type OrderProps = {
   order: Order;
 };
 
-export type OrdersProp = {
+export type OrdersProps = {
   orders: Order[];
 };

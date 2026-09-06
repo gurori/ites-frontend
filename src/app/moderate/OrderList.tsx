@@ -1,6 +1,6 @@
 "use client";
 
-import type { Order, OrdersProp } from "@/lib/types/Order";
+import type { Order, OrdersProps } from "@/lib/types/Order";
 import { useState } from "react";
 import s from "@/app/profile/(tabs)/(contents)/ui/UI.module.css";
 import apiFetch from "@/lib/apiFetch";
@@ -9,7 +9,7 @@ import { toast } from "sonner";
 export default function OrderList({
   orders,
   token,
-}: OrdersProp & { token: string }) {
+}: OrdersProps & { token: string }) {
   const [list, setList] = useState(orders);
 
   const handleAccept = async (id: Order["id"], accept: boolean) => {

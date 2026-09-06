@@ -1,5 +1,5 @@
 import type { CompetitionsProps } from "@/lib/types/Competition";
-import type { OrdersProp } from "@/lib/types/Order";
+import type { OrdersProps } from "@/lib/types/Order";
 import type { TeamsProps } from "@/lib/types/Team";
 
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
@@ -13,7 +13,7 @@ export default function ApplicationsTab({
   teams,
   index,
 }: Readonly<
-  Partial<CompetitionsProps & OrdersProp & TeamsProps> & { index: number }
+  Partial<CompetitionsProps & OrdersProps & TeamsProps> & { index: number }
 >) {
   const anyCompetition = competitions && competitions.length > 0;
   const anyOrder = orders && orders.length > 0;

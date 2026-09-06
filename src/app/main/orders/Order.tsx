@@ -2,10 +2,10 @@ import styles from "./Order.module.css";
 import { cn } from "@/lib/utils";
 import { MoveRightIcon } from "lucide-react";
 import Link from "next/link";
-import type { OrderProp } from "@/lib/types/Order";
+import type { OrderProps } from "@/lib/types/Order";
 import { dateFormat, priceFormat } from "@/lib/format";
 
-export default function Order({ order }: Readonly<OrderProp>) {
+export default function Order({ order }: Readonly<OrderProps>) {
   return (
     <div
       className={cn(
