@@ -1,5 +1,5 @@
 import apiFetch from "@/lib/apiFetch";
-import type { ITeam } from "@/lib/types/ITeam";
+import type { Team } from "@/lib/types/Team";
 import { notFound } from "next/navigation";
 import TeamInfo from "./TeamInfo";
 import { getRole, getToken } from "@/lib/services/user";
@@ -24,7 +24,7 @@ export default async function TeamInfoPage({
     throw new Error(`Failed to fetch team with status ${response.status}`);
   }
 
-  const team: ITeam = await response.json();
+  const team: Team = await response.json();
 
   return <TeamInfo team={team} token={token} role={role} />;
 }

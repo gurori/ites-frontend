@@ -5,7 +5,7 @@ import type {
 } from "./IApplication";
 import type { Competition } from "./Competition";
 import type { Order } from "./Order";
-import type { ITeam } from "./ITeam";
+import type { Team } from "./Team";
 import type { JobTitle } from "./JobTitle";
 import type { RoleEng } from "./Role";
 
@@ -25,7 +25,7 @@ export interface IMember extends IUser {
   applicationsForCompetitions: Competition[];
   orders: Order[];
   applicationsForOrders: Order[];
-  applicationsForTeams: ITeam[];
+  applicationsForTeams: Team[];
   teamId?: string;
   applications: ITeamApplication[];
 }

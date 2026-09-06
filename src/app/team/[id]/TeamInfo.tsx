@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import apiFetch from "@/lib/apiFetch";
-import type { TeamProp } from "@/lib/types/ITeam";
+import type { TeamProps } from "@/lib/types/Team";
 import s from "./TeamInfo.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -14,7 +14,7 @@ export default function TeamInfo({
   team,
   token,
   role,
-}: Readonly<TeamProp & { token: string | null; role: RoleEng | null }>) {
+}: Readonly<TeamProps & { token: string | null; role: RoleEng | null }>) {
   const { push, replace } = useRouter();
   const params = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);

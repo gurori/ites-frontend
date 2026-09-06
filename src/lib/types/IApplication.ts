@@ -1,6 +1,6 @@
 import type { Competition } from "./Competition";
 import type { Order } from "./Order";
-import { ITeam } from "./ITeam";
+import { Team } from "./Team";
 import type { IUser } from "./IUser";
 
 export interface ICompetitionApplication {

@@ -1,7 +1,7 @@
 import apiFetch from "@/lib/apiFetch";
 import { getToken } from "@/lib/services/user";
 import type { Order } from "@/lib/types/Order";
-import type { ITeam } from "@/lib/types/ITeam";
+import type { Team } from "@/lib/types/Team";
 import { redirect } from "next/navigation";
 import TeamList from "./TeamList";
 import OrderList from "./OrderList";
@@ -22,7 +22,7 @@ export default async function ModeratePage() {
     redirect("/profile/organizer");
   }
 
-  const data: { teams: ITeam[]; orders: Order[] } = await response.json();
+  const data: { teams: Team[]; orders: Order[] } = await response.json();
 
   return (
     <main className="min-h-screen bg-black">

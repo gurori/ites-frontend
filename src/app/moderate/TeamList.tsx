@@ -1,6 +1,6 @@
 "use client";
 
-import type { ITeam, TeamsProp } from "@/lib/types/ITeam";
+import type { Team, TeamsProps } from "@/lib/types/Team";
 import { useState } from "react";
 import s from "@/app/profile/(tabs)/(contents)/ui/UI.module.css";
 import apiFetch from "@/lib/apiFetch";
@@ -9,10 +9,10 @@ import { toast } from "sonner";
 export default function TeamList({
   teams,
   token,
-}: TeamsProp & { token: string }) {
+}: TeamsProps & { token: string }) {
   const [list, setList] = useState(teams);
 
-  const handleAccept = async (id: ITeam["id"], accept: boolean) => {
+  const handleAccept = async (id: Team["id"], accept: boolean) => {
     try {
       const res = await apiFetch(`/api/moderation/teams/${id}`, {
         method: "PATCH",
