@@ -1,4 +1,4 @@
-import type { OrderBidsProps } from "@/lib/types/IApplication";
+import type { OrderBidsProps } from "@/lib/types/applications";
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import { UserForOrderInfo } from "./ui/UserInfoCard";
 import { getToken } from "@/lib/services/user";

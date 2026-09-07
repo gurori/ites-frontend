@@ -9,7 +9,7 @@ import type {
   CompetitionEntryProps,
   OrderBidProps,
   TeamJoinRequestProps,
-} from "@/lib/types/IApplication";
+} from "@/lib/types/applications";
 import apiFetch from "@/lib/apiFetch";
 import { useState } from "react";
 import { getHtmlTags } from "@/lib/utils";

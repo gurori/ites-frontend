@@ -1,4 +1,4 @@
-import type { CompetitionEntriesProps } from "@/lib/types/IApplication";
+import type { CompetitionEntriesProps } from "@/lib/types/applications";
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import { UserForCompetitionInfo } from "./ui/UserInfoCard";
 import { getToken } from "@/lib/services/user";

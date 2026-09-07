@@ -2,7 +2,7 @@ import type {
   CompetitionEntry,
   OrderBid,
   TeamJoinRequest,
-} from "./IApplication";
+} from "./applications";
 import type { Competition } from "./Competition";
 import type { Order } from "./Order";
 import type { Team } from "./Team";

@@ -1,4 +1,4 @@
-import type { TeamJoinRequestsProps } from "@/lib/types/IApplication";
+import type { TeamJoinRequestsProps } from "@/lib/types/applications";
 import ThereIsNothingMessage from "./ui/ThereIsNothingMessage";
 import { getToken } from "@/lib/services/user";
 import { UserForTeamInfo } from "./ui/UserInfoCard";
