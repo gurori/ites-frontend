@@ -8,9 +8,9 @@ import type { Order } from "./Order";
 import type { Team } from "./Team";
 import type { JobTitle } from "./JobTitle";
 import type { RoleEng } from "./Role";
+import { WithId } from "./WithId";
 
-export interface User {
-  id: string;
+export type User = WithId<{
   firstName: string;
   middleName?: string;
   lastName?: string;
@@ -18,9 +18,9 @@ export interface User {
   description?: string;
   jobTitle?: JobTitle;
   role: RoleEng;
-}
+}>;
 
-export interface Member extends User {
+export type Member = User & {
   competitions: Competition[];
   applicationsForCompetitions: Competition[];
   orders: Order[];
@@ -28,17 +28,17 @@ export interface Member extends User {
   applicationsForTeams: Team[];
   teamId?: string;
   applications: TeamJoinRequest[];
-}
+};
 
-export interface Organizer extends User {
+export type Organizer = User & {
   competitions: Competition[];
   applications: CompetitionEntry[];
-}
+};
 
-export interface Client extends User {
+export type Client = User & {
   orders: Order[];
   applications: OrderBid[];
-}
+};
 
 export type UserProps = {
   user: User;

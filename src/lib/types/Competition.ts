@@ -1,8 +1,9 @@
-export interface Competition {
-  id: string;
+import type { WithId } from "./WithId";
+
+export type Competition = WithId<{
   title: string;
   contentInHtml: string;
-}
+}>;
 
 export type CompetitionSummary = Pick<Competition, "id" | "title">;
 

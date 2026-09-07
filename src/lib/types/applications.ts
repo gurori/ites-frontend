@@ -1,23 +1,21 @@
 import type { Competition } from "./Competition";
 import type { Order } from "./Order";
 import type { User } from "./User";
+import type { WithId } from "./WithId";
 
-export interface CompetitionEntry {
-  id: string;
+export type CompetitionEntry = WithId<{
   fromMember: User;
   forCompetition: Omit<Competition, "organizersIds" | "membersIds">;
-}
+}>;
 
-export interface OrderBid {
-  id: string;
+export type OrderBid = WithId<{
   fromMember: User;
   forOrder: Omit<Order, "memberId" | "clientId">;
-}
+}>;
 
-export interface TeamJoinRequest {
-  id: string;
+export type TeamJoinRequest = WithId<{
   fromMember: User;
-}
+}>;
 
 export type CompetitionEntryProps = {
   entry: CompetitionEntry;

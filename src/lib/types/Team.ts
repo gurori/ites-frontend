@@ -1,13 +1,13 @@
 import type { User } from "./User";
+import type { WithId } from "./WithId";
 
-export interface Team {
-  id: string;
+export type Team = WithId<{
   name: string;
   description: string;
   members: User[];
   membersIds?: string[];
   adminId: string;
-}
+}>;
 
 export type TeamProps = {
   team: Team;
