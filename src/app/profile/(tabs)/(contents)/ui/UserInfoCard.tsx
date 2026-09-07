@@ -6,9 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckIcon, MoveRightIcon, XIcon } from "lucide-react";
 import type {
-  CompetitionApplicationProp,
-  OrderApplicationProp,
-  TeamApplicationProp,
+  CompetitionEntryProps,
+  OrderBidProps,
+  TeamJoinRequestProps,
 } from "@/lib/types/IApplication";
 import apiFetch from "@/lib/apiFetch";
 import { useState } from "react";
@@ -16,9 +16,9 @@ import { getHtmlTags } from "@/lib/utils";
 import { toast } from "sonner";
 
 export function UserForCompetitionInfo({
-  application,
+  entry: application,
   token,
-}: Readonly<CompetitionApplicationProp & { token: string }>) {
+}: Readonly<CompetitionEntryProps & { token: string }>) {
   const [show, setShow] = useState(true);
   const user = application.fromMember;
 
@@ -95,9 +95,9 @@ export function UserForCompetitionInfo({
 }
 
 export function UserForOrderInfo({
-  application,
+  bid: application,
   token,
-}: Readonly<OrderApplicationProp & { token: string }>) {
+}: Readonly<OrderBidProps & { token: string }>) {
   const [show, setShow] = useState(true);
   const user = application.fromMember;
 
@@ -169,9 +169,9 @@ export function UserForOrderInfo({
 }
 
 export function UserForTeamInfo({
-  application,
+  teamJoinRequest: application,
   token,
-}: Readonly<TeamApplicationProp & { token: string }>) {
+}: Readonly<TeamJoinRequestProps & { token: string }>) {
   const [show, setShow] = useState(true);
   const user = application.fromMember;
 

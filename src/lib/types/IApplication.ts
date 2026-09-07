@@ -1,45 +1,44 @@
 import type { Competition } from "./Competition";
 import type { Order } from "./Order";
-import { Team } from "./Team";
 import type { User } from "./User";
 
-export interface ICompetitionApplication {
+export interface CompetitionEntry {
   id: string;
   fromMember: User;
   forCompetition: Omit<Competition, "organizersIds" | "membersIds">;
 }
 
-export interface IOrderApplication {
+export interface OrderBid {
   id: string;
   fromMember: User;
   forOrder: Omit<Order, "memberId" | "clientId">;
 }
 
-export interface ITeamApplication {
+export interface TeamJoinRequest {
   id: string;
   fromMember: User;
 }
 
-export type CompetitionApplicationProp = {
-  application: ICompetitionApplication;
+export type CompetitionEntryProps = {
+  entry: CompetitionEntry;
 };
 
-export type CompetitionsApplicationsProp = {
-  applications: ICompetitionApplication[];
+export type CompetitionEntriesProps = {
+  entries: CompetitionEntry[];
 };
 
-export type OrderApplicationProp = {
-  application: IOrderApplication;
+export type OrderBidProps = {
+  bid: OrderBid;
 };
 
-export type OrdersApplicationsProp = {
-  applications: IOrderApplication[];
+export type OrderBidsProps = {
+  bids: OrderBid[];
 };
 
-export type TeamApplicationProp = {
-  application: ITeamApplication;
+export type TeamJoinRequestProps = {
+  teamJoinRequest: TeamJoinRequest;
 };
 
-export type TeamsApplicationsProp = {
-  applications: ITeamApplication[];
+export type TeamJoinRequestsProps = {
+  teamJoinRequests: TeamJoinRequest[];
 };

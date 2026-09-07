@@ -46,7 +46,7 @@ export default async function MemberProfilePage() {
     {
       name: "Команда",
       content: (
-        <TeamsApplicationTab applications={user.applications} index={3} />
+        <TeamsApplicationTab teamJoinRequests={user.applications} index={3} />
       ),
     },
   ];

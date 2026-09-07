@@ -23,10 +23,7 @@ export default async function OrganizerProfilePage() {
     {
       name: "Заявки",
       content: (
-        <CompetitionsApplicationsTab
-          index={1}
-          applications={user.applications}
-        />
+        <CompetitionsApplicationsTab index={1} entries={user.applications} />
       ),
     },
     { name: "Избранное", content: <Favorites index={2} /> },

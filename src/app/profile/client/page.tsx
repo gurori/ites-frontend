@@ -19,9 +19,7 @@ export default async function ClientProfilePage() {
     },
     {
       name: "Заявки",
-      content: (
-        <OrdersApplicationsTab index={1} applications={user.applications} />
-      ),
+      content: <OrdersApplicationsTab index={1} bids={user.applications} />,
     },
     { name: "Избранное", content: <Favorites index={2} /> },
   ];

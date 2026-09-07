@@ -1,7 +1,7 @@
 import type {
-  ICompetitionApplication,
-  IOrderApplication,
-  ITeamApplication,
+  CompetitionEntry,
+  OrderBid,
+  TeamJoinRequest,
 } from "./IApplication";
 import type { Competition } from "./Competition";
 import type { Order } from "./Order";
@@ -27,17 +27,17 @@ export interface Member extends User {
   applicationsForOrders: Order[];
   applicationsForTeams: Team[];
   teamId?: string;
-  applications: ITeamApplication[];
+  applications: TeamJoinRequest[];
 }
 
 export interface Organizer extends User {
   competitions: Competition[];
-  applications: ICompetitionApplication[];
+  applications: CompetitionEntry[];
 }
 
 export interface Client extends User {
   orders: Order[];
-  applications: IOrderApplication[];
+  applications: OrderBid[];
 }
 
 export type UserProps = {
